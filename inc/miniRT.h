@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   miniRT.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erigonza <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: shurtado <shurtado@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 11:55:24 by erigonza          #+#    #+#             */
-/*   Updated: 2024/11/29 11:11:00 by erigonza         ###   ########.fr       */
+/*   Updated: 2024/11/30 13:43:13 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,12 @@
 # define CYAN "\033[36m"
 # define WHITE "\033[37m"
 
+# define M_PI 3.14159265358979323846
+# define PPLANEDISTANCE 1.0f
+
 # include "../lib/MLX42/include/MLX42/MLX42.h"
 # include "../lib/libft/inc/libft.h"
+# include "../lib/libvector/libvct.h"
 # include <fcntl.h>
 # include <math.h>
 # include <stdio.h>
@@ -44,13 +48,6 @@
 # define CY 2
 
 // t_rgb[800][600] image;
-
-typedef struct s_v3
-{
-	float			x;
-	float			y;
-	float			z;
-}					t_v3;
 
 typedef struct s_rgb
 {

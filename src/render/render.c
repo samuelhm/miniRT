@@ -3,21 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
+/*   By: shurtado <shurtado@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/29 11:37:51 by shurtado          #+#    #+#             */
-/*   Updated: 2024/11/29 12:36:17 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/11/30 15:29:21 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/render.h"
+#include "../../lib/libvector/libvct.h"
 
 /*
 	Retorna un objeto temportal para probar el render
 */
 t_data	*get_test()
 {
-	t_data *scene;
+	t_data	*scene;
 
 	scene = malloc(sizeof(t_data));
 	if (!scene)
@@ -51,22 +52,43 @@ t_data	*get_test()
 	scene->obj->pos.z = 20.6f;
 	scene->obj->height = 12.6f;
 	scene->obj->sphere_radius = 12.6f / 2.0f;
-	scene->obj->color = get_acolour(0,10,0,255);
+	scene->obj->color = get_acolour(0, 10, 0, 255);
 
 	return (scene);
 }
 
 //Renderizar el test
-void test_render()
+void	test_render(void)
 {
-	t_data *scene;
+	t_data	*scene;
 
 	scene = get_test();
-	render(scene);
+	render(scene, 0, 0);
 }
 
-/* Returns bidimensional RGB array to make the final image */
-t_rgb	**render(t_data *scene)
+//Returns bidimensional RGB array to make the final image, x and y must be 0
+t_rgb	**render(t_data *scene, int x, int y)
 {
-	t_ray	rays[WIDTH][HEIGHT];
+	t_ray		rays[WINDOW_WIDTH][WINDOW_HEIGHT];
+	t_projplane	pplane;
+	t_rgb		**image;
+
+	pplane = init_projection_plane(scene->cam);
+	init_rays(rays, &pplane, scene->cam);
+	image = init_image(WINDOW_WIDTH, WINDOW_HEIGHT);
+	if (!image)
+		return (NULL);
+	x = 0;
+	while (x < WINDOW_WIDTH)
+	{
+		y = 0;
+		while (y < WINDOW_HEIGHT)
+		{
+			image[x][y] = trace_ray(&rays[x][y], scene);
+			y++;
+		}
+		x++;
+	}
+
+	return (image);
 }

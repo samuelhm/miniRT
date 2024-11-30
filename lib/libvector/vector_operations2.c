@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   vector_operations2.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erigonza <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: shurtado <shurtado@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 18:32:52 by erigonza          #+#    #+#             */
-/*   Updated: 2024/11/16 18:32:53 by erigonza         ###   ########.fr       */
+/*   Updated: 2024/11/30 13:35:05 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libvct.h"
 
-double		mod(t_p3 v)
+float		mod(t_p3 v)
 {
 	return (sqrt(dot(v, v)));
 }
@@ -20,7 +20,7 @@ double		mod(t_p3 v)
 t_p3		normalize(t_p3 p)
 {
 	t_p3	nv;
-	double	mod;
+	float	mod;
 
 	mod = sqrt(p.x * p.x + p.y * p.y + p.z * p.z);
 	nv.x = p.x / mod;
@@ -29,17 +29,17 @@ t_p3		normalize(t_p3 p)
 	return (nv);
 }
 
-double		vsin(t_p3 a, t_p3 b)
+float		vsin(t_p3 a, t_p3 b)
 {
 	return (sqrt(1 - pow(vcos(a, b), 2)));
 }
 
-double		vcos(t_p3 a, t_p3 b)
+float		vcos(t_p3 a, t_p3 b)
 {
 	return (dot(a, b) / (mod(a) * mod(b)));
 }
 
-t_p3		scal_x_vec(double n, t_p3 p)
+t_p3		scal_x_vec(float n, t_p3 p)
 {
 	t_p3	v;
 

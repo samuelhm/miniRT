@@ -3,30 +3,30 @@
 /*                                                        :::      ::::::::   */
 /*   vector_operations3.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erigonza <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: shurtado <shurtado@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 18:32:58 by erigonza          #+#    #+#             */
-/*   Updated: 2024/11/16 18:32:59 by erigonza         ###   ########.fr       */
+/*   Updated: 2024/11/30 13:35:09 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libvct.h"
 
-double		distance(t_p3 p1, t_p3 p2)
+float		distance(t_p3 p1, t_p3 p2)
 {
-	double d;
+	float d;
 
 	d = sqrt(pow(p2.x - p1.x, 2) + pow(p2.y - p1.y, 2) + pow(p2.z - p1.z, 2));
 	return (d);
 }
 
-t_p3		x_axis_rotation(t_p3 vec, double angle)
+t_p3		x_axis_rotation(t_p3 vec, float angle)
 {
 	t_p3	row1;
 	t_p3	row2;
 	t_p3	row3;
 	t_p3	rotated;
-	double	rad_angle;
+	float	rad_angle;
 
 	rad_angle = angle * M_PI / 180;
 	row1 = (t_p3){1, 0, 0};
@@ -38,13 +38,13 @@ t_p3		x_axis_rotation(t_p3 vec, double angle)
 	return (rotated);
 }
 
-t_p3		y_axis_rotation(t_p3 vec, double angle)
+t_p3		y_axis_rotation(t_p3 vec, float angle)
 {
 	t_p3	row1;
 	t_p3	row2;
 	t_p3	row3;
 	t_p3	rotated;
-	double	rad_angle;
+	float	rad_angle;
 
 	rad_angle = angle * M_PI / 180;
 	row1 = (t_p3){cos(rad_angle), 0, sin(rad_angle)};
@@ -56,13 +56,13 @@ t_p3		y_axis_rotation(t_p3 vec, double angle)
 	return (rotated);
 }
 
-t_p3		z_axis_rotation(t_p3 vec, double angle)
+t_p3		z_axis_rotation(t_p3 vec, float angle)
 {
 	t_p3	row1;
 	t_p3	row2;
 	t_p3	row3;
 	t_p3	rotated;
-	double	rad_angle;
+	float	rad_angle;
 
 	rad_angle = angle * M_PI / 180;
 	row1 = (t_p3){cos(rad_angle), -sin(rad_angle), 0};

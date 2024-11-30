@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   vector_operations.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erigonza <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: shurtado <shurtado@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 18:33:01 by erigonza          #+#    #+#             */
-/*   Updated: 2024/11/16 18:33:03 by erigonza         ###   ########.fr       */
+/*   Updated: 2024/11/30 13:35:00 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libvct.h"
 
-t_p3	vdefine(double x, double y, double z)
+t_p3	vdefine(float x, float y, float z)
 {
 	t_p3	vector;
 
@@ -42,7 +42,7 @@ t_p3	vsubstract(t_p3 a, t_p3 b)
 	return (p);
 }
 
-double	dot(t_p3 a, t_p3 b)
+float	dot(t_p3 a, t_p3 b)
 {
 	return (a.x * b.x + a.y * b.y + a.z * b.z);
 }
