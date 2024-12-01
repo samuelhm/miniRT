@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 14:37:48 by shurtado          #+#    #+#             */
-/*   Updated: 2024/11/30 15:45:36 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/11/30 16:04:42 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,9 @@
  * y las almacena en la estructura t_quadratic.
  *
  * Retorna true si la ecuación tiene soluciones reales, o false si no las tiene.
+ * t1 y t2 representa cuando el rayo entra y sale del objeto, si solo hay t2,
+ * significa que el rayo empezó dentro del objeto, y solo esta el 
+ * impacto de salida
  */
 bool	solve_quadratic(t_quadratic *quad)
 {
