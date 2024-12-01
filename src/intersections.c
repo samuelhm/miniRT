@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   intersections.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shurtado <shurtado@student.42.fr>          +#+  +:+       +#+        */
+/*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 14:48:44 by shurtado          #+#    #+#             */
-/*   Updated: 2024/12/01 08:54:29 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/12/01 11:57:36 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/render.h"
-#include "../../lib/libvector/libvct.h"
-#include "../../inc/miniRT.h"
+#include "../inc/render.h"
+#include "../lib/libvector/libvct.h"
+#include "../inc/miniRT.h"
 
 //Return true if ray impacts on sphere object
 bool	intersect_sphere(t_ray *ray, t_obj *sphere, float *t)
@@ -40,15 +40,15 @@ bool	intersect_sphere(t_ray *ray, t_obj *sphere, float *t)
  * intersect_cylinder - Calcula la intersección de un rayo con un cilindro.
  * @ray: Puntero al rayo que se desea trazar.
  * @cylinder: Puntero al objeto cilindro con posición, eje, y radio definidos.
- * @t: Puntero donde se almacenará la distancia al punto de intersección 
+ * @t: Puntero donde se almacenará la distancia al punto de intersección
  * más cercano.
  *
- * Esta función calcula si un rayo intersecta con la superficie 
+ * Esta función calcula si un rayo intersecta con la superficie
  * de un cilindro infinito.
- * Usa la ecuación cuadrática derivada de la proyección del rayo y 
- * el eje del cilindro para determinar las soluciones. Si hay intersección, 
+ * Usa la ecuación cuadrática derivada de la proyección del rayo y
+ * el eje del cilindro para determinar las soluciones. Si hay intersección,
  * almacena la distancia al punto
- * más cercano en el puntero `t` y retorna true. Si no hay 
+ * más cercano en el puntero `t` y retorna true. Si no hay
  * intersección, retorna false.
  *
  * Retorna:
@@ -89,13 +89,13 @@ bool	intersect_cylinder(t_ray *ray, t_obj *cylinder, float *t)
  * intersect_plane - Calcula la intersección de un rayo con un plano.
  * @ray: Puntero al rayo que se desea trazar.
  * @plane: Puntero al objeto plano con posición y normal definidos.
- * @t: Puntero donde se almacenará la distancia al punto de 
+ * @t: Puntero donde se almacenará la distancia al punto de
  * intersección más cercano.
  *
  * Esta función calcula si un rayo intersecta con un plano. Usa la ecuación
  * del plano para determinar el valor de t, que representa la distancia desde
- * el origen del rayo hasta el punto de intersección. 
- * Si hay intersección, almacena el valor de t en el puntero proporcionado 
+ * el origen del rayo hasta el punto de intersección.
+ * Si hay intersección, almacena el valor de t en el puntero proporcionado
  * y retorna true. Si el rayo es paralelo
  * al plano o la intersección está detrás del origen, retorna false.
  *

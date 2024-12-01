@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   initialization.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shurtado <shurtado@student.42.fr>          +#+  +:+       +#+        */
+/*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 12:37:59 by shurtado          #+#    #+#             */
-/*   Updated: 2024/11/30 15:36:26 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/12/01 13:08:02 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/render.h"
-#include "../../lib/libvector/libvct.h"
-#include "../../inc/miniRT.h"
+#include "../inc/render.h"
+#include "../lib/libvector/libvct.h"
+#include "../inc/miniRT.h"
 
 /**
  * init_projection_plane - Inicializa el plano de proyección.
@@ -24,30 +24,31 @@
  *
  * Retorna una estructura t_projplane inicializada.
  */
-t_projplane	init_projection_plane(t_cam *cam)
+t_projplane	*init_projection_plane(t_cam *cam)
 {
-	t_projplane	pplane;
+	t_projplane	*pplane;
 	float		fov_radius;
 	t_v3		up_guide;
 
-	pplane.distance = PPLANEDISTANCE;
+	pplane = malloc(sizeof(t_projplane));
+	pplane->distance = PPLANEDISTANCE;
 	fov_radius = cam->fov * M_PI / 180.0f;
-	pplane.width = 2.0f * tan(fov_radius / 2.0f) * pplane.distance;
-	pplane.height = pplane.width * ((float)WINDOW_HEIGHT / (float)WINDOW_WIDTH);
-	pplane.forward = normalize(cam->axis);
+	pplane->width = 2.0f * tan(fov_radius / 2.0f) * pplane->distance;
+	pplane->height = pplane->width * ((float)WINDOW_HEIGHT / (float)WINDOW_WIDTH);
+	pplane->forward = normalize(cam->axis);
 
 	up_guide.x = 0.0f;
 	up_guide.y = 1.0f;
 	up_guide.z = 0.0f;
 
-	if (fabs(dot(pplane.forward, up_guide)) > 0.999f)
+	if (fabs(dot(pplane->forward, up_guide)) > 0.999f)
 	{
 		up_guide.x = 1.0f;
 		up_guide.y = 0.0f;
 	}
-	pplane.right = normalize(cross(up_guide, pplane.forward));
+	pplane->right = normalize(cross(up_guide, pplane->forward));
 
-	pplane.up = cross(pplane.forward, pplane.right);
+	pplane->up = cross(pplane->forward, pplane->right);
 	return (pplane);
 }
 
@@ -93,7 +94,7 @@ t_ray	calculate_ray(int x, int y, t_projplane *pplane, t_cam *cam)
  * utilizando el plano de proyección y la cámara. Los rayos son almacenados
  * en la matriz bidimensional proporcionada.
  */
-void	init_rays(t_ray rays[WH][HG], t_projplane *pplane, t_cam *cam)
+void	init_rays(t_ray **rays, t_projplane *pplane, t_cam *cam)
 {
 	int		x;
 	int		y;
@@ -123,7 +124,7 @@ void	init_quadratic(t_quadratic *quad, float a, float b, float c)
 }
 
 //Memmory for the final image
-t_rgb	**init_image(int width, int height)
+t_rgb	**init_image_(int width, int height)
 {
 	t_rgb	**image;
 	int		x;

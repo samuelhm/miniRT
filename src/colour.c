@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   colour.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shurtado <shurtado@student.42.fr>          +#+  +:+       +#+        */
+/*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/29 12:19:01 by shurtado          #+#    #+#             */
-/*   Updated: 2024/11/30 15:43:15 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/12/01 11:57:11 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/render.h"
+#include "../inc/render.h"
 
 // From 0-255 ARGB colour Returns uint32 colour
 uint32_t	get_acolour(t_uchar alpha, t_uchar r, t_uchar g, t_uchar b)

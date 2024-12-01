@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   calcs.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shurtado <shurtado@student.42.fr>          +#+  +:+       +#+        */
+/*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 14:37:48 by shurtado          #+#    #+#             */
-/*   Updated: 2024/11/30 16:04:42 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/12/01 13:00:52 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/render.h"
-#include "../../lib/libvector/libvct.h"
-#include "../../inc/miniRT.h"
+#include "../inc/render.h"
+#include "../lib/libvector/libvct.h"
+#include "../inc/miniRT.h"
 
 /**
  * solve_quadratic - Resuelve una ecuación cuadrática en la forma ax^2 + bx + c = 0.
@@ -26,7 +26,7 @@
  *
  * Retorna true si la ecuación tiene soluciones reales, o false si no las tiene.
  * t1 y t2 representa cuando el rayo entra y sale del objeto, si solo hay t2,
- * significa que el rayo empezó dentro del objeto, y solo esta el 
+ * significa que el rayo empezó dentro del objeto, y solo esta el
  * impacto de salida
  */
 bool	solve_quadratic(t_quadratic *quad)
@@ -64,13 +64,14 @@ t_rgb	trace_ray(t_ray *ray, t_data *scene)
 	obj = scene->obj;
 	t_min = INFINITY;
 	closest_obj = NULL;
-	memset(&background, 0, sizeof(t_rgb));
+	background.r = 0;
+	background.g = 0;
+	background.b = 0;
 	while (obj)
 	{
 		if (obj->type == SP)
 		{
-			t = intersect_sphere(ray->origin, ray->direction, obj->pos, \
-								obj->sphere_radius);
+			t = intersect_sphere(ray, obj, &t);
 			if (t > 0 && t < t_min)
 			{
 				t_min = t;

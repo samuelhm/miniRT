@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   miniRT.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shurtado <shurtado@student.42.fr>          +#+  +:+       +#+        */
+/*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 11:55:24 by erigonza          #+#    #+#             */
-/*   Updated: 2024/11/30 13:43:13 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/12/01 13:07:57 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@
 # include "../lib/MLX42/include/MLX42/MLX42.h"
 # include "../lib/libft/inc/libft.h"
 # include "../lib/libvector/libvct.h"
+# include "render.h"
 # include <fcntl.h>
 # include <math.h>
 # include <stdio.h>
@@ -38,8 +39,8 @@
 # include <sys/stat.h>
 # include <unistd.h>
 
-# define WINDOW_WIDTH 1580
-# define WINDOW_HEIGHT 1080
+# define WINDOW_WIDTH 800
+# define WINDOW_HEIGHT 600
 
 # define WIDTH 500
 # define HEIGHT 500
@@ -47,6 +48,7 @@
 # define PL 1
 # define CY 2
 
+typedef unsigned char	t_uchar;
 // t_rgb[800][600] image;
 
 typedef struct s_rgb
@@ -87,7 +89,7 @@ typedef struct s_obj
 	t_rgb			rgb;		// sp pl cy
 	float			size;		// sp radius | cy diameter
 	float			height;		// cy
-//	
+//
 	float			sphere_radius; // size
 	t_v3			ray_start; // Camera position
 	t_v3			sphere_center;
@@ -102,6 +104,8 @@ typedef struct s_data
 	t_obj			*obj;
 	struct s_data	*next;
 }					t_data;
+
+
 
 //		utils
 int					er(char *s, char *av);
@@ -138,5 +142,48 @@ float				sphere_ray_intersect(t_v3 ray_start, t_v3 ray_direction,
 //		ilumination
 int					is_in_shadow(t_obj *sp, t_v3 point, t_sLight *light);
 uint32_t			new_light(t_sLight *l, t_obj *sp, t_v3 iPoint);
+
+
+typedef struct s_projection_plane
+{
+	float	width;
+	float	height;
+	float	distance;
+	t_v3	forward;
+	t_v3	right;
+	t_v3	up;
+}		t_projplane;
+
+typedef struct s_ray
+{
+	t_v3	origin;
+	t_v3	direction;
+}				t_ray;
+
+typedef struct s_quadratic
+{
+	float	a;
+	float	b;
+	float	c;
+	float	discriminant;
+	float	t1; //inteseccion de entrada
+	float	t2; //interseccion de salida
+}			t_quadratic;
+
+
+//render
+uint32_t	get_acolour(t_uchar alpha, t_uchar r, t_uchar g, t_uchar b);
+t_projplane	*init_projection_plane(t_cam *cam);
+void		init_rays(t_ray **rays, t_projplane *pplane, t_cam *cam);
+void		init_quadratic(t_quadratic *quad, float a, float b, float c);
+bool		solve_quadratic(t_quadratic *quad);
+t_rgb		trace_ray(t_ray *ray, t_data *scene);
+t_rgb		apply_ambient_light(t_rgb obj_color, t_aLight *ambient_light);
+t_rgb		**render(t_data *scene, int x, int y);
+t_data		*get_test();
+bool	intersect_sphere(t_ray *ray, t_obj *sphere, float *t);
+t_rgb	**init_image_(int width, int height);
+
+
 
 #endif

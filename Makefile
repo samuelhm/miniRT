@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: erigonza <marvin@42.fr>                    +#+  +:+       +#+         #
+#    By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/05 11:52:11 by erigonza          #+#    #+#              #
-#    Updated: 2024/11/24 14:44:07 by erigonza         ###   ########.fr        #
+#    Updated: 2024/12/01 12:14:04 by shurtado         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,14 +19,14 @@ LIBFT_D			:= ./lib/libft/
 MLX_D			:= ./lib/MLX42/build/
 
 FILES			:= main.c lib.c sphere.c mlx.c ilumination.c utils.c parsing.c \
-					parseACL.c  parseUtils.c
+					parseACL.c  parseUtils.c calcs.c colour.c initialization.c intersections.c render.c
 SRCS			:= $(addprefix $(SRC_D), $(FILES))
 
 OBJS            := $(addprefix $(OBJ_D), $(FILES:.c=.o))
 DEPS			:= $(addprefix $(DEP_D), $(FILES:.c=.d))
 
 CC				:= cc
-CFLAGS			:= -g  -fsanitize=address #-Wall -Wextra -Werror
+CFLAGS			:= -g -fsanitize=address #-Wall -Wextra -Werror
 
 LIB				:= lib/
 
@@ -50,11 +50,11 @@ libs:
 
 $(OBJ_D)%.o:	$(SRC_D)%.c Makefile
 			@printf "\033[0;33m\r🔨 $< ✅ \033[0m"
-			@$(CC) $(CFLAGS) -MMD -o $@ -c $<
+			$(CC) $(CFLAGS) -MMD -o $@ -c $<
 			@mv $(@:.o=.d) $(DEP_D)
 
 $(NAME):	$(OBJS)
-			$(CC) $(CFLAGS) $(MLXFLAGS) $(OBJS) $(MLX_D)$(MLX) $(LIBFT_D)$(LIBFT) -o $(NAME)
+			$(CC) $(CFLAGS) $(MLXFLAGS) $(OBJS) $(MLX_D)$(MLX) $(LIBFT_D)$(LIBFT) ./lib/libvector/libvct.a -o $(NAME)
 			clear
 
 c clean:
@@ -71,5 +71,6 @@ f fclean:		clean
 
 r re:			fclean all
 
+-include $(OBJS:.o=.d)
 PHONY:		all clean fclean re f c r libs libmlx
-.SILENT:
+# .SILENT:
