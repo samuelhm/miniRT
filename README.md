@@ -36,7 +36,7 @@ MiniRT is a minimalist raytracer built as part of the 42 curriculum, designed to
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/erikgonk/miniRT.git && cd minishell
+   git clone https://github.com/erikgonk/miniRT.git && cd miniRT
 
 2. Execute it:
    ```bash
