@@ -24,7 +24,7 @@ void	init_gl(t_obj *obj)
 
 void	init_mt(t_obj *obj)
 {
-	obj->material.reflectivity = 0.4f;
+	obj->material.reflectivity = 0.3f;
 	obj->material.transmittance = 0.0f;
 	obj->material.roughness = 0.3f;
 	obj->material.absorption = 1.0f;

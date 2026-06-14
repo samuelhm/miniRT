@@ -107,8 +107,6 @@ t_rgb					glass_ray(t_ray *ray, t_obj *closest, t_data *data,
 							int depth);
 t_rgb					mirror_ray(t_ray *ray, t_obj *closest, t_data *data,
 							int depth);
-t_v3					perturb_vector(t_v3 direction, double roughness,
-							t_v3 normal);
 t_rgb					metallic_ray(t_ray *ray, t_obj *closest, t_data *data,
 							int depth);
 
