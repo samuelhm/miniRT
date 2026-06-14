@@ -102,8 +102,9 @@ Chapter V: *"use the latest version of the language and follow up-to-date good p
 - [ ] Rename `t_rgb` → `t_color` or keep `t_rgb`
 - [ ] Split `data.h` (382 lines) → `types.h` + `scene.h` + `material.h`
 - [ ] Split `render.h` (269 lines) → `ray.h` + `viewport.h` + `intersect.h` + `lighting.h`
-- [ ] Document scene `.rt` file format in `doc/FORMAT.md`
-- [ ] Add `doc/ARCHITECTURE.md` explaining the ray tracing pipeline
+- [x] Document scene `.rt` file format in `doc/FORMAT.md`
+- [x] Add `doc/ARCHITECTURE.md` explaining the ray tracing pipeline
+
 - [ ] Console enum `t_btn_name` has intentional value collisions — document or separate
 - [ ] Console `t_img_btn.row1[200]` etc. — replace fixed-size buffers with dynamic strings
 - [ ] Error messages in Spanish → English (or keep bilingual)
