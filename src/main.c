@@ -48,7 +48,7 @@ void	mouse_click(mouse_key_t button, action_t action, \
 	if (action == 1)
 	{
 		if (data->last_render != FAST)
-	data->render_sel = render_one;
+			data->render_sel = render_fast;
 		mlx_get_mouse_pos(data->mlx, &x, &y);
 		console_click(data, x, y);
 	}
@@ -66,7 +66,7 @@ int	main(int ac, char **av)
 	close(fd);
 	init_mlx(data);
 	init_all(data);
-	data->render_sel = render_fast;
+	data->render_sel = render_one;
 	mlx_resize_hook(data->mlx, &resise_w, data);
 	mlx_loop_hook(data->mlx, call_render, data);
 	mlx_mouse_hook(data->mlx, mouse_click, data);
