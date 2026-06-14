@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "miniRT.h"
+#include "rt.h"
 
 void	free_rays(t_ray **rays, int rows)
 {

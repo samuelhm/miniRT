@@ -13,7 +13,7 @@
 #ifndef PARSER_H
 # define PARSER_H
 
-# include "miniRT.h"
+# include "rt.h"
 
 //      parser
 void	parse(t_data *data, int fd);

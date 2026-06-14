@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "miniRT.h"
+#include "rt.h"
 
 bool	alight_click_move(t_data *data, t_btn_name clicked)
 {

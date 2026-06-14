@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "miniRT.h"
+#include "rt.h"
 #include "threads.h"
 
 uint32_t	trace_fast(t_ray ray, t_data *data)

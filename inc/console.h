@@ -13,7 +13,7 @@
 #ifndef CONSOLE_H
 # define CONSOLE_H
 
-# include "miniRT.h"
+# include "rt.h"
 
 # define CAMPLUS 5
 # define CAMAXISP 0.05f

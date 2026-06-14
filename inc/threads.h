@@ -15,7 +15,7 @@
 
 # include <pthread.h>
 # include <stdint.h>
-# include "miniRT.h"
+# include "rt.h"
 
 # define NUM_THREADS 6
 

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "miniRT.h"
+#include "rt.h"
 
 t_v3	random_in_hemisphere(t_v3 normal)
 {

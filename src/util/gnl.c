@@ -93,7 +93,7 @@ static char	*gnl_while_reading(char *buffer, char *line, int fd)
 		}
 		if (byte_count == 0)
 		{
-			gnl_free_join(buffer, line);
+			free(buffer);
 			return (line);
 		}
 		if (gnl_has_nl(buffer) == 0 || !line)

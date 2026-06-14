@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "miniRT.h"
+#include "rt.h"
 
 int	obj_remove(t_obj **lst, t_obj *node)
 {

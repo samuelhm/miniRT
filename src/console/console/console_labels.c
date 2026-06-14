@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "miniRT.h"
+#include "rt.h"
 
 void	set_cam_labels(t_data *data, t_img_btn *img_btn, int top)
 {

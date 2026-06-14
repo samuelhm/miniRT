@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "miniRT.h"
+#include "rt.h"
 
 void	create_obj_normi(t_obj *obj, char **tmp, char **tmp2)
 {

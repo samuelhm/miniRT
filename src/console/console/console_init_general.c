@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "miniRT.h"
+#include "rt.h"
 
 void	click_obj_console(t_data *data, t_btn_name clicked)
 {

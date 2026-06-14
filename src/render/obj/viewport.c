@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "miniRT.h"
+#include "rt.h"
 #include "render.h"
 
 t_v3	calculate_up(t_v3 forward, t_v3 rgt)

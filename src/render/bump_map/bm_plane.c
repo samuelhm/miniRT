@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "miniRT.h"
+#include "rt.h"
 
 static void	calc_pl_tb(t_v3 normal, t_v3 *tangent, t_v3 *bitangent)
 {

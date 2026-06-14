@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "miniRT.h"
+#include "rt.h"
 #include "render.h"
 
 void	free_render(t_data *data, t_vp *vp, t_ray **rays)

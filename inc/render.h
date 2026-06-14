@@ -13,7 +13,7 @@
 #ifndef RENDER_H
 # define RENDER_H
 
-# include "miniRT.h"
+# include "rt.h"
 
 # define PPLANEDISTANCE 1.0f
 # define BLACK 0xFF000000

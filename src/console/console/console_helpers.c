@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "miniRT.h"
+#include "rt.h"
 
 mlx_image_t	*create_button(mlx_t *mlx, const char *label, int x, int y)
 {

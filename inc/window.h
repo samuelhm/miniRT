@@ -13,7 +13,7 @@
 #ifndef WINDOW_H
 # define WINDOW_H
 
-# include "miniRT.h"
+# include "rt.h"
 
 //		mlx
 bool	press_keyhook_normi(t_data *data, keys_t key, bool mode);

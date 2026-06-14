@@ -10,13 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "miniRT.h"
+#include "rt.h"
 #include "render.h"
 #include "libvct.h"
 
 void	init_mlx(t_data *data)
 {
-	data->mlx = mlx_init(data->x, data->y, "miniRT", true);
+	data->mlx = mlx_init(data->x, data->y, "RT", true);
 	if (!data->mlx)
 		exit(er(data, "Failed to initialize MLX42", NULL));
 	data->img = mlx_new_image(data->mlx, data->x, data->y);

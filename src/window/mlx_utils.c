@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "miniRT.h"
+#include "rt.h"
 
 void	fill_image(t_data *data, uint32_t *pixels, uint32_t **img_rgb)
 {

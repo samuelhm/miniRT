@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINIRT_H
-# define MINIRT_H
+#ifndef RT_H
+# define RT_H
 
 # define RESET "\033[0m"
 # define BOLD "\033[1m"

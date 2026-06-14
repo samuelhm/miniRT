@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "miniRT.h"
+#include "rt.h"
 
 static void	init_single_rayc(t_ray *ray, t_vp *vp, t_cam *cam, double *uv)
 {

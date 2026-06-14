@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "miniRT.h"
+#include "rt.h"
 
 t_v2	calculate_uv(t_v3 point, t_obj *obj)
 {

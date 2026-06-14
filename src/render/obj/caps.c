@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "miniRT.h"
+#include "rt.h"
 
 static bool	cap_i(t_ray *ray, t_obj *cap, double *result, double *numerator)
 {

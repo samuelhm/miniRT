@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "miniRT.h"
+#include "rt.h"
 
 void	specular_light(t_rgb *color, t_data *data, t_ray *ray, int shin)
 {

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "miniRT.h"
+#include "rt.h"
 
 void	click_sphere(t_data *data, t_obj *obj, t_btn_name clicked)
 {

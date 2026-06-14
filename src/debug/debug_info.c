@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <miniRT.h>
+#include "rt.h"
 #include "render.h"
 
 void	print_t_rgb(const char *label, t_rgb rgb)

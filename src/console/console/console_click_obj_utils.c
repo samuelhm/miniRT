@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "miniRT.h"
+#include "rt.h"
 
 bool	obj_click_move_normi(t_data *data, t_obj *obj, t_slight *slight)
 {

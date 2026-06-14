@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "miniRT.h"
+#include "rt.h"
 
 static void	cone_calc(t_ray *ray, t_obj *cone, t_v3 *oc, t_quadratic *quad)
 {

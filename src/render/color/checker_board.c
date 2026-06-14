@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "miniRT.h"
+#include "rt.h"
 #include "render.h"
 
 t_rgb	checkerboard_color(t_obj *obj, t_v3 point)

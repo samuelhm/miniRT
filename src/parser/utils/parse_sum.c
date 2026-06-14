@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "miniRT.h"
+#include "rt.h"
 
 int	random_sum_parse(t_obj *obj, char *str, int i)
 {

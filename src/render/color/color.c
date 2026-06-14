@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "miniRT.h"
+#include "rt.h"
 
 t_rgb	rgbdefine(t_uchar r, t_uchar g, t_uchar b)
 {

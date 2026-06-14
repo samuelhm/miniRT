@@ -13,7 +13,7 @@
 #ifndef DEBUG_H
 # define DEBUG_H
 
-# include "miniRT.h"
+# include "rt.h"
 
 // debug_info
 void		print_t_rgb(const char *label, t_rgb rgb);

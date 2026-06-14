@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "miniRT.h"
+#include "rt.h"
 
 t_v3	doubles_acl_parse(t_data *data, char *str, int i)
 {

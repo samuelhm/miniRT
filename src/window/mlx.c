@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "miniRT.h"
+#include "rt.h"
 
 bool	press_keyhook_normi(t_data *data, keys_t key, bool mode)
 {
