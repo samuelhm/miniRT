@@ -14,18 +14,18 @@
 
 int	er(t_data *data, const char *s, const char *argv)
 {
-	ft_printf(2, "%s", RED);
+	fprintf(stderr, "%s", RED);
 	if (s)
-		ft_printf(2, "%s\n", s);
-	ft_printf(2, "%s", BOLD);
+		fprintf(stderr, "%s\n", s);
+	fprintf(stderr, "%s", BOLD);
 	if (argv)
-		ft_printf(2, "%s\n", argv);
-	ft_printf(2, "%s", RESET);
+		fprintf(stderr, "%s\n", argv);
+	fprintf(stderr, "%s", RESET);
 	free(data->m_trace);
 	free(data->m_god);
 	free(data->console);
 	if (data->args)
-		ft_free_willy(data->args);
+		free_strs(data->args);
 	free_willy_lst(data);
 	return (1);
 }
@@ -37,7 +37,7 @@ int	type_obj(char *str)
 	int				i;
 
 	i = 0;
-	while (bts[i] && !ft_strcmp(bts[i], str))
+	while (bts[i] && !strcmp(bts[i], str))
 		i++;
 	if (bts[i])
 		return (i);

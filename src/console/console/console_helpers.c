@@ -22,7 +22,7 @@ mlx_image_t	*create_button(mlx_t *mlx, const char *label, int x, int y)
 	button = mlx_put_string(mlx, label, x, y);
 	if (!button)
 	{
-		ft_printf(2, "Failed to create button with label: %s\n", label);
+		fprintf(stderr, "Failed to create button with label: %s\n", label);
 		return (NULL);
 	}
 	return (button);
@@ -71,7 +71,7 @@ void	set_background(t_data *data)
 		data->console->background = create_menu_background(data);
 	if (!data->console->background)
 	{
-		ft_printf(2, "Failed to create menu background\n");
+		fprintf(stderr, "Failed to create menu background\n");
 		return ;
 	}
 	mlx_image_to_window(data->mlx, data->console->background, width, 0);

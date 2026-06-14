@@ -3,9 +3,15 @@
 *.tmp
 *.DS_Store
 miniRT
+rt
+rt_debug
 .vscode
 .vscode/
 lib/MLX42/build/
+src/tmp/
+src/debug_tmp/
+*.core
+vgcore.*
 # Prerequisites
 *.d
 

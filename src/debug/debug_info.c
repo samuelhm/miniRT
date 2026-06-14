@@ -15,12 +15,12 @@
 
 void	print_t_rgb(const char *label, t_rgb rgb)
 {
-	ft_printf(1, "%s -> r: %u, g: %u, b: %u\n", label, rgb.r, rgb.g, rgb.b);
+	printf("%s -> r: %u, g: %u, b: %u\n", label, rgb.r, rgb.g, rgb.b);
 }
 
 void	print_t_v3(const char *label, t_v3 vec)
 {
-	ft_printf(1, "%s -> x: %.2f, y: %.2f, z: %.2f\n", label, vec.x, \
+	printf("%s -> x: %.2f, y: %.2f, z: %.2f\n", label, vec.x, \
 														vec.y, vec.z);
 }
 
@@ -38,20 +38,20 @@ void	print_objects(t_obj *obj)
 {
 	if (obj)
 	{
-		ft_printf(1, "Objects:\n");
+		printf("Objects:\n");
 		while (obj)
 		{
-			ft_printf(1, "\tType: %d\n", obj->type);
-			ft_printf(1, "\tIndex: %d\n", obj->i);
+			printf("\tType: %d\n", obj->type);
+			printf("\tIndex: %d\n", obj->i);
 			print_t_v3("\tPosition", obj->pos);
 			print_t_v3("\tAxis (Orientation)", obj->axis);
 			print_t_rgb("\tColor", obj->rgb);
-			ft_printf(1, "\tSize: %.2f\n", obj->size);
-			ft_printf(1, "\tHeight: %.2f\n", obj->height);
-			ft_printf(1, "\n");
+			printf("\tSize: %.2f\n", obj->size);
+			printf("\tHeight: %.2f\n", obj->height);
+			printf("\n");
 			obj = obj->next;
 		}
 	}
 	else
-		ft_printf(1, "Objects: NULL\n");
+		printf("Objects: NULL\n");
 }

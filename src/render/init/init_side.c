@@ -113,7 +113,7 @@ void	init_sides(t_data *data, t_obj *obj)
 	while (++i < 6)
 	{
 		side[i] = calloc(1, sizeof(t_obj));
-		ft_memcpy(side[i], obj, sizeof(t_obj));
+		memcpy(side[i], obj, sizeof(t_obj));
 		side[i]->type = SIDE;
 		side[i]->calcs = obj->calcs;
 		side[i]->next = NULL;

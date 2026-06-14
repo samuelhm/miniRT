@@ -12,7 +12,7 @@
 
 #include "miniRT.h"
 
-int	ft_objremove(t_obj **lst, t_obj *node)
+int	obj_remove(t_obj **lst, t_obj *node)
 {
 	t_obj	*temp;
 	t_obj	*lstp;
@@ -52,7 +52,7 @@ void	free_after_click(t_data *data)
 		next = obj->next;
 		if (obj && (obj->type == SIDE || obj->type == CAP))
 		{
-			ft_objremove(&data->obj, obj);
+			obj_remove(&data->obj, obj);
 		}
 		obj = next;
 	}

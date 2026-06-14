@@ -16,11 +16,13 @@ SRC_D			:= ./src/
 INC_D			:= ./inc/
 OBJ_D			:= $(SRC_D)tmp/
 DEBUG_D			:= $(SRC_D)debug_tmp/
-LIBFT_D			:= ./lib/libft/
+# LIBFT removed — using glibc
 MLX_D			:= ./lib/MLX42/build/
 VCT_D			:= ./lib/libvector/
 
 FILES			:= main.c \
+					util/str_sub.c util/str_trim.c util/str_split.c util/str_join.c \
+					util/free_strs.c util/gnl.c util/lst.c \
 					parser/parser/parser.c \
 					parser/obj/parse_obj.c parser/obj/parse_acl.c parser/obj/parse_acl_extra.c \
 					parser/utils/parse_sum.c parser/utils/parse_utils.c parser/utils/parse_conversions.c parser/utils/parse_free_willlies.c\
@@ -52,7 +54,7 @@ OBJS			:= $(patsubst $(SRC_D)%.c,$(OBJ_D)%.o,$(SRCS))
 DOBJS			:= $(patsubst $(SRC_D)%.c,$(DEBUG_D)%.o,$(SRCS))
 
 CC				:= cc
-IFLAGS			:= -I$(INC_D) -I$(VCT_D) -I$(LIBFT_D)inc
+IFLAGS			:= -I$(INC_D) -I$(VCT_D)
 
 # Base warnings
 WFLAGS			:= -Wall -Wextra -Werror
@@ -74,9 +76,6 @@ DFLAGS			:= -g3 -O0 -pthread $(WFLAGS) $(XFLAGS) \
 
 LDFLAGS			:= -flto -pthread
 
-LIB				:= lib/
-
-LIBFT			:= libft.a
 LIBVCT			:= ./lib/libvector/libvct.a
 
 MLX				:= libmlx42.a
@@ -88,16 +87,16 @@ RM				:= rm -rf
 
 # ─── Default: release build ───────────────────────────────────────────────────
 
-all:			libmlx libs $(NAME)
+all:		libmlx libvct $(NAME)
 
 # ─── Debug build ──────────────────────────────────────────────────────────────
 
-debug:			libmlx libs $(NAME)_debug
+debug:			libmlx libvct $(NAME)_debug
 	@echo "\033[1;32m[DEBUG BUILD READY]\033[0m"
 	@echo "Usage: ./$(NAME)_debug scenes/figuras_pov.rt"
 
 $(NAME)_debug:	$(DOBJS)
-	$(CC) $(DFLAGS) $(DOBJS) $(LIBFT_D)$(LIBFT) $(MLX_D)$(MLX) $(GLFW) $(LIBVCT) $(MLXFLAGS) -o $@
+	$(CC) $(DFLAGS) $(DOBJS) $(MLX_D)$(MLX) $(GLFW) $(LIBVCT) $(MLXFLAGS) -o $@
 
 $(DEBUG_D)%.o:	$(SRC_D)%.c Makefile
 	@mkdir -p $(dir $@)
@@ -108,9 +107,8 @@ $(DEBUG_D)%.o:	$(SRC_D)%.c Makefile
 libmlx:
 	@cmake ./lib/MLX42 -B $(MLX_D) && make -C $(MLX_D) -j4
 
-libs:
-	@make -s -C $(LIB)libft
-	@make -s -C $(LIB)libvector
+libvct:
+			@make -s -C ./lib/libvector
 
 # ─── Release objects ──────────────────────────────────────────────────────────
 
@@ -120,20 +118,18 @@ $(OBJ_D)%.o:	$(SRC_D)%.c Makefile
 	$(CC) $(IFLAGS) $(CFLAGS) -MMD -o $@ -c $<
 
 $(NAME):		$(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) $(LIBFT_D)$(LIBFT) $(MLX_D)$(MLX) $(GLFW) $(LIBVCT) $(MLXFLAGS) -o $(NAME)
+	$(CC) $(CFLAGS) $(OBJS) $(MLX_D)$(MLX) $(GLFW) $(LIBVCT) $(MLXFLAGS) -o $(NAME)
 	@echo "\n\033[1;32m[✓] $(NAME) built successfully\033[0m"
 
 # ─── Cleaning ─────────────────────────────────────────────────────────────────
 
 c clean:
-	@make clean -s -C $(LIB)libft
-	@make clean -s -C $(LIB)libvector
+			@make clean -s -C ./lib/libvector
 	@$(RM) $(DIR_MLX)/build
 	@$(RM) $(OBJ_D) $(DEBUG_D)
 
 f fclean:		clean
-	@make fclean -s -C $(LIB)libft
-	@make fclean -s -C $(LIB)libvector
+			@make fclean -s -C ./lib/libvector
 	@$(RM) $(NAME) $(NAME)_debug
 
 r re:			fclean all
@@ -157,5 +153,5 @@ help:
 -include $(OBJS:.o=.d)
 -include $(DOBJS:.o=.d)
 
-.PHONY:		all clean fclean re f c r libs libmlx debug rebug help
+.PHONY:		all clean fclean re f c r libmlx libvct debug rebug help
 

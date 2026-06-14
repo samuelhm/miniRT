@@ -220,7 +220,7 @@ void				click_slight_console(t_data *data, t_slight *slight,
 						t_btn_name clicked);
 
 //		click_utils
-int					ft_objremove(t_obj **lst, t_obj *node);
+int					obj_remove(t_obj **lst, t_obj *node);
 void				free_after_click(t_data *data);
 t_btn_name			get_clicked_btn(t_data *data, int x, int y);
 t_slight			*get_prev(t_data *data, t_slight *slight);

@@ -54,7 +54,7 @@ void	parse(t_data *data, int fd)
 		type = type_obj(str);
 		if (type > 7)
 			exit(er(data, "error: parse: wrong map: obj type", str));
-		else if ((type <= 2 || type == CO || type == CU) && ft_isspace(str[2]))
+		else if ((type <= 2 || type == CO || type == CU) && isspace(str[2]))
 			objadd_back(&data->obj, create_obj(data, str, type));
 		create_alight(data, str, type);
 		create_cam(data, str, type);

@@ -14,14 +14,14 @@
 
 void	check_end(t_data *data, char *str, int i)
 {
-	while (str[i] && ft_isspace(str[i]))
+	while (str[i] && isspace(str[i]))
 		i++;
 	i = skip_color(data, str, i, 0);
 	i = skip_color(data, str, i, 0);
-	while (str[i] && ft_isdigit(str[i]))
+	while (str[i] && isdigit(str[i]))
 		i++;
 	while (str[i] && str[i] != '\n')
-		if (!ft_isspace(str[i++]))
+		if (!isspace(str[i++]))
 			exit(er(data, "error: check_end: char after last num", str));
 }
 

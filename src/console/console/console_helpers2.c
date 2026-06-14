@@ -48,8 +48,8 @@ void	put_img_buttons(t_data *data)
 		k = console_get_k(obj, i);
 		mlx_image_to_window(data->mlx, icons[k], data->x - \
 								(280) + (58 * (i - 4)), 465);
-		ft_lstadd_back(&data->console->btn_list, \
-						ft_lstnew(data->console->icons[k]));
+		lst_add_back(&data->console->btn_list, \
+						lst_new(data->console->icons[k]));
 		mlx_set_instance_depth(&data->console->icons[k]->instances[0], 3);
 	}
 }

@@ -102,14 +102,14 @@ void	fill_image_list(t_data *data, t_img_btn *img_btn)
 	i = -1;
 	while (++i < count)
 	{
-		ft_lstadd_back(&data->console->btn_list, ft_lstnew(img_btn->labels[i]));
+		lst_add_back(&data->console->btn_list, lst_new(img_btn->labels[i]));
 		mlx_set_instance_depth(&img_btn->labels[i]->instances[0], 4);
 	}
 	i = -1;
 	while (++i < 4)
 	{
-		ft_lstadd_back(&data->console->btn_list, \
-					ft_lstnew(data->console->icons[i]));
+		lst_add_back(&data->console->btn_list, \
+					lst_new(data->console->icons[i]));
 		if (i < 4)
 			mlx_set_instance_depth(&data->console->icons[i]->instances[0], 3);
 	}

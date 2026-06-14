@@ -14,8 +14,8 @@
 
 void	last_exit(t_data *data)
 {
-	ft_lstclear(&data->console->btn_list, del_image);
-	ft_lstclear(&data->console->click_lst, free);
+	lst_clear(&data->console->btn_list, del_image);
+	lst_clear(&data->console->click_lst, free);
 	free(data->m_trace);
 	free(data->m_god);
 	if (data->img)

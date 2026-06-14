@@ -43,9 +43,9 @@ void	check_params(t_data *data);
 //      parse_conversions
 t_rgb	colors_parse(t_data *data, char *str, int i);
 char	*doubles_parse(t_obj *obj, char *str, int i, int flag);
-int		ft_atoi_parse(t_data *data, char *str, int i, int flag);
-double	ft_atof_normi(t_data *data, char *str, int i);
-double	ft_atof(t_data *data, char *str, int i);
+int		parse_atoi(t_data *data, char *str, int i, int flag);
+double	parse_atof_normi(t_data *data, char *str, int i);
+double	parse_atof(t_data *data, char *str, int i);
 
 //		parse_sum
 int		random_sum_parse(t_obj *obj, char *str, int i);
@@ -61,7 +61,7 @@ t_obj	*new_obj(t_data *data);
 void	objadd_back(t_obj **lst, t_obj *new);
 
 //		parse_free willies
-char	**ft_free_willy(char **cmd);
+char	**free_strs(char **cmd);
 void	free_willy_lst(t_data *data);
 //      extra_functionalities
 void	parse_em(t_obj *obj, char **args);

@@ -22,14 +22,14 @@ void	rows_7(t_data *data)
 	btn->y = data->console->icons[2]->instances[6].y;
 	btn->h = data->console->icons[2]->height;
 	btn->w = data->console->icons[2]->width;
-	ft_lstadd_front(&data->console->click_lst, ft_lstnew(btn));
+	lst_add_front(&data->console->click_lst, lst_new(btn));
 	btn = calloc(1, sizeof(t_btn));
 	btn->name = row7r;
 	btn->x = data->console->icons[3]->instances[6].x;
 	btn->y = data->console->icons[3]->instances[6].y;
 	btn->h = data->console->icons[3]->height;
 	btn->w = data->console->icons[3]->width;
-	ft_lstadd_front(&data->console->click_lst, ft_lstnew(btn));
+	lst_add_front(&data->console->click_lst, lst_new(btn));
 }
 
 void	rows_8(t_data *data)
@@ -42,14 +42,14 @@ void	rows_8(t_data *data)
 	btn->y = data->console->icons[2]->instances[7].y;
 	btn->h = data->console->icons[2]->height;
 	btn->w = data->console->icons[2]->width;
-	ft_lstadd_front(&data->console->click_lst, ft_lstnew(btn));
+	lst_add_front(&data->console->click_lst, lst_new(btn));
 	btn = calloc(1, sizeof(t_btn));
 	btn->name = row8r;
 	btn->x = data->console->icons[3]->instances[7].x;
 	btn->y = data->console->icons[3]->instances[7].y;
 	btn->h = data->console->icons[3]->height;
 	btn->w = data->console->icons[3]->width;
-	ft_lstadd_front(&data->console->click_lst, ft_lstnew(btn));
+	lst_add_front(&data->console->click_lst, lst_new(btn));
 }
 
 void	rows_9(t_data *data)
@@ -62,14 +62,14 @@ void	rows_9(t_data *data)
 	btn->y = data->console->icons[2]->instances[8].y;
 	btn->h = data->console->icons[2]->height;
 	btn->w = data->console->icons[2]->width;
-	ft_lstadd_front(&data->console->click_lst, ft_lstnew(btn));
+	lst_add_front(&data->console->click_lst, lst_new(btn));
 	btn = calloc(1, sizeof(t_btn));
 	btn->name = row9r;
 	btn->x = data->console->icons[3]->instances[8].x;
 	btn->y = data->console->icons[3]->instances[8].y;
 	btn->h = data->console->icons[3]->height;
 	btn->w = data->console->icons[3]->width;
-	ft_lstadd_front(&data->console->click_lst, ft_lstnew(btn));
+	lst_add_front(&data->console->click_lst, lst_new(btn));
 }
 
 void	row_material(t_data *data, int click)
@@ -92,6 +92,6 @@ void	row_material(t_data *data, int click)
 		btn->y = data->console->icons[k]->instances[0].y;
 		btn->h = data->console->icons[k]->height;
 		btn->w = data->console->icons[k]->width;
-		ft_lstadd_front(&data->console->click_lst, ft_lstnew(btn));
+		lst_add_front(&data->console->click_lst, lst_new(btn));
 	}
 }

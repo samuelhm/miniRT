@@ -82,7 +82,7 @@ void	run_console(t_data *data)
 		g_mlx = data->mlx;
 	if (data->console->btn_list)
 	{
-		ft_lstclear(&data->console->btn_list, del_image);
+		lst_clear(&data->console->btn_list, del_image);
 		data->console->btn_list = NULL;
 	}
 	set_background(data);

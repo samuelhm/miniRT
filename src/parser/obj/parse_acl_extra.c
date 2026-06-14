@@ -18,14 +18,14 @@ t_v3	doubles_acl_parse(t_data *data, char *str, int i)
 	double	y;
 	double	z;
 
-	while (str[i] && ft_isspace(str[i]))
+	while (str[i] && isspace(str[i]))
 		i++;
-	if (str[i] && !ft_isdigit(str[i]) && str[i] != '-')
+	if (str[i] && !isdigit(str[i]) && str[i] != '-')
 		exit(er(data, "error: doubles_acl_parse: map parsing:\n", str));
-	x = ft_atof(data, str, i);
+	x = parse_atof(data, str, i);
 	i = skip_double(data, str, i, 1);
-	y = ft_atof(data, str, i);
+	y = parse_atof(data, str, i);
 	i = random_sum_parse(data->obj, str, i);
-	z = ft_atof(data, str, i);
+	z = parse_atof(data, str, i);
 	return (vdefine(x, y, z));
 }

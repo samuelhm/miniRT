@@ -16,9 +16,9 @@ void	parse_em(t_obj *obj, char **args)
 {
 	if (!args[1])
 		exit(er(obj->data, "error: parse_em: lacks arg", NULL));
-	if (!ft_isdigit(args[1][0]))
+	if (!isdigit(args[1][0]))
 		exit(er(obj->data, "error: parse_em: arg not num", args[1]));
-	obj->material.emision = ft_atof(obj->data, args[1], 0);
+	obj->material.emision = parse_atof(obj->data, args[1], 0);
 	if (obj->material.emision > 1 || obj->material.emision < 0)
 		exit(er(obj->data, "error: parse_em: emision 0-1", args[1]));
 	if (args[2] && args[2][0] != '\n')
@@ -34,7 +34,7 @@ void	parse_cb(t_obj *obj, char **args)
 		exit(er(obj->data, "error: parse_cb: lacks arg", NULL));
 	if (obj->type != PL)
 		exit(er(obj->data, "error: parse_cb: just in pl", args[1]));
-	obj->material.board_scale = 1 - ft_atof(obj->data, args[1], 0);
+	obj->material.board_scale = 1 - parse_atof(obj->data, args[1], 0);
 	if (obj->material.board_scale > 0.991 || \
 			obj->material.board_scale < 0.001)
 		exit(er(obj->data, "error: parse_cb: board size 0.991-0.001", NULL));
@@ -55,10 +55,10 @@ void	parse_bm(t_obj *obj, char **args, int i)
 		exit(er(obj->data, "error: parse_bm: bm just in SP", NULL));
 	else if (!args[i] || !args[i + 1])
 		exit(er(obj->data, "error: parse_bm: lacks arg", NULL));
-	obj->material.bm_size = (unsigned int)ft_atoi_parse(obj->data, args[i], 0, 0);
+	obj->material.bm_size = (unsigned int)parse_atoi(obj->data, args[i], 0, 0);
 	if (obj->material.m_type != -1 && (!args[i] || !args[i + 1]))
 		exit(er(obj->data, "error: parse_bm: arg not valid", NULL));
-	tmp = ft_strtrim(args[i + 1], " \n\t");
+	tmp = str_trim(args[i + 1], " \n\t");
 	obj->material.bm_texture = mlx_load_png(tmp);
 	if (!obj->material.bm_texture)
 		exit(er(obj->data, "error: parse_bm: texture not valid", NULL));
@@ -81,10 +81,10 @@ void	parse_tx(t_obj *obj, char **args, int i)
 		exit(er(obj->data, "error: parse_tx: tx just in SP", NULL));
 	else if (!args[i] || !args[i + 1])
 		exit(er(obj->data, "error: parse_tx: lacks arg", NULL));
-	obj->material.tx_size = (unsigned int)ft_atoi_parse(obj->data, args[i], 0, 0);
+	obj->material.tx_size = (unsigned int)parse_atoi(obj->data, args[i], 0, 0);
 	if (obj->material.m_type != -1 && (!args[i] || !args[i + 1]))
 		exit(er(obj->data, "error: parse_tx: arg not valid", NULL));
-	tmp = ft_strtrim(args[i + 1], " \n\t");
+	tmp = str_trim(args[i + 1], " \n\t");
 	obj->material.texture = mlx_load_png(tmp);
 	if (!obj->material.texture)
 		exit(er(obj->data, "error: parse_tx: bm not valid", NULL));
@@ -111,7 +111,7 @@ void	extra_functionalities(t_obj *obj, char *tmp)
 		free(str);
 		return ;
 	}
-	obj->data->args = ft_split(str, ' ');
+	obj->data->args = str_split(str, ' ');
 	args = obj->data->args;
 	obj->material.m_type = type_extra_func(args[0]);
 	if (obj->material.m_type == GL && obj->type == GL)
@@ -127,6 +127,6 @@ void	extra_functionalities(t_obj *obj, char *tmp)
 		parse_bm(obj, args, 1);
 	else if (obj->material.m_type == TX)
 		parse_tx(obj, args, 1);
-	ft_free_willy(args);
+	free_strs(args);
 	free(str);
 }

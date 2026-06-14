@@ -15,6 +15,7 @@
 
 # include <pthread.h>
 # include "libvct.h"
+# include "util.h"
 # include "../lib/MLX42/include/MLX42/MLX42.h"
 
 typedef enum item_type

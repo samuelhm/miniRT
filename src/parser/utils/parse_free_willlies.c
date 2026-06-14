@@ -12,24 +12,6 @@
 
 #include "miniRT.h"
 
-char	**ft_free_willy(char **cmd)
-{
-	int		i;
-
-	i = 0;
-	if (!cmd)
-		return (NULL);
-	while (cmd[i])
-	{
-		free(cmd[i]);
-		cmd[i] = NULL;
-		i++;
-	}
-	free(cmd);
-	cmd = NULL;
-	return (NULL);
-}
-
 static void	free_willy_obj(t_data *data)
 {
 	t_obj		*obj;
