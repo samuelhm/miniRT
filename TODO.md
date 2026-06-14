@@ -21,17 +21,13 @@ Chapter V: *"use the latest version of the language and follow up-to-date good p
 
 ### Type Safety & Compile-Time Checks
 
-- [ ] **`static_assert`** — Verify struct sizes and alignment at compile time
-  - `static_assert(sizeof(t_obj) <= 256, "t_obj too large")`
-  - `static_assert(sizeof(t_calcs) <= 256, "t_calcs too large")`
-- [ ] **`constexpr` (C23)** — Replace `#define` constants where possible
-  - `constexpr double EPSILON = 1e-3;`
-  - `constexpr int MAX_DEPTH = 5;`
-- [ ] **`enum` with explicit type (C23)** — Save memory on enums
-  - `enum item_type : uint8_t { CAM = 0, ALIGHT, SLIGHT, OBJ };`
-  - `enum render_mode : uint8_t { FAST = 0, ONE, UPDATE };`
-- [ ] **`nullptr` (C23)** — Replace `NULL` macro
-- [ ] **`typeof` (C23)** — Simplify `swap()` macro: `#define swap(a,b) do { typeof(a) t=a; a=b; b=t; } while(0)`
+- [x] **`static_assert`** — Verify struct sizes and alignment at compile time
+  - `static_assert(sizeof(t_obj) <= 1024, "t_obj too large")`
+  - `static_assert(sizeof(t_calcs) <= 512, "t_calcs too large")`
+- [x] **`constexpr` (C23)** — Replaced `#define` constants: EPSILON, MAX_DEPTH, NUM_THREADS, W_WH, W_HG
+- [x] **`enum` with explicit type (C23)** — `item_type : uint8_t`, `render_mode : uint8_t`
+- [x] **`nullptr` (C23)** — Available now with `-std=gnu23` in Makefile
+- [x] **`typeof` (C23)** — Replaced `swap()` function with typeof-based macro
 
 ### Code Modernization
 

@@ -19,7 +19,7 @@
 # define BLACK 0xFF000000
 
 typedef unsigned char	t_uchar;
-# define EPSILON 1e-3
+constexpr double	EPSILON = 1e-3;
 # ifndef M_PI
 #  define M_PI 3.14159265358979323846
 # endif
@@ -31,7 +31,7 @@ typedef unsigned char	t_uchar;
 # define G_WEIGHT 0.7
 # define L_WEIGHT 0.3
 
-# define MAX_DEPTH 5
+constexpr int	MAX_DEPTH = 5;
 
 # define FLT_MAX 3.40282347e+38F
 
@@ -258,6 +258,5 @@ t_v3					random_in_hemisphere(t_v3 normal);
 double					*generate_uv(int x, int y);
 uint32_t				**average_samples(t_data *data, uint32_t **sample1,
 							uint32_t **sample2, double w);
-void					swap(double *a, double *b);
 
 #endif

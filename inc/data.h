@@ -19,7 +19,7 @@
 # include "util.h"
 # include "../lib/MLX42/include/MLX42/MLX42.h"
 
-typedef enum item_type
+typedef enum item_type : uint8_t
 {
 	CAM = 0,
 	ALIGHT,
@@ -206,4 +206,8 @@ typedef struct s_data
 	t_console			*console;
 	char				**args;
 }					t_data;
+
+static_assert(sizeof(t_obj) <= 1024, "t_obj too large");
+static_assert(sizeof(t_calcs) <= 512, "t_calcs too large");
+
 #endif

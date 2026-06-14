@@ -45,8 +45,8 @@
 # include "debug.h"
 # include "window.h"
 
-# define W_WH 1920
-# define W_HG 1080
+constexpr int W_WH = 1920;
+constexpr int W_HG = 1080;
 
 //		Obj
 # define SP 0
@@ -67,12 +67,12 @@
 # define TX 6 // Textures
 # define MAT_DEFAULT -1 // Default diffuse
 
-//		Renders
-# define FAST 0
-# define ONE 1
-# define UPDATE 2
+// Renders
+enum render_mode : uint8_t { FAST = 0, ONE, UPDATE };
 
 typedef long long	t_ll;
+
+#define swap(a, b) do { typeof(*(a)) t = *(a); *(a) = *(b); *(b) = t; } while (0)
 
 // Thread-local RNG
 void		tls_rng_seed(uint32_t seed);

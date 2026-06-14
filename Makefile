@@ -68,10 +68,10 @@ XFLAGS			:= -Wshadow -Wunused -Wformat=2 -Wundef \
 					-fstrict-aliasing
 
 # Release flags
-CFLAGS			:= -O3 -flto -march=native -pthread $(WFLAGS) $(XFLAGS)
+CFLAGS			:= -std=gnu23 -O3 -flto -march=native -pthread $(WFLAGS) $(XFLAGS)
 
 # Debug flags
-DFLAGS			:= -g3 -O0 -pthread $(WFLAGS) $(XFLAGS) \
+DFLAGS			:= -std=gnu23 -g3 -O0 -pthread $(WFLAGS) $(XFLAGS) \
 					-fsanitize=address,undefined,leak,bounds
 
 LDFLAGS			:= -flto -pthread
