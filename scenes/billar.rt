@@ -1,0 +1,45 @@
+# Billar — Formación de salida (8-ball rack)
+# Sólidas: difuso | Rayadas: metálico suave | Mesa: cuadrícula verde
+A	0.32	80,80,80
+L	-12,5,21.464 0.12 255,80,180
+L	12,5,21.464 0.12 80,255,180
+C	-0.5,4.5,-5.0 0,-0.46,0.89 70
+# Suelo — verde liso (felt de mesa de billar)
+pl	0,-5.25,0 0,1,0 34,100,34
+# Bola 8 flotante arriba a la izquierda
+sp	-8,10,21 2 20,20,20
+# Emisiva encima del centro del rack
+sp	0,2,21.464 2 255,255,255 em 0.25
+# ══════════════════════════════════════════════
+# Formación triangular (15 bolas, diámetro=2.0)
+#        Fila 0 (ápice) z=18
+#       Fila 1          z=19.732
+#      Fila 2 (★8)     z=21.464
+#     Fila 3            z=23.196
+#    Fila 4 (base)      z=24.928
+# ══════════════════════════════════════════════
+# Fila 0 — ápice: Bola 1 (amarilla sólida)
+sp	0,-4.5,18 2 255,200,0
+# Fila 1: Bola 9 (amarilla rayada) | Bola 2 (azul sólida)
+sp	-1,-4.5,19.732 2 255,200,0 mt
+sp	1,-4.5,19.732 2 0,0,200
+# Fila 2: Bola 3 (roja sólida) | ★ Bola 8 (negra) | Bola 10 (azul rayada)
+sp	-2,-4.5,21.464 2 220,0,0
+sp	0,-4.5,21.464 2 20,20,20
+sp	2,-4.5,21.464 2 0,0,200 mt
+# Fila 3: Bola 11 (roja rayada) | Bola 4 (púrpura sólida) | Bola 12 (púrpura rayada) | Bola 5 (naranja sólida)
+sp	-3,-4.5,23.196 2 220,0,0 mt
+sp	-1,-4.5,23.196 2 100,0,150
+sp	1,-4.5,23.196 2 100,0,150 mt
+sp	3,-4.5,23.196 2 255,130,0
+# Fila 4 — base: Bola 6 (verde sólida) | Bola 13 (naranja rayada) | Bola 7 (granate sólida) | Bola 14 (verde rayada) | Bola 15 (granate rayada)
+sp	-4,-4.5,24.928 2 0,150,0
+sp	-2,-4.5,24.928 2 255,130,0 mt
+sp	0,-4.5,24.928 2 120,0,0
+sp	2,-4.5,24.928 2 0,150,0 mt
+sp	4,-4.5,24.928 2 120,0,0 mt
+# ══════════════════════════════════════════════
+# Bola blanca (tiro) — delante del triángulo
+sp	0,-4.5,10 2 240,240,240
+# Taco de billar — cilindro fino apuntando a la bola blanca
+cy	0,-2,-2 0,-0.232,0.973 0.3 10.8 139,90,43

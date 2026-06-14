@@ -47,9 +47,9 @@ void	console_click_pos(t_data *data, t_btn_name clicked)
 static void	console_click_cam_others(t_data *data, t_btn_name clicked)
 {
 	if (clicked == fov_min)
-		data->cam->fov = fmax(data->cam->fov - CAMPLUS, 0);
+		data->cam->fov = fmax(data->cam->fov - 1, 0);
 	else if (clicked == fov_max)
-		data->cam->fov = fmin(180, data->cam->fov + CAMPLUS);
+		data->cam->fov = fmin(180, data->cam->fov + 1);
 	else if (clicked == row8l)
 		data->cam->aperture = fmaxf(data->cam->aperture - CAMAPERTURE, 0);
 	else if (clicked == row8r)
@@ -79,7 +79,5 @@ void	click_cam_console(t_data *data, t_btn_name clicked)
 	console_click_pos(data, clicked);
 	console_click_axis(data, clicked);
 	console_click_cam_others(data, clicked);
-	free_after_click(data);
-	init_all(data);
 	data->render_sel = render_fast;
 }

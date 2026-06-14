@@ -73,7 +73,6 @@ void	click_slight_console(t_data *data, t_slight *slight, \
 		slight->br = fmaxf(0, slight->br - LIGHTPLUS);
 	else if (clicked == row4r)
 		slight->br = fminf(1, slight->br + LIGHTPLUS);
-	free_after_click(data);
-	init_all(data);
+	init_light(data);
 	data->render_sel = render_fast;
 }

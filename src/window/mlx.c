@@ -29,9 +29,9 @@ bool	press_keyhook_normi(t_data *data, keys_t key, bool mode)
 void	key_cam_move(t_data *data, mlx_key_data_t keydata)
 {
 	if (keydata.key == MLX_KEY_DOWN && keydata.modifier == MLX_CONTROL)
-		data->cam->fov = fmax(data->cam->fov - CAMPLUS, 0);
+		data->cam->fov = fmax(data->cam->fov - 1, 0);
 	else if (keydata.key == MLX_KEY_UP && keydata.modifier == MLX_CONTROL)
-		data->cam->fov = fmin(180, data->cam->fov + CAMPLUS);
+		data->cam->fov = fmin(180, data->cam->fov + 1);
 	else if (keydata.key == MLX_KEY_UP)
 		data->cam->pos.y += CAMPLUS;
 	else if (keydata.key == MLX_KEY_DOWN)

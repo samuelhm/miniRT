@@ -13,20 +13,42 @@
 #include "rt.h"
 #include "threads.h"
 
+static void	trace_fast_light(t_rgb *result, t_obj *obj, t_ray *ray,
+		t_data *data)
+{
+	t_slight	*slight;
+	t_v3		light_dir;
+	double		intensity;
+
+	slight = data->s_light;
+	while (slight)
+	{
+		light_dir = normalize(vsub(slight->pos, ray->point));
+		intensity = fmax(0.0, dot(light_dir, ray->normal));
+		if (intensity > 0.0)
+			difuse_light(result, slight, obj, intensity);
+		slight = slight->next;
+	}
+}
+
 uint32_t	trace_fast(t_ray ray, t_data *data)
 {
 	double	t_min;
 	t_obj	*closest_obj;
-	t_rgb	alight;
+	t_rgb	result;
 
-	alight.r = 50;
-	alight.g = 50;
-	alight.b = 50;
+	result.r = 50;
+	result.g = 50;
+	result.b = 50;
 	t_min = INFINITY;
 	closest_obj = find_closest(data, &ray, &t_min);
 	if (!closest_obj)
 		return (BLACK);
-	return (get_colour(color_add(alight, closest_obj->a_rgb)));
+	result = color_add(result, closest_obj->a_rgb);
+	if (closest_obj->material.m_type == EM)
+		result = apply_self_emission(closest_obj, result);
+	trace_fast_light(&result, closest_obj, &ray, data);
+	return (get_colour(result));
 }
 
 static void	fill_block(t_thread_data *td, int y, int x, uint32_t color)
@@ -35,10 +57,10 @@ static void	fill_block(t_thread_data *td, int y, int x, uint32_t color)
 	int	j;
 
 	i = 0;
-	while (i < 10)
+	while (i < 4)
 	{
 		j = 0;
-		while (j < 10)
+		while (j < 4)
 		{
 			if ((y + i) < td->data->y && (x + j) < td->data->x)
 				td->image[(y + i) * td->data->x + (x + j)] = color;
@@ -63,7 +85,7 @@ void	*cprocess_rows(void *arg)
 		x = 0;
 		while (x < td->data->x)
 		{
-			if ((y % 10) == 0 && (x % 10) == 0)
+			if ((y % 4) == 0 && (x % 4) == 0)
 			{
 				ray = generate_ray(td->data, td->vp, td->cam, x, y, 1);
 				color = trace_fast(ray, td->data);

@@ -81,7 +81,7 @@ t_obj	*find_closest(t_data *restrict data, t_ray *restrict ray,
 		else
 			fprintf(stderr, "FALLBACK MISS\n");
 	}
-	if (data->bvh_nodes && closest_obj && !g_dbg)
+	if (data->bvh_nodes && closest_obj && g_dbg)
 	{
 		static _Thread_local int	bvh_miss;
 		if (bvh_miss < 5)
@@ -155,8 +155,7 @@ t_rgb	path_trace(t_ray *ray, t_data *data, int depth)
 	direct_light = compute_direct_light(closest, data, ray, rgbdefine(0, 0, 0));
 	if (closest->material.m_type == EM)
 		base_color = apply_self_emission(closest, base_color);
-	if (data->sample_mode && (closest->material.m_type == MAT_DEFAULT
-			|| closest->material.m_type == MT))
+	if (data->sample_mode && closest->material.m_type == MAT_DEFAULT)
 		indirect_light = rgbdefine(0, 0, 0);
 	else
 		indirect_light = path_trace_type(ray, closest, data, depth);
@@ -174,13 +173,16 @@ uint32_t	trace_ray(t_ray ray, t_data *data)
 	closest_obj = find_closest(data, &ray, &t_min);
 	if (!closest_obj)
 	{
-		static _Thread_local int	miss_n;
-		if (miss_n < 10)
+		if (g_dbg)
 		{
-			miss_n++;
-			fprintf(stderr, "MISS o(%.2f,%.2f,%.2f) d(%.6f,%.6f,%.6f)\n",
-				ray.origin.x, ray.origin.y, ray.origin.z,
-				ray.direction.x, ray.direction.y, ray.direction.z);
+			static _Thread_local int	miss_n;
+			if (miss_n < 10)
+			{
+				miss_n++;
+				fprintf(stderr, "MISS o(%.2f,%.2f,%.2f) d(%.6f,%.6f,%.6f)\n",
+					ray.origin.x, ray.origin.y, ray.origin.z,
+					ray.direction.x, ray.direction.y, ray.direction.z);
+			}
 		}
 		return (BLACK);
 	}
