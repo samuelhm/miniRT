@@ -21,7 +21,7 @@ t_v3	doubles_acl_parse(t_data *data, char *str, int i)
 	while (str[i] && IS_SPACE(str[i]))
 		i++;
 	if (str[i] && !IS_DIGIT(str[i]) && str[i] != '-')
-		exit(er(data, "error: doubles_acl_parse: map parsing:\n", str));
+		er(data, "error: doubles_acl_parse: map parsing:\n", str);
 	x = parse_atof(data, str, i);
 	i = skip_double(data, str, i, 1);
 	y = parse_atof(data, str, i);

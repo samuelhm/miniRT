@@ -23,7 +23,7 @@ static bool	cap_i(t_ray *ray, t_obj *cap, double *result, double *numerator)
 	return (*result > EPSILON);
 }
 
-bool	hit_cap(t_data *data, t_ray *ray, t_obj *cap, double *t)
+bool	hit_cap(t_data *restrict data, t_ray *restrict ray, t_obj *restrict cap, double *restrict t)
 {
 	double	result;
 	double	numerator;

@@ -24,7 +24,7 @@ void	init_data(t_data **data)
 {
 	*data = calloc(1, sizeof(t_data));
 	if (!(*data))
-		exit(er(NULL, "error: failed to allocate memory", NULL));
+		er(NULL, "error: failed to allocate memory", NULL);
 	(*data)->aa = -1;
 	(*data)->x = W_WH;
 	(*data)->y = W_HG;

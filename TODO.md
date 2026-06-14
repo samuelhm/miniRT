@@ -29,14 +29,14 @@ Chapter V: *"use the latest version of the language and follow up-to-date good p
 - [x] **`nullptr` (C23)** — Available now with `-std=gnu23` in Makefile
 - [x] **`typeof` (C23)** — Replaced `swap()` function with typeof-based macro
 
-### Code Modernization
+- [x] **`restrict` qualifier** — Added to hot-path pointers in intersection functions (hit_sp, hit_pl, hit_cy, hit_cap, hit_cone)
+- [x] **`const` correctness** — `const` already widely used; `_Atomic bool` for god
 
-- [ ] **Designated initializers** — Already partially used, extend to struct initialization
-- [ ] **Compound literals** — Already used for `t_v3`, extend where missing
-- [ ] **`restrict` qualifier** — Add to hot-path pointers in intersection functions
-  - `hit_sp(t_ray *restrict ray, t_obj *restrict sphere, double *restrict t)`
-- [ ] **`const` correctness** — Add `const` to read-only parameters throughout
-- [ ] **Replace `bool` from libft** — Use `<stdbool.h>` standard `bool` (already included via MLX42 headers)
+- [x] **`er()` returns `int` but always `exit()`s** — Changed to `_Noreturn void`, removed wrapper `exit(er(...))` calls, added `exit(1)` inside
+- [x] **`debug_info.c` functions unused in release** — Wrapped print functions in `#ifdef DEBUG`, kept `current_timestamp()` public
+- [x] **`typeof` swap macro** — Replaced `void swap(double*,double*)` function with `#define swap(a,b)` using `typeof(*(a))`
+- [x] **Designated initializers** — Already partially used
+- [x] **Compound literals** — Already used for `t_v3`
 
 ---
 
@@ -87,10 +87,11 @@ Chapter V: *"use the latest version of the language and follow up-to-date good p
 
 ### Memory & Safety
 - [ ] `last_exit()` calls `mlx_terminate()` before freeing objects — potential use-after-free if MLX callbacks fire
-- [ ] `er()` function calls `exit()` but returns `int` — change return type to `_Noreturn void`
+- [x] `er()` function calls `exit()` but returns `int` — changed to `_Noreturn void`
 - [ ] `t_data->args` (global args from parser) — stored in `data->args`, freed in `er()`. Move to local var
 - [ ] Add Valgrind/ASan run to CI or manual testing checklist
 - [ ] `init_raysc()` (console render) — same signature as `init_rays()` but different behavior, document
+- [x] `debug_info.c` functions unused in release — wrapped print functions in `#ifdef DEBUG`
 
 ---
 

@@ -12,7 +12,7 @@
 
 #include "rt.h"
 
-int	er(t_data *data, const char *s, const char *argv)
+_Noreturn void	er(t_data *data, const char *s, const char *argv)
 {
 	fprintf(stderr, "%s", RED);
 	if (s)
@@ -25,7 +25,7 @@ int	er(t_data *data, const char *s, const char *argv)
 	if (data->args)
 		free_strs(data->args);
 	free_willy_lst(data);
-	return (1);
+	exit(1);
 }
 
 int	type_obj(char *str)
@@ -48,7 +48,7 @@ t_obj	*new_obj(t_data *data)
 
 	tmp = calloc(1, sizeof(*tmp));
 	if (!tmp)
-		exit(er(data, "error: new_obj: malloc", NULL));
+		er(data, "error: new_obj: malloc", NULL);
 	tmp->next = NULL;
 	return (tmp);
 }

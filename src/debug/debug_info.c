@@ -13,6 +13,18 @@
 #include "rt.h"
 #include "render.h"
 
+long long	current_timestamp(void)
+{
+	struct timeval	te;
+	long long		milliseconds;
+
+	gettimeofday(&te, NULL);
+	milliseconds = te.tv_sec * 1000LL + te.tv_usec / 1000;
+	return (milliseconds);
+}
+
+#ifdef DEBUG
+
 void	print_t_rgb(const char *label, t_rgb rgb)
 {
 	printf("%s -> r: %u, g: %u, b: %u\n", label, rgb.r, rgb.g, rgb.b);
@@ -22,16 +34,6 @@ void	print_t_v3(const char *label, t_v3 vec)
 {
 	printf("%s -> x: %.2f, y: %.2f, z: %.2f\n", label, vec.x, \
 														vec.y, vec.z);
-}
-
-long long	current_timestamp(void)
-{
-	struct timeval	te;
-	long long		milliseconds;
-
-	gettimeofday(&te, NULL);
-	milliseconds = te.tv_sec * 1000LL + te.tv_usec / 1000;
-	return (milliseconds);
 }
 
 void	print_objects(t_obj *obj)
@@ -55,3 +57,5 @@ void	print_objects(t_obj *obj)
 	else
 		printf("Objects: NULL\n");
 }
+
+#endif

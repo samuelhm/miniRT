@@ -28,7 +28,7 @@ bool	calc_quad_sphere(t_obj *sphere, t_ray ray, t_quadratic *quad)
 	return (true);
 }
 
-bool	hit_sp(t_ray *ray, t_obj *sphere, double *t)
+bool	hit_sp(t_ray *restrict ray, t_obj *restrict sphere, double *restrict t)
 {
 	t_quadratic	quad;
 
@@ -64,7 +64,7 @@ static bool	side_mode(t_obj *plane, t_v3 local_hit)
 	return (true);
 }
 
-bool	hit_pl(t_data *data, t_ray *ray, t_obj *plane, double *t)
+bool	hit_pl(t_data *restrict data, t_ray *restrict ray, t_obj *restrict plane, double *restrict t)
 {
 	double	denom;
 	double	numer;

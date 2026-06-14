@@ -20,20 +20,20 @@ void	correct_file(t_data *data, char *name)
 	while (name[i] != '.' && name[i])
 		i++;
 	if (name[i + 3] || !name[i - 1])
-		exit(er(data, "error: correct_file: wrong file name -> ", name));
+		er(data, "error: correct_file: wrong file name -> ", name);
 	else if (name[i] == '.' && name[i + 1] == 'r' && name[i + 2] == 't')
 		return ;
-	exit(er(data, "error: correct_file: wrong file name -> ", name));
+	er(data, "error: correct_file: wrong file name -> ", name);
 }
 
 void	validate_args_and_open(t_data *data, int ac, char **av, int *fd)
 {
 	if (ac != 2)
-		exit(er(data, "error: 2 args needed", NULL));
+		er(data, "error: 2 args needed", NULL);
 	correct_file(data, av[1]);
 	*fd = open(av[1], O_RDONLY);
 	if (*fd < 0)
-		exit(er(data, "error: fd failed", NULL));
+		er(data, "error: fd failed", NULL);
 }
 
 void	parse(t_data *data, int fd)
@@ -53,7 +53,7 @@ void	parse(t_data *data, int fd)
 			continue ;
 		type = type_obj(str);
 		if (type > 7)
-			exit(er(data, "error: parse: wrong map: obj type", str));
+			er(data, "error: parse: wrong map: obj type", str);
 		else if ((type <= 2 || type == CO || type == CU) && IS_SPACE(str[2]))
 			objadd_back(&data->obj, create_obj(data, str, type));
 		create_alight(data, str, type);

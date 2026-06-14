@@ -20,7 +20,7 @@ void	create_alight(t_data *data, char *str, int type)
 	if (type != 3 || (str[1] && !IS_SPACE(str[1])))
 		return ;
 	if (data->a_light)
-		exit(er(data, "error: create_alight: +	1 ambient light", str));
+		er(data, "error: create_alight: +	1 ambient light", str);
 	data->a_light = calloc(1, sizeof(t_alight));
 	data->a_light->exist = 1;
 	data->a_light->br = parse_atof(data, str, 1);
@@ -41,16 +41,16 @@ void	cam_blur(t_data *data, char *str2, char *tmp)
 	{
 		data->cam->focus_dist = parse_atof(data, tmp, 0);
 		if (data->cam->focus_dist < 0)
-			exit(er(data, "error: cam_blur: focus distance negative", NULL));
+			er(data, "error: cam_blur: focus distance negative", NULL);
 		str2 = str_sub(tmp, (unsigned int)skip_double(data, tmp, 0, 0), strlen(tmp));
 		data->cam->aperture = parse_atof(data, str2, 0);
 		if (str2)
 			free(str2);
 		if (data->cam->aperture < 0 || data->cam->aperture > 25)
-			exit(er(data, "error: cam_blur: aperture >0", tmp));
+			er(data, "error: cam_blur: aperture >0", tmp);
 	}
 	else if (tmp[i] && !IS_SPACE(tmp[i]) && tmp[i] != '\n')
-		exit(er(data, "error: cam_blur: wrong data after fov", tmp));
+		er(data, "error: cam_blur: wrong data after fov", tmp);
 	else
 	{
 		data->cam->focus_dist = -1;
@@ -67,7 +67,7 @@ void	create_cam(t_data *data, char *str, int type)
 	if (type != 4 || (str[1] && !IS_SPACE(str[1])))
 		return ;
 	if (data->cam)
-		exit(er(data, "error: create_cam: more than 1 camera", NULL));
+		er(data, "error: create_cam: more than 1 camera", NULL);
 	data->cam = calloc(1, sizeof(t_cam));
 	data->cam->pos = doubles_acl_parse(data, str, 1);
 	tmp = str_sub(str, (unsigned int)skip_doubles(data, str, 0, 0), strlen(str));
@@ -107,7 +107,7 @@ void	create_slight(t_data *data, t_slight **s_light, char *str, int type)
 		return ;
 	new_light = calloc(1, sizeof(t_slight));
 	if (!new_light)
-		exit(er(data, "error: malloc failed for slight", NULL));
+		er(data, "error: malloc failed for slight", NULL);
 	new_light->pos = doubles_acl_parse(data, str, 1);
 	tmp[0] = str_sub(str, (unsigned int)skip_doubles(data, str, 0, 0), strlen(str));
 	new_light->br = parse_atof(data, tmp[0], 0);

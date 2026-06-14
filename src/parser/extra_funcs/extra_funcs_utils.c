@@ -61,9 +61,9 @@ void	parse_tx_and_bm(t_obj *obj, char **args, char *tmp, int i)
 	obj->material.bm_texture = mlx_load_png(tmp);
 	free(tmp);
 	if (!obj->material.bm_texture)
-		exit(er(obj->data, "error: parse_tx: texture not valid", NULL));
+		er(obj->data, "error: parse_tx: texture not valid", NULL);
 	else if (args[i + 5])
-		exit(er(obj->data, "error: parse_tx: wrong arg", NULL));
+		er(obj->data, "error: parse_tx: wrong arg", NULL);
 }
 
 void	parse_bm_and_tx(t_obj *obj, char **args, char *tmp, int i)
@@ -73,7 +73,7 @@ void	parse_bm_and_tx(t_obj *obj, char **args, char *tmp, int i)
 	obj->material.texture = mlx_load_png(tmp);
 	free(tmp);
 	if (!obj->material.texture)
-		exit(er(obj->data, "error: parse_bm: texture not valid", NULL));
+		er(obj->data, "error: parse_bm: texture not valid", NULL);
 	else if (args[i + 5])
-		exit(er(obj->data, "error: parse_bm: wrong arg", NULL));
+		er(obj->data, "error: parse_bm: wrong arg", NULL);
 }

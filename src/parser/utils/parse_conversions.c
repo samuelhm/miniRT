@@ -40,7 +40,7 @@ char	*doubles_parse(t_obj *obj, char *str, int i, int flag)
 	while (str[i] && IS_SPACE(str[i]))
 		i++;
 	if (str[i] && (!IS_DIGIT(str[i]) && str[i] != '-'))
-		exit(er(obj->data, "error: doubles_parse: map parsing:\n", str));
+		er(obj->data, "error: doubles_parse: map parsing:\n", str);
 	x = parse_atof(obj->data, str, i);
 	i = skip_double(obj->data, str, i, 1);
 	y = parse_atof(obj->data, str, i);
@@ -69,16 +69,16 @@ int	parse_atoi(t_data *data, char *str, int i, int flag)
 	else if (str[i] == '-')
 		sign = -sign;
 	if (flag == 2 && (!IS_DIGIT(str[i]) || (str[i + 1] && str[i + 2])))
-		exit(er(data, "error: atoi: str invalid\n", NULL));
+		er(data, "error: atoi: str invalid\n", NULL);
 	if (str[i] == '-' || str[i] == '+')
 		i++;
 	if (!IS_DIGIT(str[i]))
-		exit(er(data, "error: atoi: not a digit\n", str));
+		er(data, "error: atoi: not a digit\n", str);
 	while (str[i] >= '0' && str[i] <= '9')
 	{
 		res = (res * 10) + (str[i] - 48);
 		if (flag == 3 && (res > 255 || sign == -1))
-			exit(er(data, "error: parse_atoi: color not 0-255\n", str));
+			er(data, "error: parse_atoi: color not 0-255\n", str);
 		i++;
 	}
 	return (res * sign);
@@ -99,7 +99,7 @@ double	parse_atof_normi(t_data *data, char *str, int i)
 		i++;
 		if (str[i] && !(str[i] == ',' || str[i] == '.' || IS_SPACE(str[i])
 				|| IS_DIGIT(str[i])))
-			exit(er(data, "wrong char between nums", str));
+			er(data, "wrong char between nums", str);
 	}
 	return (fraction);
 }
@@ -124,7 +124,7 @@ double	parse_atof(t_data *data, char *str, int i)
 		i++;
 		if (str[i] && !(str[i] == ',' || str[i] == '.' || IS_SPACE(str[i])
 				|| IS_DIGIT(str[i])))
-			exit(er(data, "wrong char between nums", str));
+			er(data, "wrong char between nums", str);
 	}
 	if (str[i] == '.' && (str[i] != ',' || IS_SPACE(str[i]) != 1))
 		return ((res + parse_atof_normi(data, str, ++i)) * sign);

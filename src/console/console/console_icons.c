@@ -89,7 +89,7 @@ void	set_resize_buton_images(t_data *data, t_img_btn *img_btn)
 	img_btn->iconst[13] = mlx_load_png("./assets/consol/EM_SELECTED.png");
 	while (++i < 14)
 		if (!img_btn->iconst[i])
-			exit(er(data, "error: set_resize_buton_images: !textura", NULL));
+			er(data, "error: set_resize_buton_images: !textura", NULL);
 	set_resize_buton_images_normi(data, icons, img_btn);
 }
 

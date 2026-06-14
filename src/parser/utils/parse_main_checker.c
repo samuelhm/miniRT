@@ -20,6 +20,6 @@ void	check_params(t_data *data)
 	if (obj)
 		check_obj(obj);
 	else
-		exit(er(data, "error: check_params: obj not exist", NULL));
+		er(data, "error: check_params: obj not exist", NULL);
 	check_params_acl(data, data->cam);
 }

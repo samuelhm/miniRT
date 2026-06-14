@@ -70,7 +70,7 @@ double	set_ray_t(t_ray *ray, t_obj *cy, double *t, t_quadratic quad)
 	return (t_min);
 }
 
-bool	hit_cy(t_ray *ray, t_obj *cy, double *t)
+bool	hit_cy(t_ray *restrict ray, t_obj *restrict cy, double *restrict t)
 {
 	t_quadratic	quad;
 	double		t_min;

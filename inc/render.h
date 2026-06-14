@@ -185,13 +185,15 @@ void					init_mr(t_obj *obj);
 void					set_cy_axis(t_quadratic *quad, t_obj *cy, t_ray *ray);
 double					set_ray_t(t_ray *ray, t_obj *cy, double *t,
 							t_quadratic quad);
-bool					hit_cy(t_ray *ray, t_obj *cy, double *t);
+bool					hit_cy(t_ray *restrict ray, t_obj *restrict cy,
+							double *restrict t);
 //		caps
-bool					hit_cap(t_data *data, t_ray *ray, t_obj *cap,
-							double *t);
+bool					hit_cap(t_data *restrict data, t_ray *restrict ray,
+							t_obj *restrict cap, double *restrict t);
 
 //		cone
-bool					hit_cone(t_ray *ray, t_obj *cone, double *t);
+bool					hit_cone(t_ray *restrict ray, t_obj *restrict cone,
+							double *restrict t);
 
 //		cube
 bool					create_cube(t_data *data, t_obj *cube);
@@ -207,9 +209,10 @@ t_rgb					phong(t_data *data, t_ray *ray, t_obj *obj);
 //		intersections
 bool					calc_quad_sphere(t_obj *sphere, t_ray ray,
 							t_quadratic *quad);
-bool					hit_sp(t_ray *ray, t_obj *sphere, double *t);
-bool					hit_pl(t_data *data, t_ray *ray, t_obj *plane,
-							double *t);
+bool					hit_sp(t_ray *restrict ray, t_obj *restrict sphere,
+							double *restrict t);
+bool					hit_pl(t_data *restrict data, t_ray *restrict ray,
+							t_obj *restrict plane, double *restrict t);
 
 //		viewport
 t_v3					calculate_up(t_v3 forward, t_v3 right);

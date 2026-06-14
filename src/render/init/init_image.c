@@ -18,12 +18,12 @@ void	init_mlx(t_data *data)
 {
 	data->mlx = mlx_init(data->x, data->y, "RT", true);
 	if (!data->mlx)
-		exit(er(data, "Failed to initialize MLX42", NULL));
+		er(data, "Failed to initialize MLX42", NULL);
 	data->img = mlx_new_image(data->mlx, data->x, data->y);
 	if (!data->img)
 	{
 		mlx_terminate(data->mlx);
-		exit(er(data, "Failed to create image\n", NULL));
+		er(data, "Failed to create image\n", NULL);
 	}
 }
 

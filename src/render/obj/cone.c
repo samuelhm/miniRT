@@ -52,7 +52,7 @@ static bool	cone_hit(t_ray *ray, t_obj *cone, double t_min, double *t)
 	return (true);
 }
 
-bool	hit_cone(t_ray *ray, t_obj *cone, double *t)
+bool	hit_cone(t_ray *restrict ray, t_obj *restrict cone, double *restrict t)
 {
 	t_v3		oc;
 	t_quadratic	quad;
