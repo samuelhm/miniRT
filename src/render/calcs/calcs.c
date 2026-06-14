@@ -12,8 +12,8 @@
 
 #include "rt.h"
 
-t_obj	*find_closest(t_data *data, t_ray *ray, t_obj *objs, \
-	double *t_min)
+t_obj	*find_closest(t_data *restrict data, t_ray *restrict ray,
+		t_obj *restrict objs, double *restrict t_min)
 {
 	t_obj	*closest_obj;
 	t_obj	*obj;

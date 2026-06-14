@@ -28,6 +28,7 @@ void	*process_rows(void *arg)
 	while (y < td->data->y)
 	{
 		x = 0;
+		__builtin_prefetch(&td->rays[y + NUM_THREADS], 0, 3);
 		while (x < td->data->x)
 		{
 			if (!td->data->god)

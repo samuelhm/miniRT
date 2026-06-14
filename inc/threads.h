@@ -21,10 +21,10 @@ constexpr int	NUM_THREADS = 6;
 
 typedef struct s_thread_data
 {
-	int			thread_id;
-	uint32_t	*image;
-	t_ray		**rays;
-	t_data		*data;
+	alignas(64) int	thread_id;
+	uint32_t		*image;
+	t_ray			**rays;
+	t_data			*data;
 }	t_thread_data;
 
 void	render_with_threads(t_data *data, t_ray **rays, uint32_t *image);

@@ -54,6 +54,12 @@ void	press_keyhook(t_data *data, mlx_key_data_t keydata)
 		if (data->img_last)
 			free_image_all(data, data->img_last);
 		data->img_last = NULL;
+		free(data->accum_r);
+		free(data->accum_g);
+		free(data->accum_b);
+		data->accum_r = NULL;
+		data->accum_g = NULL;
+		data->accum_b = NULL;
 		data->sample_count = 0;
 		if (!mode)
 		{
@@ -94,6 +100,12 @@ void	resise_w(int32_t width, int32_t height, void *param)
 	data->god = false;
 	data->img_last = NULL;
 	data->sample_count = 0;
+	free(data->accum_r);
+	free(data->accum_g);
+	free(data->accum_b);
+	data->accum_r = NULL;
+	data->accum_g = NULL;
+	data->accum_b = NULL;
 	if (data->last_render == ONE)
 		data->render_sel = render_one;
 	else if (data->last_render == FAST)

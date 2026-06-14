@@ -16,6 +16,9 @@ void	last_exit(t_data *data)
 {
 	lst_clear(&data->console->btn_list, del_image);
 	lst_clear(&data->console->click_lst, free);
+	free(data->accum_r);
+	free(data->accum_g);
+	free(data->accum_b);
 	if (data->img)
 		mlx_delete_image(data->mlx, data->img);
 	if (data->img_last)
