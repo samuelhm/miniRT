@@ -16,29 +16,31 @@
 
 void	*process_rows(void *arg)
 {
-	t_thread_data	*data;
-	int				idyx[3];
+	t_thread_data	*td;
+	int				thread_id;
+	int				y;
+	int				x;
 
-	data = (t_thread_data *)arg;
-	idyx[0] = data->thread_id;
-	idyx[1] = idyx[0];
-	while (idyx[1] < data->data->y)
+	td = (t_thread_data *)arg;
+	thread_id = td->thread_id;
+	y = thread_id;
+	while (y < td->data->y)
 	{
-		idyx[2] = -1;
-		while (++idyx[2] < data->data->x)
+		x = 0;
+		while (x < td->data->x)
 		{
-			pthread_mutex_lock(data->data->m_god);
-			if (!data->data->god)
+			pthread_mutex_lock(td->data->m_god);
+			if (!td->data->god)
 			{
-				pthread_mutex_unlock(data->data->m_god);
+				pthread_mutex_unlock(td->data->m_god);
 				pthread_exit(NULL);
 				return (NULL);
 			}
-			pthread_mutex_unlock(data->data->m_god);
-			data->image[idyx[1]][idyx[2]] = \
-					trace_ray(data->rays[idyx[1]][idyx[2]], data->data);
+			pthread_mutex_unlock(td->data->m_god);
+			td->image[y][x] = trace_ray(td->rays[y][x], td->data);
+			x++;
 		}
-		idyx[1] += NUM_THREADS;
+		y += NUM_THREADS;
 	}
 	pthread_exit(NULL);
 }

@@ -45,23 +45,24 @@ void	difuse_light(t_rgb *color, t_slight *slight, t_obj *obj, double inty)
 	}
 }
 
-bool	hit_all(t_data *data, t_ray *shdw_ray, t_obj *cr_obj, double *t)
+bool	hit_all(t_data *data, t_ray *shdw_ray, t_obj *cr_obj, double *t_min,
+		double max_dist)
 {
-	if (cr_obj->type == SP && hit_sp(shdw_ray, cr_obj, t) && \
-			(t[0] > EPSILON && *t < t[1]))
+	if (cr_obj->type == SP && hit_sp(shdw_ray, cr_obj, t_min) \
+			&& (*t_min > EPSILON && *t_min < max_dist))
 		return (true);
-	else if ((cr_obj->type == PL || cr_obj->type == SIDE) && \
-			hit_pl(data, shdw_ray, cr_obj, t) \
-			&& (t[0] > EPSILON && t[0] < t[1]))
+	else if ((cr_obj->type == PL || cr_obj->type == SIDE) \
+			&& hit_pl(data, shdw_ray, cr_obj, t_min) \
+			&& (*t_min > EPSILON && *t_min < max_dist))
 		return (true);
-	else if (cr_obj->type == CY && hit_cy(shdw_ray, cr_obj, t) \
-			&& (t[0] > EPSILON && t[0] < t[1]))
+	else if (cr_obj->type == CY && hit_cy(shdw_ray, cr_obj, t_min) \
+			&& (*t_min > EPSILON && *t_min < max_dist))
 		return (true);
-	else if (cr_obj->type == CAP && hit_cap(data, shdw_ray, cr_obj, t) \
-			&& (t[0] > EPSILON && t[0] < t[1]))
+	else if (cr_obj->type == CAP && hit_cap(data, shdw_ray, cr_obj, t_min) \
+			&& (*t_min > EPSILON && *t_min < max_dist))
 		return (true);
-	else if (cr_obj->type == CO && hit_cone(shdw_ray, cr_obj, t) \
-			&& (t[0] > EPSILON && t[0] < t[1]))
+	else if (cr_obj->type == CO && hit_cone(shdw_ray, cr_obj, t_min) \
+			&& (*t_min > EPSILON && *t_min < max_dist))
 		return (true);
 	return (false);
 }
@@ -69,10 +70,9 @@ bool	hit_all(t_data *data, t_ray *shdw_ray, t_obj *cr_obj, double *t)
 bool	data_shadow(t_data *data, t_ray *shw_ray, double max_dist, t_obj *self)
 {
 	t_obj	*cr_obj;
-	double	t[2];
+	double	t_min;
 
-	t[0] = INFINITY;
-	t[1] = max_dist;
+	t_min = INFINITY;
 	cr_obj = data->obj;
 	while (cr_obj)
 	{
@@ -81,7 +81,7 @@ bool	data_shadow(t_data *data, t_ray *shw_ray, double max_dist, t_obj *self)
 			cr_obj = cr_obj->next;
 			continue ;
 		}
-		if (hit_all(data, shw_ray, cr_obj, t))
+		if (hit_all(data, shw_ray, cr_obj, &t_min, max_dist))
 			return (true);
 		cr_obj = cr_obj->next;
 	}

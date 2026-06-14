@@ -79,10 +79,13 @@ t_rgb	compute_direct_light(t_obj *obj, t_data *data, \
 
 t_rgb	path_trace(t_ray *ray, t_data *data, int depth)
 {
-	t_obj		*closest;
-	t_rgb		dirb[4];
-	double		t;
-	t_v2		uv;
+	t_obj	*closest;
+	t_rgb	base_color;
+	t_rgb	direct_light;
+	t_rgb	indirect_light;
+	t_rgb	result;
+	double	t;
+	t_v2	uv;
 
 	t = INFINITY;
 	closest = find_closest(data, ray, data->obj, &t);
@@ -91,17 +94,16 @@ t_rgb	path_trace(t_ray *ray, t_data *data, int depth)
 		uv = calculate_uv(ray->point, closest);
 		return (texture_color(closest, uv));
 	}
-	if (pt_checks(closest, ray, dirb))
+	if (pt_checks(closest, ray, &base_color))
 		return (rgbdefine(0, 0, 0));
 	if (depth <= 0)
 		return (rgbdefine(0, 0, 0));
-	dirb[0] = compute_direct_light(closest, data, ray, dirb[3]);
-	dirb[1] = rgbdefine(0, 0, 0);
+	direct_light = compute_direct_light(closest, data, ray, base_color);
 	if (closest->material.m_type == EM)
-		dirb[3] = apply_self_emission(closest, dirb[3]);
-	dirb[1] = path_trace_type(ray, closest, data, depth);
-	dirb[2] = color_add(color_add(dirb[3], dirb[0]), dirb[1]);
-	return (dirb[2]);
+		base_color = apply_self_emission(closest, base_color);
+	indirect_light = path_trace_type(ray, closest, data, depth);
+	result = color_add(color_add(base_color, direct_light), indirect_light);
+	return (result);
 }
 
 uint32_t	trace_ray(t_ray ray, t_data *data)

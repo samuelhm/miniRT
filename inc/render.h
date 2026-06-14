@@ -94,7 +94,7 @@ void					compute_emissive_light(t_obj *emitter, t_ray *ray,
 							t_rgb *color, t_data *data);
 void					iter_lights(t_data *data, t_obj *obj, t_ray *ray,
 							t_direct d);
-bool					pt_checks(t_obj *closest, t_ray *ray, t_rgb *dirb);
+bool					pt_checks(t_obj *closest, t_ray *ray, t_rgb *base_color);
 
 //		calcs_utils2
 uint32_t				texture_weight(t_rgb c1, t_rgb c2);

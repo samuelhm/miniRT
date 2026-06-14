@@ -89,14 +89,13 @@ void	iter_lights(t_data *data, t_obj *obj, t_ray *ray, t_direct d)
 	}
 }
 
-bool	pt_checks(t_obj *closest, t_ray *ray, t_rgb *dirb)
+bool	pt_checks(t_obj *closest, t_ray *ray, t_rgb *base_color)
 {
 	if (!closest)
 		return (true);
-	if (closest->type == PL && \
-		closest->material.board_scale != -1)
-		dirb[3] = checkerboard_color(closest, ray->point);
+	if (closest->type == PL && closest->material.board_scale != -1)
+		*base_color = checkerboard_color(closest, ray->point);
 	else
-		dirb[3] = closest->a_rgb;
+		*base_color = closest->a_rgb;
 	return (false);
 }

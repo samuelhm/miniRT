@@ -66,27 +66,29 @@ bool	side_mode(t_obj *plane, t_v3 local_hit)
 
 bool	hit_pl(t_data *data, t_ray *ray, t_obj *plane, double *t)
 {
-	double	dnrxy[3];
-	t_v3	hits_lp[2];
+	double	denom;
+	double	numer;
+	double	result;
+	t_v3	hit_point;
+	t_v3	local_point;
 
-	dnrxy[0] = dot(ray->direction, plane->axis);
-	if (fabs(dnrxy[0]) < EPSILON)
+	denom = dot(ray->direction, plane->axis);
+	if (fabs(denom) < EPSILON)
 		return (false);
-	dnrxy[1] = plane->calcs.numerator;
+	numer = plane->calcs.numerator;
 	if (!v3_compare(data->cam->pos, ray->origin))
-		dnrxy[1] = dot(vsub(plane->pos, ray->origin), plane->axis);
-	dnrxy[2] = dnrxy[1] / dnrxy[0];
-	if (dnrxy[2] <= EPSILON || dnrxy[2] >= *t)
+		numer = dot(vsub(plane->pos, ray->origin), plane->axis);
+	result = numer / denom;
+	if (result <= EPSILON || result >= *t)
 		return (false);
-	hits_lp[1] = vadd(ray->origin, vmul(dnrxy[2], ray->direction));
-	hits_lp[0] = vsub(hits_lp[1], plane->pos);
-	if (plane->type == SIDE)
-		if (!side_mode(plane, hits_lp[0]))
-			return (false);
-	ray->point = hits_lp[1];
-	*t = dnrxy[2];
+	hit_point = vadd(ray->origin, vmul(result, ray->direction));
+	local_point = vsub(hit_point, plane->pos);
+	if (plane->type == SIDE && !side_mode(plane, local_point))
+		return (false);
+	ray->point = hit_point;
+	*t = result;
 	ray->normal = plane->axis;
-	if (dnrxy[0] > EPSILON)
+	if (denom > EPSILON)
 		ray->normal = plane->calcs.i_axis;
 	if (plane->material.bm_texture)
 		get_plane_normal(plane, ray->point, ray);
