@@ -6,10 +6,9 @@
 #    By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/19 12:51:14 by shurtado          #+#    #+#              #
-#    Updated: 2025/01/24 11:08:33 by shurtado         ###   ########.fr        #
+#    Updated: 2025/03/08 20:26:57 by erigonza         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
-
 NAME			:= rt
 
 SRC_D			:= ./src/
@@ -155,4 +154,6 @@ help:
 -include $(DOBJS:.o=.d)
 
 .PHONY:		all clean fclean re f c r libmlx libvct debug rebug help
+
+
 

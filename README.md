@@ -1,52 +1,54 @@
-# RT — Ray Tracer (42 School)
+### **MiniRT - 42 School's Mini Raytracer**
 
-A Monte Carlo path tracer written in C23 with physically-based rendering.
+MiniRT is a minimalist raytracer built as part of the 42 curriculum, designed to introduce students to the fundamentals of ray tracing and rendering. The project implements a simple yet efficient raytracing algorithm, simulating light interactions to generate realistic 3D images.
 
 ![image](https://github.com/user-attachments/assets/3687a228-0729-4f0b-bcaf-bfcdf1d3aae0)
+![image](https://github.com/user-attachments/assets/171d57e3-b5d8-4dc1-892b-1b3a1e70c017)
+![image](https://github.com/user-attachments/assets/01fdebfd-2ac0-4b51-896f-62ac30207002)
 
-### Build & Run
+### **Features**
 
-```bash
-make                    # release: -O3 -flto -march=native
-make debug              # debug: -g3 -O0 -fsanitize
-./rt scenes/figuras_pov.rt
-```
+✅ **Basic Rendering** – Ray-surface intersection for spheres, planes, and cylinders
 
-### Controls
+✅ **Lighting Models** – Diffuse, specular, and ambient lighting calculations
 
-| Key | Action |
-|-----|--------|
-| `SPACE` | Toggle single render / progressive accumulation |
-| `C` | Open/close interactive console |
-| `Click` | Open console + interact with buttons |
-| `Arrows` | Move camera (console mode) |
-| `Ctrl+↑/↓` | Zoom FOV (console mode) |
-| `ESC` | Quit |
+✅ **Shadows** – Cast shadows for more realistic depth perception
 
-### Features
+✅ **Camera & Viewport** – Adjustable camera positioning and field of view
 
-- **Path tracing** — 5 bounce Monte Carlo integration
-- **4 base geometries** — sphere, plane, cylinder, cone
-- **Cube** — decomposed into 6 bounded faces
-- **Materials** — diffuse, metallic (GGX), mirror, glass (Fresnel), emissive, checkerboard
-- **Textures** — PNG texture mapping with UV coordinates
-- **Bump mapping** — normal perturbation from height maps
-- **Depth of field** — thin-lens camera with configurable aperture & focus distance
-- **Lighting** — ambient + multiple point lights + emissive area lights
-- **Shadows** — shadow rays with occlusion testing
-- **Specular highlights** — Phong model per material
-- **BVH** — bounding volume hierarchy acceleration
-- **Multi-threading** — 6-thread pthread pool
-- **Progressive rendering** — sample accumulation over time
-- **Interactive console** — live edit camera, lights, objects, materials
-- **Scene files** — `.rt` format with material suffixes
+✅ **Multi-threading** – Parallel processing for faster rendering
 
-### Scene Examples
+✅ **Textures & Normal Mapping** – Adds detail to surfaces
 
-```bash
-./rt scenes/subject_1.rt      # 4 base objects + 2 lights
-./rt scenes/subject_2.rt      # Same scene, rotated camera
-./rt scenes/subject_3.rt      # Shadow mixing demo
-./rt scenes/03_glass_galore.rt # Glass + Fresnel
-./rt scenes/11_depth_of_field.rt # DOF demo
-```
+✅ **Transparency & Refraction** – Light bending effects for glass-like materials
+
+✅ **Different Materials** – Diffuse & Mirror & Glass & Metalic & Emision 
+
+### **Technologies Used**
+
+💻 **Language:** C
+
+🎨 **Graphics Library:** MLX42
+
+🧮 **Math Concepts:** Vectors, matrices, raytracing algorithms
+
+🚀 **Optimization:** Multi-threading for performance boosts
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/erikgonk/miniRT.git && cd miniRT
+
+2. Execute it:
+   ```bash
+   make && ./miniRT scenes/figuras_pov.rt
+   Change the scene if you please and Press SPACE to render it
+
+### 🛠️ Shortcuts
+
+**ENTER** – to render
+
+**ARROWS** – move camera
+
+**CONTROL + ARROW UP or DOWN** – zoom in and out (with FOV)
+
+**CLICK** (anythere in the screen) – Editing Mode 
