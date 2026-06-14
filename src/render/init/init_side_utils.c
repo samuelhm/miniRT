@@ -19,7 +19,7 @@ t_frame	set_frame(t_v3 axis)
 	frame.forward = normalize(axis);
 	frame.right = normalize(cross(vdefine(1, 0, 0), frame.forward));
 	if (vlength(frame.right) < EPSILON)
-		frame.right = normalize(cross(vdefine(1, 0, 0), frame.forward));
+		frame.right = normalize(cross(vdefine(0, 1, 0), frame.forward));
 	frame.up = normalize(cross(frame.forward, frame.right));
 	return (frame);
 }

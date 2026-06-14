@@ -59,9 +59,9 @@ void	check_obj_normi(t_obj *obj)
 	{
 		if (obj->cube_size.x < 1)
 			exit(er(obj->data, "error: check_obj_normi: size x <1", NULL));
-		else if (obj->cube_size.x < 1)
+		else if (obj->cube_size.y < 1)
 			exit(er(obj->data, "error: check_obj_normi: size y <1", NULL));
-		else if (obj->cube_size.x < 1)
+		else if (obj->cube_size.z < 1)
 			exit(er(obj->data, "error: check_obj_normi: size z <1", NULL));
 	}
 }

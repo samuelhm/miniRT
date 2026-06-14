@@ -60,5 +60,7 @@ bool	hit_cone(t_ray *ray, t_obj *cone, double *t)
 	cone_calc(ray, cone, &oc, &quad);
 	if (!solve_quadratic(&quad))
 		return (false);
-	return (cone_hit(ray, cone, quad.t1, t));
+	if (cone_hit(ray, cone, quad.t1, t))
+		return (true);
+	return (cone_hit(ray, cone, quad.t2, t));
 }

@@ -20,8 +20,8 @@ t_v3	random_in_hemisphere(t_v3 normal)
 	double		theta;
 	double		phi;
 
-	u1 = (double)rand() / FLT_MAX;
-	u2 = (double)rand() / FLT_MAX;
+	u1 = (double)rand() / RAND_MAX;
+	u2 = (double)rand() / RAND_MAX;
 	theta = acos(sqrt(1 - u1));
 	phi = 2 * M_PI * u2;
 	random_vector.x = sin(theta) * cos(phi);
