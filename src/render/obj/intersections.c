@@ -10,9 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/miniRT.h"
-#include "../inc/render.h"
-#include "../lib/libvector/libvct.h"
+#include "miniRT.h"
+#include "render.h"
+#include "libvct.h"
 
 bool	calc_quad_sphere(t_obj *sphere, t_ray ray, t_quadratic *quad)
 {

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/miniRT.h"
+#include "miniRT.h"
 
 uint32_t	texture_weight(t_rgb c1, t_rgb c2)
 {

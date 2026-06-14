@@ -10,9 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/miniRT.h"
-#include "../inc/render.h"
-#include "../lib/libvector/libvct.h"
+#include "miniRT.h"
+#include "render.h"
+#include "libvct.h"
 
 void	set_cy_axis(t_quadratic *quad, t_obj *cy, t_ray *ray)
 {

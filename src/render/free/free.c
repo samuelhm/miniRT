@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/miniRT.h"
-#include "../inc/render.h"
+#include "miniRT.h"
+#include "render.h"
 
 void	free_render(t_data *data, t_vp *vp, t_ray **rays)
 {

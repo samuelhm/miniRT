@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/miniRT.h"
+#include "miniRT.h"
 
 t_obj	*find_closest(t_data *data, t_ray *ray, t_obj *objs, \
 	double *t_min)

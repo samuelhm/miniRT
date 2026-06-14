@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/miniRT.h"
+#include "miniRT.h"
 
 t_rgb	glass_ray(t_ray *ray, t_obj *closest, t_data *data, int depth)
 {

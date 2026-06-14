@@ -10,9 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/miniRT.h"
-#include "../inc/render.h"
-#include "../lib/libvector/libvct.h"
+#include "miniRT.h"
+#include "render.h"
+#include "libvct.h"
 
 t_rgb	apply_al(t_rgb obj_color, t_alight *a_light)
 {
