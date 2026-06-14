@@ -12,7 +12,7 @@
 
 #include "miniRT.h"
 
-bool	slight_click_move_normi(t_data *data)
+static bool	slight_click_move_normi(t_data *data)
 {
 	if (data->console->last_item == data->s_light)
 	{

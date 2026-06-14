@@ -45,7 +45,7 @@ bool	hit_sp(t_ray *ray, t_obj *sphere, double *t)
 	return (true);
 }
 
-bool	side_mode(t_obj *plane, t_v3 local_hit)
+static bool	side_mode(t_obj *plane, t_v3 local_hit)
 {
 	double	x;
 	double	y;

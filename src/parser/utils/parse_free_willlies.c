@@ -30,7 +30,7 @@ char	**ft_free_willy(char **cmd)
 	return (NULL);
 }
 
-void	free_willy_obj(t_data *data)
+static void	free_willy_obj(t_data *data)
 {
 	t_obj		*obj;
 

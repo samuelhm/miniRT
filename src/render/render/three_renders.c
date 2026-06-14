@@ -21,7 +21,7 @@ void	render_one(void *param)
 	data->x = data->mlx->width;
 	data->y = data->mlx->height;
 	data->god = true;
-	mlx_resize_image(data->img, data->x, data->y);
+	mlx_resize_image(data->img, (uint32_t)data->x, (uint32_t)data->y);
 	new_img = render(data, 1);
 	fill_image(data, (uint32_t *)data->img->pixels, new_img);
 	mlx_image_to_window(data->mlx, data->img, 0, 0);
@@ -42,7 +42,7 @@ void	render_fast(void *param)
 	data->y = data->mlx->height;
 	data->god = true;
 	mlx_delete_image(data->mlx, data->img);
-	data->img = mlx_new_image(data->mlx, data->x, data->y);
+	data->img = mlx_new_image(data->mlx, (uint32_t)data->x, (uint32_t)data->y);
 	new_img = console_render(data);
 	fill_image(data, (uint32_t *)data->img->pixels, new_img);
 	mlx_image_to_window(data->mlx, data->img, 0, 0);
@@ -63,7 +63,7 @@ void	update_render(void *param)
 	data->x = data->mlx->width;
 	data->y = data->mlx->height;
 	data->god = true;
-	mlx_resize_image(data->img, data->x, data->y);
+	mlx_resize_image(data->img, (uint32_t)data->x, (uint32_t)data->y);
 	if (!data->img_last)
 		data->img_last = render(data, 0);
 	if (!data->img->enabled)

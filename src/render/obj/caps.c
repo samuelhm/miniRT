@@ -12,7 +12,7 @@
 
 #include "miniRT.h"
 
-bool	cap_i(t_ray *ray, t_obj *cap, double *result, double *numerator)
+static bool	cap_i(t_ray *ray, t_obj *cap, double *result, double *numerator)
 {
 	double	denominator;
 

@@ -12,7 +12,7 @@
 
 #include "miniRT.h"
 
-void	init_single_rayc(t_ray *ray, t_vp *vp, t_cam *cam, double *uv)
+static void	init_single_rayc(t_ray *ray, t_vp *vp, t_cam *cam, double *uv)
 {
 	t_v3	pixel_position;
 
@@ -23,7 +23,7 @@ void	init_single_rayc(t_ray *ray, t_vp *vp, t_cam *cam, double *uv)
 	ray->i_direction = normalize(vneg(ray->direction));
 }
 
-t_ray	*init_ray_rowc(t_data *data, t_cam *cam, t_vp *vp, int y)
+static t_ray	*init_ray_rowc(t_data *data, t_cam *cam, t_vp *vp, int y)
 {
 	t_ray	*row;
 	int		x;

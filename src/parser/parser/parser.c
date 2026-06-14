@@ -38,7 +38,7 @@ void	validate_args_and_open(t_data *data, int ac, char **av, int *fd)
 
 void	parse(t_data *data, int fd)
 {
-	char	type;
+	int		type;
 	char	*str;
 
 	str = NULL;

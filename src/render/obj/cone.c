@@ -12,7 +12,7 @@
 
 #include "miniRT.h"
 
-void	cone_calc(t_ray *ray, t_obj *cone, t_v3 *oc, t_quadratic *quad)
+static void	cone_calc(t_ray *ray, t_obj *cone, t_v3 *oc, t_quadratic *quad)
 {
 	double	dot_dir_axis;
 	double	dot_oc_axis;
@@ -28,7 +28,7 @@ void	cone_calc(t_ray *ray, t_obj *cone, t_v3 *oc, t_quadratic *quad)
 	init_quadratic(quad, quad->a, quad->b, quad->c);
 }
 
-bool	cone_hit(t_ray *ray, t_obj *cone, double t_min, double *t)
+static bool	cone_hit(t_ray *ray, t_obj *cone, double t_min, double *t)
 {
 	t_v3	point;
 	t_v3	cone_to_point;

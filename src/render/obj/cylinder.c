@@ -29,10 +29,10 @@ void	set_cy_axis(t_quadratic *quad, t_obj *cy, t_ray *ray)
 	d_perp = vsub(ray->direction, vmul(d_axis_dot, cy->axis));
 	quad->c = dot(oc_perp, oc_perp) - cy->calcs.radius2;
 	quad->a = dot(d_perp, d_perp);
-	quad->b = 2.0f * dot(oc_perp, d_perp);
+	quad->b = 2.0 * dot(oc_perp, d_perp);
 }
 
-double	compute_intersection(t_ray *ray, t_quadratic quad, t_v3 *point)
+static double	compute_intersection(t_ray *ray, t_quadratic quad, t_v3 *point)
 {
 	double	t_min;
 
@@ -64,7 +64,7 @@ double	set_ray_t(t_ray *ray, t_obj *cy, double *t, t_quadratic quad)
 		ray->point = point;
 		ray->normal = normalize(vsub(point, \
 			vadd(cy->pos, vmul(proj, cy->axis))));
-		if (t_min == quad.t2 && dot(ray->direction, ray->normal) > 0)
+		if (fabs(t_min - quad.t2) < EPSILON && dot(ray->direction, ray->normal) > 0)
 			ray->normal = vmul(-1, ray->normal);
 	}
 	return (t_min);
@@ -84,5 +84,5 @@ bool	hit_cy(t_ray *ray, t_obj *cy, double *t)
 			return (false);
 		t_min = set_ray_t(ray, cy, t, quad);
 	}
-	return (t_min != INFINITY);
+	return (t_min < INFINITY);
 }

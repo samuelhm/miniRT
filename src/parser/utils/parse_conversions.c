@@ -15,14 +15,18 @@
 t_rgb	colors_parse(t_data *data, char *str, int i)
 {
 	t_rgb	rgb;
+	int		val;
 
 	while (str[i] && ft_isspace(str[i]))
 		i++;
-	rgb.r = fmax(1, ft_atoi_parse(data, str, i, 3));
+	val = ft_atoi_parse(data, str, i, 3);
+	rgb.r = (unsigned char)(val > 0 ? val : 1);
 	i = skip_color(data, str, i, 0);
-	rgb.g = fmax(1, ft_atoi_parse(data, str, i, 3));
+	val = ft_atoi_parse(data, str, i, 3);
+	rgb.g = (unsigned char)(val > 0 ? val : 1);
 	i = skip_color(data, str, i, 0);
-	rgb.b = fmax(1, ft_atoi_parse(data, str, i, 3));
+	val = ft_atoi_parse(data, str, i, 3);
+	rgb.b = (unsigned char)(val > 0 ? val : 1);
 	return (rgb);
 }
 
@@ -47,7 +51,7 @@ char	*doubles_parse(t_obj *obj, char *str, int i, int flag)
 		obj->pos = vdefine(x, y, z);
 	else if (flag == 1)
 		obj->axis = normalize(vdefine(x, y, z));
-	tmp = ft_substr(str, i, ft_strlen(str));
+	tmp = ft_substr(str, (unsigned int)i, ft_strlen(str));
 	return (tmp);
 }
 
@@ -91,7 +95,7 @@ double	ft_atof_normi(t_data *data, char *str, int i)
 			|| ft_isspace(str[i]) != 1))
 	{
 		fraction += (str[i] - '0') / divisor;
-		divisor *= 10.0f;
+		divisor *= 10.0;
 		i++;
 		if (str[i] && !(str[i] == ',' || str[i] == '.' || ft_isspace(str[i])
 				|| ft_isdigit(str[i])))
@@ -116,7 +120,7 @@ double	ft_atof(t_data *data, char *str, int i)
 	while (str[i] >= '0' && str[i] <= '9' && (str[i] != ','
 			|| ft_isspace(str[i]) != 1))
 	{
-		res = (res * 10.0f) + (str[i] - '0');
+		res = (res * 10.0) + (str[i] - '0');
 		i++;
 		if (str[i] && !(str[i] == ',' || str[i] == '.' || ft_isspace(str[i])
 				|| ft_isdigit(str[i])))

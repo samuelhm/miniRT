@@ -55,7 +55,7 @@ int		skip_color(t_data *data, char *str, int i, int flag);
 int		sum_parse(t_data *data, char *str, int i, int j);
 
 //		parse_utils
-int		er(t_data *data, char *s, char *av);
+int		er(t_data *data, const char *s, const char *av);
 int		type_obj(char *str);
 t_obj	*new_obj(t_data *data);
 void	objadd_back(t_obj **lst, t_obj *new);

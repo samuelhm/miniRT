@@ -55,7 +55,7 @@ void	parse_bm(t_obj *obj, char **args, int i)
 		exit(er(obj->data, "error: parse_bm: bm just in SP", NULL));
 	else if (!args[i] || !args[i + 1])
 		exit(er(obj->data, "error: parse_bm: lacks arg", NULL));
-	obj->material.bm_size = ft_atoi_parse(obj->data, args[i], 0, 0);
+	obj->material.bm_size = (unsigned int)ft_atoi_parse(obj->data, args[i], 0, 0);
 	if (obj->material.m_type != -1 && (!args[i] || !args[i + 1]))
 		exit(er(obj->data, "error: parse_bm: arg not valid", NULL));
 	tmp = ft_strtrim(args[i + 1], " \n\t");
@@ -81,7 +81,7 @@ void	parse_tx(t_obj *obj, char **args, int i)
 		exit(er(obj->data, "error: parse_tx: tx just in SP", NULL));
 	else if (!args[i] || !args[i + 1])
 		exit(er(obj->data, "error: parse_tx: lacks arg", NULL));
-	obj->material.bm_size = ft_atoi_parse(obj->data, args[i], 0, 0);
+	obj->material.tx_size = (unsigned int)ft_atoi_parse(obj->data, args[i], 0, 0);
 	if (obj->material.m_type != -1 && (!args[i] || !args[i + 1]))
 		exit(er(obj->data, "error: parse_tx: arg not valid", NULL));
 	tmp = ft_strtrim(args[i + 1], " \n\t");
@@ -107,7 +107,10 @@ void	extra_functionalities(t_obj *obj, char *tmp)
 	init_materials(obj);
 	skip_colors(obj->data, tmp, &str);
 	if (str && (!str[0] || str[0] == '\n'))
-		return (free(str));
+	{
+		free(str);
+		return ;
+	}
 	obj->data->args = ft_split(str, ' ');
 	args = obj->data->args;
 	obj->material.m_type = type_extra_func(args[0]);

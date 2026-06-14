@@ -15,6 +15,7 @@ NAME			:= miniRT
 SRC_D			:= ./src/
 INC_D			:= ./inc/
 OBJ_D			:= $(SRC_D)tmp/
+DEBUG_D			:= $(SRC_D)debug_tmp/
 LIBFT_D			:= ./lib/libft/
 MLX_D			:= ./lib/MLX42/build/
 VCT_D			:= ./lib/libvector/
@@ -48,15 +49,35 @@ FILES			:= main.c \
 SRCS			:= $(addprefix $(SRC_D), $(FILES))
 
 OBJS			:= $(patsubst $(SRC_D)%.c,$(OBJ_D)%.o,$(SRCS))
+DOBJS			:= $(patsubst $(SRC_D)%.c,$(DEBUG_D)%.o,$(SRCS))
 
 CC				:= cc
 IFLAGS			:= -I$(INC_D) -I$(VCT_D) -I$(LIBFT_D)inc
-CFLAGS			:= -g -Ofast -Wall -Wextra -Werror -pthread #-fsanitize=address
+
+# Base warnings
+WFLAGS			:= -Wall -Wextra -Werror
+
+# Extra strict warnings
+XFLAGS			:= -Wshadow -Wunused -Wformat=2 -Wundef \
+					-Wstrict-prototypes -Wmissing-prototypes \
+					-Winit-self -Wimplicit-fallthrough=3 -Wcast-align \
+					-Wswitch-default -Wswitch-enum -Wduplicated-branches \
+					-Wduplicated-cond -Wlogical-op -Wstack-protector \
+					-fstrict-aliasing
+
+# Release flags
+CFLAGS			:= -O3 -flto -march=native -pthread $(WFLAGS) $(XFLAGS)
+
+# Debug flags
+DFLAGS			:= -g3 -O0 -pthread $(WFLAGS) $(XFLAGS) \
+					-fsanitize=address,undefined,leak,bounds
+
+LDFLAGS			:= -flto -pthread
 
 LIB				:= lib/
 
 LIBFT			:= libft.a
-LIBVCT          := ./lib/libvector/libvct.a
+LIBVCT			:= ./lib/libvector/libvct.a
 
 MLX				:= libmlx42.a
 DIR_MLX			:= ./lib/MLX42
@@ -65,38 +86,76 @@ GLFW			:= $(MLX_D)_deps/glfw-build/src/libglfw3.a
 
 RM				:= rm -rf
 
-all:		libmlx libs $(NAME)
+# ─── Default: release build ───────────────────────────────────────────────────
+
+all:			libmlx libs $(NAME)
+
+# ─── Debug build ──────────────────────────────────────────────────────────────
+
+debug:			libmlx libs $(NAME)_debug
+	@echo "\033[1;32m[DEBUG BUILD READY]\033[0m"
+	@echo "Usage: ./$(NAME)_debug scenes/figuras_pov.rt"
+
+$(NAME)_debug:	$(DOBJS)
+	$(CC) $(DFLAGS) $(DOBJS) $(LIBFT_D)$(LIBFT) $(MLX_D)$(MLX) $(GLFW) $(LIBVCT) $(MLXFLAGS) -o $@
+
+$(DEBUG_D)%.o:	$(SRC_D)%.c Makefile
+	@mkdir -p $(dir $@)
+	$(CC) $(IFLAGS) $(DFLAGS) -MMD -o $@ -c $<
+
+# ─── Libraries ────────────────────────────────────────────────────────────────
 
 libmlx:
-			@cmake ./lib/MLX42 -B $(MLX_D) && make -C $(MLX_D) -j4
+	@cmake ./lib/MLX42 -B $(MLX_D) && make -C $(MLX_D) -j4
 
 libs:
-			@make -s -C $(LIB)libft
-			@make -s -C $(LIB)libvector
+	@make -s -C $(LIB)libft
+	@make -s -C $(LIB)libvector
+
+# ─── Release objects ──────────────────────────────────────────────────────────
 
 $(OBJ_D)%.o:	$(SRC_D)%.c Makefile
-			printf "\033[0;33m\r🔨 $< ✅ \033[0m"
-			@mkdir -p $(dir $@)
-			$(CC) $(IFLAGS) $(CFLAGS) -MMD -o $@ -c $<
+	@printf "\033[0;33m\r🔨 $< ✅ \033[0m"
+	@mkdir -p $(dir $@)
+	$(CC) $(IFLAGS) $(CFLAGS) -MMD -o $@ -c $<
 
-$(NAME):	$(OBJS)
-			$(CC) $(CFLAGS) $(OBJS) $(LIBFT_D)$(LIBFT) $(MLX_D)$(MLX) $(GLFW) $(LIBVCT) $(MLXFLAGS) -o $(NAME)
-			# @clear
+$(NAME):		$(OBJS)
+	$(CC) $(CFLAGS) $(OBJS) $(LIBFT_D)$(LIBFT) $(MLX_D)$(MLX) $(GLFW) $(LIBVCT) $(MLXFLAGS) -o $(NAME)
+	@echo "\n\033[1;32m[✓] $(NAME) built successfully\033[0m"
+
+# ─── Cleaning ─────────────────────────────────────────────────────────────────
 
 c clean:
-			@make clean -s -C $(LIB)libft
-			@make clean -s -C $(LIB)libvector
-			@$(RM) $(DIR_MLX)/build
-			${RM} ./src/tmp
-			# @clear
+	@make clean -s -C $(LIB)libft
+	@make clean -s -C $(LIB)libvector
+	@$(RM) $(DIR_MLX)/build
+	@$(RM) $(OBJ_D) $(DEBUG_D)
 
 f fclean:		clean
-			@make fclean -s -C $(LIB)libft
-			@make fclean -s -C $(LIB)libvector
-			@${RM} ${NAME}
+	@make fclean -s -C $(LIB)libft
+	@make fclean -s -C $(LIB)libvector
+	@$(RM) $(NAME) $(NAME)_debug
 
 r re:			fclean all
 
--include $(OBJS:.o=.d)
+rebug:			fclean debug
 
-.PHONY:		all clean fclean re f c r libs libmlx
+# ─── Help ─────────────────────────────────────────────────────────────────────
+
+help:
+	@echo "\033[1;36mminiRT Makefile targets:\033[0m"
+	@echo "  make          → Release build (-O3 -flto -march=native)"
+	@echo "  make debug    → Debug build (-g3 -O0 -fsanitize)"
+	@echo "  make clean    → Remove objects"
+	@echo "  make fclean   → Remove objects + binary"
+	@echo "  make re       → fclean + release"
+	@echo "  make rebug    → fclean + debug"
+	@echo "  make help     → This message"
+
+# ─── Misc ─────────────────────────────────────────────────────────────────────
+
+-include $(OBJS:.o=.d)
+-include $(DOBJS:.o=.d)
+
+.PHONY:		all clean fclean re f c r libs libmlx debug rebug help
+

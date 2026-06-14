@@ -12,7 +12,7 @@
 
 #include "miniRT.h"
 
-t_v3	random_in_unit_disk(t_cam *cam)
+static t_v3	random_in_unit_disk(t_cam *cam)
 {
 	t_v3	res;
 	double	theta;
@@ -25,7 +25,7 @@ t_v3	random_in_unit_disk(t_cam *cam)
 	return (res);
 }
 
-void	generate_dof_ray(t_ray *ray, t_cam *cam)
+static void	generate_dof_ray(t_ray *ray, t_cam *cam)
 {
 	t_v3	rd;
 	t_v3	offset;

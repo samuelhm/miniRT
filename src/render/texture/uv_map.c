@@ -34,16 +34,16 @@ t_v2	calculate_uv(t_v3 point, t_obj *obj)
 
 t_rgb	texture_color(t_obj *obj, t_v2 uv)
 {
-	int		x;
-	int		y;
-	int		index;
-	t_rgb	rgbc;
+	int				x;
+	int				y;
+	uint32_t		index;
+	t_rgb			rgbc;
 
-	x = (int)(uv.u * obj->material.texture->width) % \
-							obj->material.texture->width;
-	y = (int)(uv.v * obj->material.texture->height) % \
-							obj->material.texture->height;
-	index = (y * obj->material.texture->width + x) * 4;
+	x = (int)(uv.u * obj->material.texture->width) \
+		% (int)obj->material.texture->width;
+	y = (int)(uv.v * obj->material.texture->height) \
+		% (int)obj->material.texture->height;
+	index = (uint32_t)(y * (int)obj->material.texture->width + x) * 4u;
 	rgbc.r = obj->material.texture->pixels[index];
 	rgbc.g = obj->material.texture->pixels[index + 1];
 	rgbc.b = obj->material.texture->pixels[index + 2];

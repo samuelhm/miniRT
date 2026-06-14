@@ -18,7 +18,7 @@ void	create_obj_normi(t_obj *obj, char **tmp, char **tmp2)
 	if (obj->type == SP)
 	{
 		obj->size = ft_atof(obj->data, *tmp, 0);
-		*tmp2 = ft_substr(*tmp, sum_parse(obj->data, *tmp, 0, 0), \
+		*tmp2 = ft_substr(*tmp, (unsigned int)sum_parse(obj->data, *tmp, 0, 0), \
 											ft_strlen(*tmp));
 	}
 	else if (obj->type == CY || obj->type == CO || obj->type == CU)
@@ -30,14 +30,14 @@ void	create_obj_normi(t_obj *obj, char **tmp, char **tmp2)
 		obj->cube_size.y = obj->height;
 		obj->i = sum_parse(obj->data, *tmp2, obj->i, 0);
 		free(*tmp);
-		*tmp = ft_substr(*tmp2, obj->i, ft_strlen(*tmp2));
+		*tmp = ft_substr(*tmp2, (unsigned int)obj->i, ft_strlen(*tmp2));
 	}
 	if (obj->type == CU)
 	{
 		obj->cube_size.z = ft_atof(obj->data, *tmp, 0);
 		free(*tmp2);
 		obj->i = skip_double(obj->data, *tmp, 0, 0);
-		*tmp2 = ft_substr(*tmp, obj->i, ft_strlen(*tmp));
+		*tmp2 = ft_substr(*tmp, (unsigned int)obj->i, ft_strlen(*tmp));
 	}
 }
 

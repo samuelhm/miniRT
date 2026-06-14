@@ -45,7 +45,7 @@ void	difuse_light(t_rgb *color, t_slight *slight, t_obj *obj, double inty)
 	}
 }
 
-bool	hit_all(t_data *data, t_ray *shdw_ray, t_obj *cr_obj, double *t_min,
+static bool	hit_all(t_data *data, t_ray *shdw_ray, t_obj *cr_obj, double *t_min,
 		double max_dist)
 {
 	if (cr_obj->type == SP && hit_sp(shdw_ray, cr_obj, t_min) \

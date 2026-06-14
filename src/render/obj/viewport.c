@@ -13,9 +13,9 @@
 #include "miniRT.h"
 #include "render.h"
 
-t_v3	calculate_up(t_v3 forward, t_v3 right)
+t_v3	calculate_up(t_v3 forward, t_v3 rgt)
 {
-	return (normalize(cross(forward, right)));
+	return (normalize(cross(forward, rgt)));
 }
 
 t_v3	calculate_right(t_v3 forward)

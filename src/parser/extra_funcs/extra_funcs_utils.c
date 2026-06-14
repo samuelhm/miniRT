@@ -36,12 +36,12 @@ void	skip_colors(t_data *data, char *str, char **res)
 		i++;
 	while (str[i] && ft_isspace(str[i]))
 		i++;
-	*res = ft_substr(str, i, ft_strlen(str));
+	*res = ft_substr(str, (unsigned int)i, ft_strlen(str));
 }
 
 int	type_extra_func(char *str)
 {
-	static char		*bts[] = {"mt", "gl", "mr", "cb", "em", "bm", "tx", \
+	static const char	*bts[] = {"mt", "gl", "mr", "cb", "em", "bm", "tx", \
 																NULL};
 	int				i;
 
@@ -55,7 +55,7 @@ int	type_extra_func(char *str)
 
 void	parse_tx_and_bm(t_obj *obj, char **args, char *tmp, int i)
 {
-	obj->material.bm_size = ft_atoi_parse(obj->data, args[i + 3], 0, 0);
+	obj->material.bm_size = (unsigned int)ft_atoi_parse(obj->data, args[i + 3], 0, 0);
 	tmp = ft_strtrim(args[i + 4], " \n\t");
 	obj->material.bm_texture = mlx_load_png(tmp);
 	free(tmp);
@@ -67,7 +67,7 @@ void	parse_tx_and_bm(t_obj *obj, char **args, char *tmp, int i)
 
 void	parse_bm_and_tx(t_obj *obj, char **args, char *tmp, int i)
 {
-	obj->material.tx_size = ft_atoi_parse(obj->data, args[i + 3], 0, 0);
+	obj->material.tx_size = (unsigned int)ft_atoi_parse(obj->data, args[i + 3], 0, 0);
 	tmp = ft_strtrim(args[i + 4], " \n\t");
 	obj->material.texture = mlx_load_png(tmp);
 	free(tmp);

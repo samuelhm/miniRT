@@ -51,7 +51,7 @@ void	click_cube(t_data *data, t_obj *obj, t_btn_name clicked)
 		obj->cube_size.z -= OBJPLUS;
 }
 
-void	click_material(t_obj *obj, t_btn_name clicked)
+static void	click_material(t_obj *obj, t_btn_name clicked)
 {
 	if (clicked == btn_df)
 		obj->material.m_type = -1;

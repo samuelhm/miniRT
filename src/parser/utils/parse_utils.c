@@ -12,7 +12,7 @@
 
 #include "miniRT.h"
 
-int	er(t_data *data, char *s, char *argv)
+int	er(t_data *data, const char *s, const char *argv)
 {
 	ft_printf(2, "%s", RED);
 	if (s)
@@ -32,7 +32,7 @@ int	er(t_data *data, char *s, char *argv)
 
 int	type_obj(char *str)
 {
-	static char		*bts[] = {"sp", "pl", "cy", "A", "C", "L", "co", "cu", \
+	static const char	*bts[] = {"sp", "pl", "cy", "A", "C", "L", "co", "cu", \
 		NULL};
 	int				i;
 
