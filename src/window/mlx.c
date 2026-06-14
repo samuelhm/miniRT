@@ -18,7 +18,7 @@ bool	press_keyhook_normi(t_data *data, keys_t key, bool mode)
 	{
 		mode = true;
 		if (data->god)
-			swap_mgod(data);
+			data->god = false;
 		data->render_sel = render_fast;
 	}
 	else
@@ -58,7 +58,7 @@ void	press_keyhook(t_data *data, mlx_key_data_t keydata)
 		if (!mode)
 		{
 			if (data->god)
-				swap_mgod(data);
+				data->god = false;
 			data->render_sel = render_one;
 		}
 		else
@@ -91,11 +91,9 @@ void	resise_w(int32_t width, int32_t height, void *param)
 	(void)width;
 	(void)height;
 	data = param;
-	pthread_mutex_lock(data->m_god);
 	data->god = false;
 	data->img_last = NULL;
 	data->sample_count = 0;
-	pthread_mutex_unlock(data->m_god);
 	if (data->last_render == ONE)
 		data->render_sel = render_one;
 	else if (data->last_render == FAST)

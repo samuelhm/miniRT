@@ -29,7 +29,6 @@ void	init_data(t_data **data)
 	(*data)->aa = -1;
 	(*data)->x = W_WH;
 	(*data)->y = W_HG;
-	(*data)->m_god = calloc(1, sizeof(pthread_mutex_t));
 	(*data)->god = true;
 	(*data)->render_sel = NULL;
 	(*data)->last_render = ONE;

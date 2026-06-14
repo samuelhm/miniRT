@@ -14,6 +14,7 @@
 # define DATA_H
 
 # include <pthread.h>
+# include <stdatomic.h>
 # include "libvct.h"
 # include "util.h"
 # include "../lib/MLX42/include/MLX42/MLX42.h"
@@ -199,8 +200,7 @@ typedef struct s_data
 	int					x;
 	int					y;
 	int					j;
-	pthread_mutex_t		*m_god;
-	bool				god;
+	_Atomic bool		god;
 	void				(*render_sel)(void *param);
 	int					last_render;
 	t_console			*console;

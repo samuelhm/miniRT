@@ -32,13 +32,6 @@ void	fill_image(t_data *data, uint32_t *pixels, uint32_t **img_rgb)
 	}
 }
 
-void	swap_mgod(t_data *data)
-{
-	pthread_mutex_lock(data->m_god);
-	data->god = !data->god;
-	pthread_mutex_unlock(data->m_god);
-}
-
 void	set_last(t_data *data)
 {
 	if (data->last_render == ONE)

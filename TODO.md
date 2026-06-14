@@ -11,10 +11,10 @@ Chapter V: *"use the latest version of the language and follow up-to-date good p
 - [x] **`_Thread_local` per-thread RNG:** Replace `rand()` (not thread-safe) with `_Thread_local uint32_t rng_state` + xorshift32
   - Files: `calcs_utils.c` (`random_in_hemisphere`), `init_rays.c` (rand() kept in main thread)
   - Commit: `015afaf`
-- [ ] **`_Atomic bool` for `data->god`:** Replace `pthread_mutex_t *m_god` + `pthread_mutex_lock/unlock` 
-  - Files: `render/render.c` (`process_rows`), `window/mlx.c` (`resise_w`), `window/mlx_utils.c` (`swap_mgod`)
-  - Much faster: atomic operations are lock-free
-  - Remove `pthread_mutex_init(&data->m_god)` from `init_general.c`
+- [x] **`_Atomic bool` for `data->god`:** Replaced `pthread_mutex_t *m_god` + `pthread_mutex_lock/unlock` with `_Atomic bool god`
+  - Files: `render/render.c` (`process_rows`), `window/mlx.c` (`resise_w`, keyhooks), `window/mlx_utils.c` (removed `swap_mgod`), `init_general.c`, `main.c`, `parse_utils.c`
+  - Removed `pthread_mutex_t *m_god` entirely: no more alloc/free/init for it
+  - Added `#include <stdatomic.h>` to `data.h`
 - [x] **Remove `m_trace`/`trace_flag` dead code:** Deleted mutex alloc/free/lock/unlock, trace_flag field removed from `t_data`, `swap_flag_mlx()` removed
   - Files: `init_general.c`, `mlx_utils.c`, `data.h`, `window.h`, `parse_utils.c`, `main.c`, `mlx.c`
 - [x] **Remove `specular_light()` dead code:** Never called, removed `specular.c`, prototype from `render.h`, entry from `Makefile`

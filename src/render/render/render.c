@@ -30,14 +30,11 @@ void	*process_rows(void *arg)
 		x = 0;
 		while (x < td->data->x)
 		{
-			pthread_mutex_lock(td->data->m_god);
 			if (!td->data->god)
 			{
-				pthread_mutex_unlock(td->data->m_god);
 				pthread_exit(NULL);
 				return (NULL);
 			}
-			pthread_mutex_unlock(td->data->m_god);
 			td->image[y][x] = trace_ray(td->rays[y][x], td->data);
 			x++;
 		}
