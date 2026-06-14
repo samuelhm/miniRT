@@ -36,13 +36,18 @@ t_v3	refract(t_obj *obj, t_v3 dir, t_v3 normal)
 {
 	double	cosi;
 	double	eta;
+	double	eta2;
 	double	k;
 
 	cosi = fmax(-1, fmin(1, dot(dir, normal)));
-	eta = obj->calcs.eta2;
+	eta = obj->calcs.eta;
+	eta2 = obj->calcs.eta2;
 	if (cosi > 0)
-		eta = obj->calcs.eta_reverse2;
-	k = 1 - eta * (1 - cosi * cosi);
+	{
+		eta = obj->calcs.eta_reverse;
+		eta2 = obj->calcs.eta_reverse2;
+	}
+	k = 1 - eta2 * (1 - cosi * cosi);
 	if (k < 0)
 		return (vdefine(0, 0, 0));
 	return (vadd(vmul(eta, dir), vmul(eta * cosi - sqrt(k), normal)));
