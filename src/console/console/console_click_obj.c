@@ -54,7 +54,7 @@ void	click_cube(t_data *data, t_obj *obj, t_btn_name clicked)
 static void	click_material(t_obj *obj, t_btn_name clicked)
 {
 	if (clicked == btn_df)
-		obj->material.m_type = -1;
+		obj->material.m_type = MAT_DEFAULT;
 	else if (clicked == btn_mr)
 		obj->material.m_type = MR;
 	else if (clicked == btn_mt)

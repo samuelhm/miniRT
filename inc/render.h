@@ -180,8 +180,6 @@ void					free_rays(t_ray **rays, int rows);
 void					init_gl(t_obj *obj);
 void					init_mt(t_obj *obj);
 void					init_mr(t_obj *obj);
-void					init_df(t_obj *obj);
-void					init_materials_render(t_data *data);
 
 //		cylinder
 void					set_cy_axis(t_quadratic *quad, t_obj *cy, t_ray *ray);

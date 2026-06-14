@@ -73,7 +73,7 @@ typedef struct s_material
 	t_rgb				rgb_checker;
 	double				board_scale;
 	double				emision;
-	double				self_emision;
+	double				self_emision; // emision * 2.5: artistic boost so self-glow is brighter than cast light
 	unsigned int		bm_size;
 	mlx_texture_t		*bm_texture;
 	unsigned int		tx_size;

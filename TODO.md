@@ -73,10 +73,9 @@ Chapter V: *"use the latest version of the language and follow up-to-date good p
 - [x] Dead assignments: `obj = last_item` before type guard in 4 files — moved inside OBJ branches
 
 ### Material System
-- [ ] Material type `-1` means "default" — magic number, use enum `MAT_DEFAULT`
-- [ ] `init_materials()` (parser) + `init_materials_render()` (render) have overlapping logic
-  → refactor into single `material_init(t_obj *obj)` called once
-- [ ] `emision` (parser field) vs `self_emision` (computed `emision * 2.5`) — document the 2.5 factor
+- [x] Material type `-1` means "default" — magic number, use enum `MAT_DEFAULT`
+- [x] `init_materials()` (parser) + `init_materials_render()` (render) have overlapping logic → merged: per-type init moved to parser, `init_materials_render()` removed
+- [x] `emision` (parser field) vs `self_emision` (computed `emision * 2.5`) — documented in data.h comment
 
 ### Lighting
 - [ ] `apply_al()` normalizes RGB to 0-1 and back — lossy for dark colors. Fix: use float colors internally
@@ -139,7 +138,7 @@ Chapter V: *"use the latest version of the language and follow up-to-date good p
 3. **C11+ modernization** (`_Thread_local`, `_Atomic`, `static_assert`, `constexpr`)
 4. **~~Remove dead code~~** (`m_trace`, `trace_flag`, `specular_light`) ✅
 5. **~~Fix remaining console bugs~~** (NULL checks, dead code) ✅
-6. **Refactor material system** (merge init_materials + init_materials_render)
+6. **~~Refactor material system~~** (merge init_materials + init_materials_render) ✅
 7. **Create reference scenes** (3 mandatory scenes from subject)
 8. **Documentation** (FORMAT.md, ARCHITECTURE.md)
 9. **Polish** (rename types, split headers, cleanup)

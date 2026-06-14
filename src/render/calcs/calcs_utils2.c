@@ -28,7 +28,7 @@ t_rgb	path_trace_type(t_ray *ray, t_obj *closest, t_data *data, int depth)
 	t_rgb	res;
 
 	res = rgbdefine(0, 0, 0);
-	if (closest->material.m_type == -1)
+	if (closest->material.m_type == MAT_DEFAULT)
 		res = diffuse_ray(ray, closest, data, depth);
 	else if (closest->material.m_type == MT)
 		res = metallic_ray(ray, closest, data, depth);

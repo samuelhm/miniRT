@@ -57,7 +57,7 @@
 # define CU 7
 # define SIDE 8
 
-//		Materials
+// Materials
 # define MT 0 // Metallic
 # define GL 1 // Glass
 # define MR 2 // Mirror
@@ -65,6 +65,7 @@
 # define EM 4 // Light Emision
 # define BM 5 // Bump Map
 # define TX 6 // Textures
+# define MAT_DEFAULT -1 // Default diffuse
 
 //		Renders
 # define FAST 0

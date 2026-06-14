@@ -41,7 +41,7 @@ void	parse_cb(t_obj *obj, char **args)
 	obj->material.rgb_checker = colors_parse(obj->data, args[2], 0);
 	if (args[3])
 		obj->material.m_type = type_extra_func(args[3]);
-	if (obj->material.m_type == -1 && args[3][0] != '\n')
+	if (obj->material.m_type == MAT_DEFAULT && args[3][0] != '\n')
 		exit(er(obj->data, "error: parse_cb: arg not valid after cb", NULL));
 	if (args[3] && args[4])
 		exit(er(obj->data, "error: parse_cb: arg not valid after cb", NULL));
@@ -68,7 +68,7 @@ void	parse_bm(t_obj *obj, char **args, int i)
 		parse_bm_and_tx(obj, args, tmp, i);
 	else if (args[i + 2] && args[i + 3])
 		exit(er(obj->data, "error: parse_bm: arg not valid after bm", NULL));
-	if (obj->material.m_type == -1 && args[3][0] != '\n')
+	if (obj->material.m_type == MAT_DEFAULT && args[3][0] != '\n')
 		exit(er(obj->data, "error: parse_bm: arg not valid after bm", NULL));
 	free(tmp);
 }
@@ -94,7 +94,7 @@ void	parse_tx(t_obj *obj, char **args, int i)
 		parse_tx_and_bm(obj, args, tmp, i);
 	else if (args[i + 2] && args[i + 3])
 		exit(er(obj->data, "error: parse_tx: arg not valid after tx", NULL));
-	if (obj->material.m_type == -1 && args[3][0] != '\n')
+	if (obj->material.m_type == MAT_DEFAULT && args[3][0] != '\n')
 		exit(er(obj->data, "error: parse_tx: arg not valid after tx", NULL));
 	free(tmp);
 }
@@ -116,7 +116,13 @@ void	extra_functionalities(t_obj *obj, char *tmp)
 	obj->material.m_type = type_extra_func(args[0]);
 	if (obj->material.m_type == GL && obj->type == GL)
 		exit(er(obj->data, "error: extra_functs: GL just in SP", NULL));
-	if (obj->material.m_type == -1 || !str[1] || \
+	if (obj->material.m_type == GL)
+		init_gl(obj);
+	else if (obj->material.m_type == MT)
+		init_mt(obj);
+	else if (obj->material.m_type == MR)
+		init_mr(obj);
+	if (obj->material.m_type == MAT_DEFAULT || !str[1] || \
 			(obj->material.m_type < CB && str[2] && str[3]))
 		exit(er(obj->data, "error: extra_functs: char after color", str));
 	else if (obj->material.m_type == EM)

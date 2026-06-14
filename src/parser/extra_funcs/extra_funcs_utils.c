@@ -14,12 +14,13 @@
 
 void	init_materials(t_obj *obj)
 {
-	obj->material.m_type = -1;
+	obj->material.m_type = MAT_DEFAULT;
 	obj->material.reflectivity = 0;
 	obj->material.transmittance = 0;
 	obj->material.roughness = 1;
 	obj->material.absorption = 1;
 	obj->material.specularity = 0.1;
+	obj->material.shininess = 50;
 	obj->material.board_scale = -1;
 }
 
