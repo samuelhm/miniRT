@@ -23,7 +23,7 @@ void	resise_w(int32_t width, int32_t height, void *param);
 void	key_cam_move(t_data *data, mlx_key_data_t keydata);
 
 //		mlx_utils
-void	fill_image(t_data *data, uint32_t *pixels, uint32_t **img_rgb);
+void	fill_image(t_data *data, uint32_t *pixels, uint32_t *img_rgb);
 void	set_last(t_data *data);
 
 #endif

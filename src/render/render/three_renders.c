@@ -15,7 +15,7 @@
 void	render_one(void *param)
 {
 	t_data		*data;
-	uint32_t	**new_img;
+	uint32_t	*new_img;
 
 	data = (t_data *)param;
 	data->x = data->mlx->width;
@@ -33,7 +33,7 @@ void	render_one(void *param)
 void	render_fast(void *param)
 {
 	t_data		*data;
-	uint32_t	**new_img;
+	uint32_t	*new_img;
 
 	data = (t_data *)param;
 	data->render_sel = NULL;
@@ -54,8 +54,8 @@ void	render_fast(void *param)
 void	update_render(void *param)
 {
 	t_data		*data;
-	uint32_t	**new_img;
-	uint32_t	**avrg;
+	uint32_t	*new_img;
+	uint32_t	*avrg;
 	t_ll		time;
 
 	time = current_timestamp();

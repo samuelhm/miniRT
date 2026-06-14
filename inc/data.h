@@ -195,11 +195,14 @@ typedef struct s_data
 	int					bl; // blur
 	mlx_t				*mlx;
 	mlx_image_t			*img;
-	uint32_t			**img_last;
+	uint32_t			*img_last;
 	int					sample_count;
 	int					x;
 	int					y;
 	int					j;
+	float				*accum_r;
+	float				*accum_g;
+	float				*accum_b;
 	_Atomic bool		god;
 	void				(*render_sel)(void *param);
 	int					last_render;

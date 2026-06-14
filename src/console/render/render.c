@@ -41,7 +41,7 @@ static void	fill_block(t_thread_data *td, int y, int x, uint32_t color)
 		while (j < 10)
 		{
 			if ((y + i) < td->data->y && (x + j) < td->data->x)
-				td->image[y + i][x + j] = color;
+				td->image[(y + i) * td->data->x + (x + j)] = color;
 			j++;
 		}
 		i++;
@@ -74,7 +74,7 @@ void	*cprocess_rows(void *arg)
 	pthread_exit(NULL);
 }
 
-void	c_render(t_data *data, t_ray **rays, uint32_t **image)
+void	c_render(t_data *data, t_ray **rays, uint32_t *image)
 {
 	pthread_t		threads[NUM_THREADS];
 	t_thread_data	thread_data[NUM_THREADS];
@@ -98,11 +98,11 @@ void	c_render(t_data *data, t_ray **rays, uint32_t **image)
 	}
 }
 
-uint32_t	**console_render(t_data *data)
+uint32_t	*console_render(t_data *data)
 {
 	t_ray		**rays;
 	t_vp		*vp;
-	uint32_t	**image;
+	uint32_t	*image;
 
 	vp = init_viewport(data->cam, data->x, data->y);
 	rays = init_raysc(data, data->cam, vp);

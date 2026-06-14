@@ -35,7 +35,7 @@ void	*process_rows(void *arg)
 				pthread_exit(NULL);
 				return (NULL);
 			}
-			td->image[y][x] = trace_ray(td->rays[y][x], td->data);
+			td->image[y * td->data->x + x] = trace_ray(td->rays[y][x], td->data);
 			x++;
 		}
 		y += NUM_THREADS;
@@ -43,7 +43,7 @@ void	*process_rows(void *arg)
 	pthread_exit(NULL);
 }
 
-void	render_with_threads(t_data *data, t_ray **rays, uint32_t **image)
+void	render_with_threads(t_data *data, t_ray **rays, uint32_t *image)
 {
 	pthread_t		threads[NUM_THREADS];
 	t_thread_data	thread_data[NUM_THREADS];
@@ -67,28 +67,25 @@ void	render_with_threads(t_data *data, t_ray **rays, uint32_t **image)
 	}
 }
 
-uint32_t	**average_samples(t_data *data, uint32_t **s1, uint32_t **s2, double w)
+uint32_t	*average_samples(t_data *data, uint32_t *s1, uint32_t *s2, double w)
 {
-	uint32_t	**res;
-	int			x;
-	int			y;
+	uint32_t	*res;
+	int			i;
+	int			total;
 
-	x = -1;
+	total = data->y * data->x;
 	res = init_image_(data);
-	while (++x < data->y)
-	{
-		y = -1;
-		while (++y < data->x)
-			res[x][y] = average(s1[x][y], s2[x][y], w);
-	}
+	i = -1;
+	while (++i < total)
+		res[i] = average(s1[i], s2[i], w);
 	return (res);
 }
 
-uint32_t	**render(t_data *data, int mode)
+uint32_t	*render(t_data *data, int mode)
 {
 	t_ray		**rays;
 	t_vp		*vp;
-	uint32_t	**image;
+	uint32_t	*image;
 
 	vp = init_viewport(data->cam, data->x, data->y);
 	if (!vp)

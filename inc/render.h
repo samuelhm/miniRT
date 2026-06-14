@@ -141,7 +141,7 @@ void					init_data(t_data **data);
 
 //		init_image
 void					init_mlx(t_data *data);
-uint32_t				**init_image_(t_data *data);
+uint32_t				*init_image_(t_data *data);
 
 //		init_obj
 void					init_obj(t_data *data);
@@ -243,23 +243,23 @@ void					render_fast(void *param);
 void					update_render(void *param);
 
 //		render
-uint32_t				**render(t_data *data, int mode);
-uint32_t				**console_render(t_data *data);
-void					c_render(t_data *data, t_ray **rays, uint32_t **image);
+uint32_t				*render(t_data *data, int mode);
+uint32_t				*console_render(t_data *data);
+void					c_render(t_data *data, t_ray **rays, uint32_t *image);
 void					*cprocess_rows(void *arg);
 uint32_t				trace_fast(t_ray ray, t_data *data);
 
 //		free
 void					free_rays_all(t_data *data, t_ray **rays);
 void					free_render(t_data *data, t_vp *vp, t_ray **rays);
-void					free_image_all(t_data *data, uint32_t **image);
+void					free_image_all(t_data *data, uint32_t *image);
 void					free_rays(t_ray **rays, int rows);
 
 //		PATH_TRACER  (calcs)
 t_rgb					path_trace(t_ray *ray, t_data *data, int depth);
 t_v3					random_in_hemisphere(t_v3 normal);
 double					*generate_uv(int x, int y);
-uint32_t				**average_samples(t_data *data, uint32_t **sample1,
-							uint32_t **sample2, double w);
+uint32_t				*average_samples(t_data *data, uint32_t *sample1,
+							uint32_t *sample2, double w);
 
 #endif

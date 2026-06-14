@@ -22,12 +22,12 @@ constexpr int	NUM_THREADS = 6;
 typedef struct s_thread_data
 {
 	int			thread_id;
-	uint32_t	**image;
+	uint32_t	*image;
 	t_ray		**rays;
 	t_data		*data;
 }	t_thread_data;
 
-void	render_with_threads(t_data *data, t_ray **rays, uint32_t **image);
+void	render_with_threads(t_data *data, t_ray **rays, uint32_t *image);
 void	*process_rows(void *arg);
 
 #endif

@@ -19,19 +19,9 @@ void	free_render(t_data *data, t_vp *vp, t_ray **rays)
 	free_rays_all(data, rays);
 }
 
-void	free_image_all(t_data *data, uint32_t **image)
+void	free_image_all(t_data *data, uint32_t *image)
 {
-	int	y;
-
-	if (!image)
-		return ;
-	y = 0;
-	while (y < data->y)
-	{
-		if (image[y])
-			free(image[y]);
-		y++;
-	}
+	(void)data;
 	free(image);
 }
 

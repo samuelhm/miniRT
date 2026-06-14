@@ -27,30 +27,10 @@ void	init_mlx(t_data *data)
 	}
 }
 
-//Memmory for the final image
-uint32_t	**init_image_(t_data *data)
+uint32_t	*init_image_(t_data *data)
 {
-	uint32_t	**image;
-	int			y;
-	int			j;
-	size_t		row_size;
+	uint32_t	*image;
 
-	image = calloc(data->y, sizeof(uint32_t *));
-	row_size = data->x * sizeof(uint32_t);
-	if (!image)
-		return (NULL);
-	y = -1;
-	while (++y < data->y)
-	{
-		image[y] = calloc(1, row_size);
-		if (!image[y])
-		{
-			j = -1;
-			while (++j < y)
-				free(image[j]);
-			free(image);
-			return (NULL);
-		}
-	}
+	image = calloc((size_t)data->y * data->x, sizeof(uint32_t));
 	return (image);
 }
