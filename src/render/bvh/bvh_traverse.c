@@ -24,7 +24,7 @@ static double	hit_aabb(t_ray *restrict ray, t_aabb box)
 	tmin = fmax(tmin, fmin(t1, t2));
 	tmax = fmin(tmax, fmax(t1, t2));
 	if (tmax >= fmax(tmin, 0.0))
-		return (tmin);
+		return (fmax(tmin, 0.0));
 	return (-1.0);
 }
 
