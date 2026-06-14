@@ -23,7 +23,7 @@ void	write_cam_labels(t_data *data, t_img_btn *img_btn)
 	size = sizeof(img_btn->row1);
 	snprintf(img_btn->row1, size, "x          %.2f", pos.x);
 	snprintf(img_btn->row2, size, "y          %.2f", pos.y);
-	snprintf(img_btn->row3, size, "z          %.2f", pos.z - 200);
+	snprintf(img_btn->row3, size, "z          %.2f", pos.z);
 	snprintf(img_btn->row4, size, "x           %.2f", axis.x);
 	snprintf(img_btn->row5, size, "y           %.2f", axis.y);
 	snprintf(img_btn->row6, size, "z           %.2f", axis.z);

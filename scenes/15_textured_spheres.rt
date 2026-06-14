@@ -1,0 +1,9 @@
+# Textured spheres — color texture mapping with combined bump maps
+A	0.2	220,210,200
+C	0,3,-22 0,-0.1,0.995 60
+L	-10,12,-10 0.9 255,255,250
+L	10,8,-8 0.6 250,250,255
+pl	0,-6,0 0,1,0 190,180,170 cb 0.4 100,90,80
+sp	-7,-2,18 6 220,200,160 tx 3 assets/bump_maps/pillow_texture.png bm 2 assets/bump_maps/pillow.png
+sp	3,-1,20 6 200,180,160 bm 2 assets/bump_maps/bricks.png tx 3 assets/bump_maps/pillow_texture.png
+pl	0,0,40 0,0,-1 200,190,180

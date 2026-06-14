@@ -1,0 +1,10 @@
+# Bump mapped spheres — demonstrating surface detail via normal perturbation
+A	0.2	220,210,200
+C	0,3,-20 0,-0.1,0.995 60
+L	-12,12,-10 0.9 255,250,240
+L	12,8,-5 0.5 240,240,255
+pl	0,-6,0 0,1,0 180,170,160 cb 0.4 100,90,80
+sp	-7,-2,16 6 200,180,140 bm 3 assets/bump_maps/bricks.png
+sp	0,-1,20 7 180,200,220 bm 2 assets/bump_maps/bricks_nmap.png
+sp	7,-3,15 5 220,200,180 bm 4 assets/bump_maps/pillow2.png
+pl	0,0,38 0,0,-1 200,190,180

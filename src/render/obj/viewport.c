@@ -47,7 +47,7 @@ t_vp	*init_viewport(t_cam *camera, int width, int height)
 	viewport->origin = camera->pos;
 	viewport->horizontal = vmul(viewport->viewport_width, camera->frame.right);
 	viewport->vertical = vmul(viewport->viewport_height, camera->frame.up);
-	viewport->lower_left = vsub(vsub(vsub(viewport->origin, \
+	viewport->lower_left = vadd(vsub(vsub(viewport->origin, \
 										scalar_div(viewport->horizontal, 2)), \
 										scalar_div(viewport->vertical, 2)), \
 										camera->frame.forward);
