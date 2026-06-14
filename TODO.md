@@ -137,7 +137,7 @@ Chapter V: *"use the latest version of the language and follow up-to-date good p
 4. **~~Remove dead code~~** (`m_trace`, `trace_flag`, `specular_light`) ✅
 5. **~~Fix remaining console bugs~~** (NULL checks, dead code) ✅
 6. **~~Refactor material system~~** (merge init_materials + init_materials_render) ✅
-7. **Create reference scenes** (3 mandatory scenes from subject)
-8. **Documentation** (FORMAT.md, ARCHITECTURE.md)
-9. **Polish** (rename types, split headers, cleanup)
+7. **Create reference scenes** (3 mandatory scenes from subject) ✅
+8. **Documentation** (FORMAT.md, ARCHITECTURE.md) ✅
+9. **Polish** (rename types, split headers, cleanup) — partial: er() _Noreturn, debug ifdefs, restrict, docs done; renaming/types splitting deferred
 
