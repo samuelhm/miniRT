@@ -80,10 +80,7 @@ void	my_keyhook(mlx_key_data_t keydata, void *param)
 
 	data = param;
 	if (keydata.key == MLX_KEY_ESCAPE)
-	{
-		mlx_terminate(data->mlx);
-		exit(EXIT_SUCCESS);
-	}
+		mlx_close_window(data->mlx);
 	else if (keydata.action == MLX_PRESS)
 		press_keyhook(data, keydata);
 	else if (data->last_render == FAST)

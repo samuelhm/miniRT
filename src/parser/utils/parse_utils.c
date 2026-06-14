@@ -21,10 +21,13 @@ _Noreturn void	er(t_data *data, const char *s, const char *argv)
 	if (argv)
 		fprintf(stderr, "%s\n", argv);
 	fprintf(stderr, "%s", RESET);
-	free(data->console);
-	if (data->args)
-		free_strs(data->args);
-	free_willy_lst(data);
+	if (data)
+	{
+		free(data->console);
+		if (data->args)
+			free_strs(data->args);
+		free_willy_lst(data);
+	}
 	exit(1);
 }
 

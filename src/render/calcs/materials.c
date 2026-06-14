@@ -121,6 +121,7 @@ t_rgb	metallic_ray(t_ray *ray, t_obj *closest, t_data *data, int depth)
 	t_v3	l;
 	double	ndv;
 	double	voh;
+	double	nh;
 	double	rough;
 	double	fr;
 	double	fg;
@@ -157,29 +158,40 @@ t_rgb	metallic_ray(t_ray *ray, t_obj *closest, t_data *data, int depth)
 		double	g1v;
 		double	g1l;
 		double	g;
+		double	weight;
 
 		h = ggx_sample(ray->normal, rough);
 		l = vsub(vmul(2.0 * dot(v, h), h), v);
 		ndl = dot(ray->normal, l);
 		voh = dot(v, h);
+		nh = dot(ray->normal, h);
 		attempts++;
-		if (ndl <= 0 || voh <= 0)
+		if (ndl <= 0 || voh <= 0 || nh <= 0)
 			continue ;
 		k = rough * rough * 0.5;
 		g1v = ndv / (ndv * (1.0 - k) + k);
 		g1l = ndl / (ndl * (1.0 - k) + k);
 		g = g1v * g1l;
+		weight = g * voh / (ndv * nh);
 		schlick_fresnel_rgb(closest->rgb, voh, &fr, &fg, &fb);
 		new_ray.origin = vadd(ray->point, vmul(EPSILON, ray->normal));
 		new_ray.direction = l;
 		trace_color = path_trace(&new_ray, data, depth - 1);
-		result.r = (unsigned char)fmin(
-				trace_color.r * fr * g * closest->material.reflectivity, 255);
-		result.g = (unsigned char)fmin(
-				trace_color.g * fg * g * closest->material.reflectivity, 255);
-		result.b = (unsigned char)fmin(
-				trace_color.b * fb * g * closest->material.reflectivity, 255);
+		result.r = (unsigned char)fmin(trace_color.r * fr * weight
+				* METAL_BOOST, 255);
+		result.g = (unsigned char)fmin(trace_color.g * fg * weight
+				* METAL_BOOST, 255);
+		result.b = (unsigned char)fmin(trace_color.b * fb * weight
+				* METAL_BOOST, 255);
 		return (result);
 	}
-	return (rgbdefine(0, 0, 0));
+	new_ray.origin = vadd(ray->point, vmul(EPSILON, ray->normal));
+	new_ray.direction = reflect(ray->direction, ray->normal);
+	trace_color = path_trace(&new_ray, data, depth - 1);
+	schlick_fresnel_rgb(closest->rgb, fabs(dot(ray->direction, ray->normal)),
+		&fr, &fg, &fb);
+	result.r = (unsigned char)fmin(trace_color.r * fr * METAL_BOOST, 255);
+	result.g = (unsigned char)fmin(trace_color.g * fg * METAL_BOOST, 255);
+	result.b = (unsigned char)fmin(trace_color.b * fb * METAL_BOOST, 255);
+	return (result);
 }

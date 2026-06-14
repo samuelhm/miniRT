@@ -26,6 +26,7 @@ constexpr double	EPSILON = 1e-4;
 
 // Materials
 # define SOLID_S 12
+# define METAL_BOOST 2.5
 
 // Color Weight
 # define G_WEIGHT 0.7
@@ -164,17 +165,6 @@ void					create_side(t_obj **side, t_obj *cube);
 //		init_sides_utils
 t_frame					set_frame(t_v3 axis);
 
-//		init_rays
-t_ray					**init_raysc(t_data *data, t_cam *cam, t_vp *vp);
-void					init_single_ray(t_ray *ray, t_vp *vp, t_cam *camera,
-							double *uv);
-t_ray					*init_ray_row(t_data *data, t_cam *camera, t_vp *vp,
-							int y);
-t_ray					**init_rays(t_data *data, t_cam *camera, t_vp *vp);
-
-//		init_rays_utils
-void					free_rays(t_ray **rays, int rows);
-
 //		init_materials
 void					init_gl(t_obj *obj);
 void					init_mt(t_obj *obj);
@@ -203,7 +193,6 @@ void					difuse_light(t_rgb *color, t_slight *slight, t_obj *obj,
 							double inty);
 bool					data_shadow(t_data *data, t_ray *shadow_ray,
 							double max_dist, t_obj *self);
-t_rgb					phong(t_data *data, t_ray *ray, t_obj *obj);
 
 //		intersections
 bool					calc_quad_sphere(t_obj *sphere, t_ray ray,
@@ -251,10 +240,7 @@ void					*cprocess_rows(void *arg);
 uint32_t				trace_fast(t_ray ray, t_data *data);
 
 //		free
-void					free_rays_all(t_data *data, t_ray **rays);
-void					free_render(t_data *data, t_vp *vp, t_ray **rays);
 void					free_image_all(t_data *data, uint32_t *image);
-void					free_rays(t_ray **rays, int rows);
 
 //		PATH_TRACER  (calcs)
 t_rgb					path_trace(t_ray *ray, t_data *data, int depth);

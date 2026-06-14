@@ -22,12 +22,16 @@ void	last_exit(t_data *data)
 	free_bvh(data);
 	if (data->img)
 		mlx_delete_image(data->mlx, data->img);
-	if (data->img_last)
-		free_image_all(data, data->img_last);
+	free(data->img_last);
 	mlx_terminate(data->mlx);
 	free(data->console);
 	free_willy_lst(data);
 	exit(0);
+}
+
+static void	close_wrapper(void *param)
+{
+	last_exit((t_data *)param);
 }
 
 void	call_render(void *param)
@@ -71,9 +75,12 @@ int	main(int ac, char **av)
 	init_mlx(data);
 	init_all(data);
 	data->render_sel = render_one;
+	mlx_close_hook(data->mlx, close_wrapper, data);
 	mlx_resize_hook(data->mlx, &resise_w, data);
 	mlx_loop_hook(data->mlx, call_render, data);
 	mlx_mouse_hook(data->mlx, mouse_click, data);
 	mlx_key_hook(data->mlx, &my_keyhook, data);
 	mlx_loop(data->mlx);
+	last_exit(data);
+	return (0);
 }

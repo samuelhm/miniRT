@@ -28,7 +28,8 @@ void	render_one(void *param)
 	new_img = render(data, 1);
 	fill_image(data, (uint32_t *)data->img->pixels, new_img);
 	mlx_image_to_window(data->mlx, data->img, 0, 0);
-	free_image_all(data, new_img);
+	free(data->img_last);
+	data->img_last = new_img;
 	data->render_sel = NULL;
 	data->last_render = ONE;
 }
@@ -125,11 +126,6 @@ void	update_render(void *param)
 	data->sample_count++;
 	accum_add(data, new_img);
 	free_image_all(data, new_img);
-	if (data->img_last)
-	{
-		free_image_all(data, data->img_last);
-		data->img_last = NULL;
-	}
 	accum_display(data);
 	mlx_image_to_window(data->mlx, data->img, 0, 0);
 	time = current_timestamp() - time;

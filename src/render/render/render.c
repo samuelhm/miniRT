@@ -14,6 +14,37 @@
 #include "render.h"
 #include "threads.h"
 
+static t_v3	random_in_unit_disk(t_cam *cam)
+{
+	t_v3	res;
+	double	theta;
+	double	r;
+
+	r = sqrt(tls_random_double());
+	theta = cam->pi2 * tls_random_double();
+	res.x = r * cos(theta);
+	res.y = r * sin(theta);
+	return (res);
+}
+
+static void	apply_dof(t_ray *ray, t_cam *cam)
+{
+	t_v3	rd;
+	t_v3	offset;
+	t_v3	focus_point;
+	t_v3	random_point;
+
+	cam->u = normalize(cross(cam->frame.up, cam->frame.forward));
+	cam->v = cross(cam->frame.forward, cam->u);
+	random_point = random_in_unit_disk(cam);
+	rd.x = random_point.x * cam->aperture * 0.5;
+	rd.y = random_point.y * cam->aperture * 0.5;
+	offset = vadd(vmul(rd.x, cam->u), vmul(rd.y, cam->v));
+	focus_point = vadd(ray->origin, vmul(cam->focus_dist, ray->direction));
+	ray->origin = vadd(ray->origin, offset);
+	ray->direction = normalize(vsub(focus_point, ray->origin));
+}
+
 t_ray	generate_ray(t_data *data, t_vp *vp, t_cam *cam, int x, int y,
 		int mode)
 {
@@ -35,6 +66,8 @@ t_ray	generate_ray(t_data *data, t_vp *vp, t_cam *cam, int x, int y,
 					vmul(uv[0], vp->horizontal)),
 					vmul(uv[1], vp->vertical)), cam->pos));
 	ray.i_direction = normalize(vneg(ray.direction));
+	if (cam->focus_dist != -1)
+		apply_dof(&ray, cam);
 	return (ray);
 }
 
@@ -46,7 +79,8 @@ void	*process_rows(void *arg)
 
 	td = (t_thread_data *)arg;
 	tls_rng_seed((uint32_t)((uintptr_t)pthread_self()
-			^ (td->thread_id * 2654435761U)));
+			^ (td->thread_id * 2654435761U)
+			^ ((uint32_t)(td->data->sample_count + 1) * 69069U)));
 	y = td->thread_id;
 	while (y < td->data->y)
 	{
