@@ -13,33 +13,11 @@
 #include "rt.h"
 
 t_obj	*find_closest(t_data *restrict data, t_ray *restrict ray,
-		t_obj *restrict objs, double *restrict t_min)
+		double *restrict t_min)
 {
-	t_obj	*closest_obj;
-	t_obj	*obj;
-	double	t;
-
-	closest_obj = NULL;
-	obj = objs;
-	while (obj)
-	{
-		t = *t_min;
-		if ((obj->type == SP && hit_sp(ray, obj, &t)) \
-		|| ((obj->type == PL || obj->type == SIDE) && \
-							hit_pl(data, ray, obj, &t)) \
-		|| (obj->type == CY && hit_cy(ray, obj, &t)) \
-		|| (obj->type == CAP && hit_cap(data, ray, obj, &t)) \
-		|| (obj->type == CO && hit_cone(ray, obj, &t)))
-		{
-			if (t > 0 && t < *t_min)
-			{
-				*t_min = t;
-				closest_obj = obj;
-			}
-		}
-		obj = obj->next;
-	}
-	return (closest_obj);
+	if (data->bvh_nodes)
+		return (bvh_traverse(data, ray, t_min));
+	return (NULL);
 }
 
 t_rgb	diffuse_ray(t_ray *ray, t_obj *closest, t_data *data, int depth)
@@ -88,7 +66,7 @@ t_rgb	path_trace(t_ray *ray, t_data *data, int depth)
 	t_v2	uv;
 
 	t = INFINITY;
-	closest = find_closest(data, ray, data->obj, &t);
+	closest = find_closest(data, ray, &t);
 	if (closest && closest->material.texture)
 	{
 		uv = calculate_uv(ray->point, closest);
@@ -113,7 +91,7 @@ uint32_t	trace_ray(t_ray ray, t_data *data)
 	t_rgb		c_global;
 
 	t_min = INFINITY;
-	closest_obj = find_closest(data, &ray, data->obj, &t_min);
+	closest_obj = find_closest(data, &ray, &t_min);
 	if (!closest_obj)
 		return (BLACK);
 	c_global = path_trace(&ray, data, MAX_DEPTH);

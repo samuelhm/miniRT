@@ -208,6 +208,9 @@ typedef struct s_data
 	int					last_render;
 	t_console			*console;
 	char				**args;
+	struct s_bvh_node	*bvh_nodes;
+	struct s_obj		**bvh_objs;
+	int					bvh_count;
 }					t_data;
 
 static_assert(sizeof(t_obj) <= 1024, "t_obj too large");

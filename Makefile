@@ -38,6 +38,7 @@ FILES			:= main.c \
 					render/init/init_obj.c render/init/init_obj_utils.c render/init/init_side.c render/init/init_side_utils.c render/init/init_materials.c \
 					render/color/color.c render/color/checker_board.c \
 					render/free/free.c \
+					render/bvh/bvh_build.c render/bvh/bvh_traverse.c \
 					console/console/console_init_extra.c console/console/console_init_pos_axis.c console/console/console_init_general.c console/console/consol_init_rows.c \
 					console/console/console_run.c console/console/console_click.c console/console/console_click_obj.c console/console/console_click_obj_utils.c \
 					console/console/console_icons.c console/console/console_icon_count.c\

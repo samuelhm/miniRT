@@ -17,6 +17,7 @@ void	init_all(t_data *data)
 	init_obj(data);
 	init_set_prev(data);
 	init_light(data);
+	build_bvh(data);
 	data->img_last = NULL;
 }
 

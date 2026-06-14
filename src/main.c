@@ -19,6 +19,7 @@ void	last_exit(t_data *data)
 	free(data->accum_r);
 	free(data->accum_g);
 	free(data->accum_b);
+	free_bvh(data);
 	if (data->img)
 		mlx_delete_image(data->mlx, data->img);
 	if (data->img_last)

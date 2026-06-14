@@ -79,7 +79,7 @@ typedef struct s_quadratic
 
 //		calcs
 t_obj					*find_closest(t_data *restrict data, t_ray *restrict ray,
-							t_obj *restrict objs, double *restrict t_min);
+							double *restrict t_min);
 t_rgb					diffuse_ray(t_ray *ray, t_obj *closest, t_data *data,
 							int depth);
 t_rgb					compute_direct_light(t_obj *obj, t_data *data,

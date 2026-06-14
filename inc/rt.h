@@ -44,6 +44,7 @@
 # include "parser.h"
 # include "debug.h"
 # include "window.h"
+# include "bvh.h"
 
 constexpr int W_WH = 1920;
 constexpr int W_HG = 1080;

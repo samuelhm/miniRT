@@ -23,7 +23,7 @@ uint32_t	trace_fast(t_ray ray, t_data *data)
 	alight.g = 50;
 	alight.b = 50;
 	t_min = INFINITY;
-	closest_obj = find_closest(data, &ray, data->obj, &t_min);
+	closest_obj = find_closest(data, &ray, &t_min);
 	if (!closest_obj)
 		return (BLACK);
 	return (get_colour(color_add(alight, closest_obj->a_rgb)));
