@@ -76,8 +76,8 @@ static t_aabb	obj_aabb(t_obj *obj)
 	}
 	else if (obj->type == PL || obj->type == SIDE)
 	{
-		aabb_grow(&box, (t_v3){-1e4, -1e4, -1e4});
-		aabb_grow(&box, (t_v3){1e4, 1e4, 1e4});
+		aabb_grow(&box, (t_v3){-1e30, -1e30, -1e30});
+		aabb_grow(&box, (t_v3){1e30, 1e30, 1e30});
 	}
 	else if (obj->type == CY)
 	{
@@ -97,7 +97,7 @@ static t_aabb	obj_aabb(t_obj *obj)
 	}
 	else if (obj->type == CO)
 	{
-		r = obj->calcs.radius;
+		r = obj->height * tan(obj->calcs.half_angle);
 		h = obj->height;
 		u = ortho_u(obj->axis);
 		v = normalize(cross(obj->axis, u));

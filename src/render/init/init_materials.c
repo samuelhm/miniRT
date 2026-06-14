@@ -26,7 +26,7 @@ void	init_mt(t_obj *obj)
 {
 	obj->material.reflectivity = 0.4f;
 	obj->material.transmittance = 0.0f;
-	obj->material.roughness = 1.0f;
+	obj->material.roughness = 0.3f;
 	obj->material.absorption = 1.0f;
 	obj->material.specularity = 0.9f;
 	obj->material.shininess = 170;
@@ -34,6 +34,7 @@ void	init_mt(t_obj *obj)
 
 void	init_mr(t_obj *obj)
 {
+	obj->rgb = rgbdefine(0, 0, 0);
 	obj->a_rgb = rgbdefine(0, 0, 0);
 	obj->material.reflectivity = 1.0f;
 	obj->material.transmittance = 0.0f;

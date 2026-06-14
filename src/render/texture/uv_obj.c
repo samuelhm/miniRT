@@ -52,20 +52,30 @@ t_v2	plane_uv(t_v3 point, t_obj *plane)
 	t_v3	tangent;
 	t_v3	bitangent;
 	t_v2	uv;
+	double	scale;
 
 	local_pos = vsub(point, plane->pos);
-	if (fabs(plane->axis.y) < fabs(plane->axis.x))
+	if (fabs(plane->axis.y) > 0.999)
+		tangent = vdefine(1, 0, 0);
+	else if (fabs(plane->axis.x) > 0.999)
+		tangent = vdefine(0, 1, 0);
+	else if (fabs(plane->axis.y) < fabs(plane->axis.x))
 		tangent = vdefine(1, 0, 0);
 	else
 		tangent = vdefine(0, 1, 0);
+	tangent = normalize(cross(tangent, plane->axis));
 	bitangent = cross(plane->axis, tangent);
-	uv.u = dot(local_pos, tangent) / plane->size;
-	uv.v = dot(local_pos, bitangent) / plane->height;
-	if (uv.u < 0 || uv.u > 1 || uv.v < 0 || uv.v > 1)
-	{
-		uv.u = -1;
-		uv.v = -1;
-	}
+	scale = (double)plane->material.tx_size;
+	if (scale < 1.0)
+		scale = 1.0;
+	uv.u = dot(local_pos, tangent) / scale;
+	uv.v = dot(local_pos, bitangent) / scale;
+	uv.u = fmod(uv.u, 1.0);
+	uv.v = fmod(uv.v, 1.0);
+	if (uv.u < 0)
+		uv.u += 1.0;
+	if (uv.v < 0)
+		uv.v += 1.0;
 	return (uv);
 }
 

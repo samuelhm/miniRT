@@ -8,21 +8,38 @@ static double	hit_aabb(t_ray *restrict ray, t_aabb box)
 	double	t2;
 	double	inv_d;
 
-	inv_d = 1.0 / ray->direction.x;
-	t1 = (box.min.x - ray->origin.x) * inv_d;
-	t2 = (box.max.x - ray->origin.x) * inv_d;
-	tmin = fmin(t1, t2);
-	tmax = fmax(t1, t2);
-	inv_d = 1.0 / ray->direction.y;
-	t1 = (box.min.y - ray->origin.y) * inv_d;
-	t2 = (box.max.y - ray->origin.y) * inv_d;
-	tmin = fmax(tmin, fmin(t1, t2));
-	tmax = fmin(tmax, fmax(t1, t2));
-	inv_d = 1.0 / ray->direction.z;
-	t1 = (box.min.z - ray->origin.z) * inv_d;
-	t2 = (box.max.z - ray->origin.z) * inv_d;
-	tmin = fmax(tmin, fmin(t1, t2));
-	tmax = fmin(tmax, fmax(t1, t2));
+	tmin = -INFINITY;
+	tmax = INFINITY;
+	if (fabs(ray->direction.x) > 1e-30)
+	{
+		inv_d = 1.0 / ray->direction.x;
+		t1 = (box.min.x - ray->origin.x) * inv_d;
+		t2 = (box.max.x - ray->origin.x) * inv_d;
+		tmin = fmax(tmin, fmin(t1, t2));
+		tmax = fmin(tmax, fmax(t1, t2));
+	}
+	else if (ray->origin.x < box.min.x || ray->origin.x > box.max.x)
+		return (-1.0);
+	if (fabs(ray->direction.y) > 1e-30)
+	{
+		inv_d = 1.0 / ray->direction.y;
+		t1 = (box.min.y - ray->origin.y) * inv_d;
+		t2 = (box.max.y - ray->origin.y) * inv_d;
+		tmin = fmax(tmin, fmin(t1, t2));
+		tmax = fmin(tmax, fmax(t1, t2));
+	}
+	else if (ray->origin.y < box.min.y || ray->origin.y > box.max.y)
+		return (-1.0);
+	if (fabs(ray->direction.z) > 1e-30)
+	{
+		inv_d = 1.0 / ray->direction.z;
+		t1 = (box.min.z - ray->origin.z) * inv_d;
+		t2 = (box.max.z - ray->origin.z) * inv_d;
+		tmin = fmax(tmin, fmin(t1, t2));
+		tmax = fmin(tmax, fmax(t1, t2));
+	}
+	else if (ray->origin.z < box.min.z || ray->origin.z > box.max.z)
+		return (-1.0);
 	if (tmax >= fmax(tmin, 0.0))
 		return (fmax(tmin, 0.0));
 	return (-1.0);

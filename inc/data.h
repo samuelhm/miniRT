@@ -206,6 +206,7 @@ typedef struct s_data
 	_Atomic bool		god;
 	void				(*render_sel)(void *param);
 	int					last_render;
+	int					sample_mode;
 	t_console			*console;
 	char				**args;
 	struct s_bvh_node	*bvh_nodes;

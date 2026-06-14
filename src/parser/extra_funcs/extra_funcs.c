@@ -77,8 +77,8 @@ void	parse_tx(t_obj *obj, char **args, int i)
 {
 	char	*tmp;
 
-	if (obj->type != SP)
-		er(obj->data, "error: parse_tx: tx just in SP", NULL);
+	if (obj->type != SP && obj->type != PL)
+		er(obj->data, "error: parse_tx: tx just in SP/PL", NULL);
 	else if (!args[i] || !args[i + 1])
 		er(obj->data, "error: parse_tx: lacks arg", NULL);
 	obj->material.tx_size = (unsigned int)parse_atoi(obj->data, args[i], 0, 0);

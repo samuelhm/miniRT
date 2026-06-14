@@ -19,7 +19,7 @@
 # define BLACK 0xFF000000
 
 typedef unsigned char	t_uchar;
-constexpr double	EPSILON = 1e-3;
+constexpr double	EPSILON = 1e-4;
 # ifndef M_PI
 #  define M_PI 3.14159265358979323846
 # endif
@@ -86,6 +86,7 @@ t_rgb					compute_direct_light(t_obj *obj, t_data *data,
 							t_ray *ray, t_rgb color);
 t_rgb					path_trace(t_ray *ray, t_data *data, int depth);
 uint32_t				trace_ray(t_ray ray, t_data *data);
+uint32_t				trace_ray_dbg(t_ray ray, t_data *data, int px, int py);
 
 //		calcs_utils
 t_v3					random_in_hemisphere(t_v3 normal);

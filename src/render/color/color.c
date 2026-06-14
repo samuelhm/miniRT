@@ -25,7 +25,8 @@ t_rgb	rgbdefine(t_uchar r, t_uchar g, t_uchar b)
 // From 0-255 BRGA colour Returns uint32 colour
 uint32_t	get_acolour(t_uchar alpha, t_uchar r, t_uchar g, t_uchar b)
 {
-	return ((alpha << 24) | (b << 16) | (g << 8) | r);
+	return (((uint32_t)alpha << 24) | ((uint32_t)b << 16)
+		| ((uint32_t)g << 8) | (uint32_t)r);
 }
 
 uint32_t	get_colour(t_rgb color)

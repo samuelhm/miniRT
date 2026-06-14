@@ -15,7 +15,8 @@
 void	init_materials(t_obj *obj)
 {
 	obj->material.m_type = MAT_DEFAULT;
-	obj->material.reflectivity = 0;
+	obj->material.reflectivity = (obj->rgb.r + obj->rgb.g + obj->rgb.b) \
+		/ (3.0 * 255.0);
 	obj->material.transmittance = 0;
 	obj->material.roughness = 1;
 	obj->material.absorption = 1;

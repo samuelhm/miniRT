@@ -76,7 +76,12 @@ bool	data_shadow(t_data *data, t_ray *shw_ray, double max_dist, t_obj *self)
 	cr_obj = data->obj;
 	while (cr_obj)
 	{
-		if (self && (cr_obj == self || cr_obj->parent == self->parent))
+		if (self && cr_obj == self)
+		{
+			cr_obj = cr_obj->next;
+			continue ;
+		}
+		if (cr_obj->material.m_type == GL)
 		{
 			cr_obj = cr_obj->next;
 			continue ;

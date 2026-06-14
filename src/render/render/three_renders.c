@@ -21,6 +21,7 @@ void	render_one(void *param)
 	data->x = data->mlx->width;
 	data->y = data->mlx->height;
 	data->god = true;
+	data->sample_mode = 1;
 	mlx_resize_image(data->img, (uint32_t)data->x, (uint32_t)data->y);
 	if (!data->img->enabled)
 		data->img->enabled = true;
@@ -115,6 +116,7 @@ void	update_render(void *param)
 	data->x = data->mlx->width;
 	data->y = data->mlx->height;
 	data->god = true;
+	data->sample_mode = 0;
 	mlx_resize_image(data->img, (uint32_t)data->x, (uint32_t)data->y);
 	accum_init(data);
 	if (!data->img->enabled)

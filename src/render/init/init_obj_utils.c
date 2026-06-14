@@ -28,7 +28,10 @@ void	init_set_prev(t_data *data)
 
 void	init_obj_normi(t_data *data, t_obj *obj)
 {
-	obj->calcs.radius = obj->size * 0.5f;
+	if (obj->type == CAP)
+		obj->calcs.radius = obj->size;
+	else
+		obj->calcs.radius = obj->size * 0.5f;
 	obj->calcs.radius2 = obj->calcs.radius * obj->calcs.radius;
 	if (obj->type != SP)
 		obj->axis = normalize(obj->axis);

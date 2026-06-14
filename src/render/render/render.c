@@ -60,7 +60,11 @@ void	*process_rows(void *arg)
 			}
 			t_ray	ray = generate_ray(td->data, td->vp, td->cam, x, y,
 					td->mode);
-			td->image[y * td->data->x + x] = trace_ray(ray, td->data);
+			if (x == 960 && y == 540)
+				td->image[y * td->data->x + x] = \
+					trace_ray_dbg(ray, td->data, x, y);
+			else
+				td->image[y * td->data->x + x] = trace_ray(ray, td->data);
 			x++;
 		}
 		y += NUM_THREADS;
