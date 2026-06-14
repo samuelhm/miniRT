@@ -15,9 +15,33 @@
 t_obj	*find_closest(t_data *restrict data, t_ray *restrict ray,
 		double *restrict t_min)
 {
+	t_obj	*closest_obj;
+	t_obj	*obj;
+	double	t;
+
 	if (data->bvh_nodes)
 		return (bvh_traverse(data, ray, t_min));
-	return (NULL);
+	closest_obj = NULL;
+	obj = data->obj;
+	while (obj)
+	{
+		t = *t_min;
+		if ((obj->type == SP && hit_sp(ray, obj, &t)) \
+		|| ((obj->type == PL || obj->type == SIDE) && \
+							hit_pl(data, ray, obj, &t)) \
+		|| (obj->type == CY && hit_cy(ray, obj, &t)) \
+		|| (obj->type == CAP && hit_cap(data, ray, obj, &t)) \
+		|| (obj->type == CO && hit_cone(ray, obj, &t)))
+		{
+			if (t > 0 && t < *t_min)
+			{
+				*t_min = t;
+				closest_obj = obj;
+			}
+		}
+		obj = obj->next;
+	}
+	return (closest_obj);
 }
 
 t_rgb	diffuse_ray(t_ray *ray, t_obj *closest, t_data *data, int depth)

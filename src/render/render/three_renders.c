@@ -22,6 +22,8 @@ void	render_one(void *param)
 	data->y = data->mlx->height;
 	data->god = true;
 	mlx_resize_image(data->img, (uint32_t)data->x, (uint32_t)data->y);
+	if (!data->img->enabled)
+		data->img->enabled = true;
 	new_img = render(data, 1);
 	fill_image(data, (uint32_t *)data->img->pixels, new_img);
 	mlx_image_to_window(data->mlx, data->img, 0, 0);

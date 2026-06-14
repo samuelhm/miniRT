@@ -182,11 +182,7 @@ static void	build_recursive(t_bvh_node *nodes, int *nc, t_obj **objs,
 	pivot = ((double *)&cents[mid])[axis];
 	mid = partition(objs, cents, lo, hi, axis, pivot);
 	if (mid == lo || mid > hi)
-	{
-		nodes[node_i].obj_start = lo;
-		nodes[node_i].obj_count = count;
-		return ;
-	}
+		mid = lo + count / 2;
 	nodes[node_i].left = *nc;
 	build_recursive(nodes, nc, objs, cents, lo, mid - 1);
 	nodes[node_i].right = *nc;

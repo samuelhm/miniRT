@@ -14,7 +14,22 @@
 
 void	fill_image(t_data *data, uint32_t *pixels, uint32_t *img_rgb)
 {
-	memcpy(pixels, img_rgb, (size_t)data->y * data->x * sizeof(uint32_t));
+	int	x;
+	int	y;
+	int	index;
+
+	y = 0;
+	while (y < data->y)
+	{
+		x = 0;
+		while (x < data->x)
+		{
+			index = y * data->x + x;
+			pixels[index] = img_rgb[index];
+			x++;
+		}
+		y++;
+	}
 }
 
 void	set_last(t_data *data)
