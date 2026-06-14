@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "miniRT.h"
-#include "render.h"
 #include "threads.h"
 
 uint32_t	trace_fast(t_ray ray, t_data *data)
@@ -30,23 +29,19 @@ uint32_t	trace_fast(t_ray ray, t_data *data)
 	return (get_colour(color_add(alight, closest_obj->a_rgb)));
 }
 
-void	cprocess_rows_normi(t_thread_data *data, int idyx[3], uint32_t *color)
+static void	fill_block(t_thread_data *td, int y, int x, uint32_t color)
 {
-	int		i;
-	int		j;
+	int	i;
+	int	j;
 
-	*color = trace_fast(data->rays[idyx[1]][idyx[2]], data->data);
 	i = 0;
 	while (i < 10)
 	{
 		j = 0;
 		while (j < 10)
 		{
-			if ((idyx[1] + i) < data->data->y
-				&& (idyx[2] + j) < data->data->x)
-			{
-				data->image[idyx[1] + i][idyx[2] + j] = *color;
-			}
+			if ((y + i) < td->data->y && (x + j) < td->data->x)
+				td->image[y + i][x + j] = color;
 			j++;
 		}
 		i++;
@@ -55,23 +50,26 @@ void	cprocess_rows_normi(t_thread_data *data, int idyx[3], uint32_t *color)
 
 void	*cprocess_rows(void *arg)
 {
-	t_thread_data	*data;
-	int				idyx[3];
+	t_thread_data	*td;
+	int				y;
+	int				x;
 	uint32_t		color;
 
-	data = (t_thread_data *)arg;
-	idyx[0] = data->thread_id;
-	idyx[1] = idyx[0];
-	while (idyx[1] < data->data->y)
+	td = (t_thread_data *)arg;
+	y = td->thread_id;
+	while (y < td->data->y)
 	{
-		idyx[2] = 0;
-		while (idyx[2] < data->data->x)
+		x = 0;
+		while (x < td->data->x)
 		{
-			if ((idyx[1] % 10) == 0 && (idyx[2] % 10) == 0)
-				cprocess_rows_normi(data, idyx, &color);
-			idyx[2]++;
+			if ((y % 10) == 0 && (x % 10) == 0)
+			{
+				color = trace_fast(td->rays[y][x], td->data);
+				fill_block(td, y, x, color);
+			}
+			x++;
 		}
-		idyx[1] += NUM_THREADS;
+		y += NUM_THREADS;
 	}
 	pthread_exit(NULL);
 }
@@ -108,9 +106,17 @@ uint32_t	**console_render(t_data *data)
 
 	vp = init_viewport(data->cam, data->x, data->y);
 	rays = init_raysc(data, data->cam, vp);
+	if (!rays)
+	{
+		free(vp);
+		return (NULL);
+	}
 	image = init_image_(data);
 	if (!image)
+	{
+		free_render(data, vp, rays);
 		return (NULL);
+	}
 	c_render(data, rays, image);
 	free_render(data, vp, rays);
 	return (image);

@@ -93,13 +93,23 @@ uint32_t	**render(t_data *data, int mode)
 	uint32_t	**image;
 
 	vp = init_viewport(data->cam, data->x, data->y);
+	if (!vp)
+		return (NULL);
 	if (!mode)
 		rays = init_rays(data, data->cam, vp);
 	else
 		rays = init_raysc(data, data->cam, vp);
+	if (!rays)
+	{
+		free(vp);
+		return (NULL);
+	}
 	image = init_image_(data);
 	if (!image)
+	{
+		free_render(data, vp, rays);
 		return (NULL);
+	}
 	render_with_threads(data, rays, image);
 	free_render(data, vp, rays);
 	return (image);
