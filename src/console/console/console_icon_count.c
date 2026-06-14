@@ -41,7 +41,6 @@ int	count_labels(t_data *data)
 {
 	t_obj	*obj;
 
-	obj = data->console->last_item;
 	if (data->console->last_type == CAM)
 		return (13);
 	else if (data->console->last_type == ALIGHT)
@@ -50,6 +49,7 @@ int	count_labels(t_data *data)
 		return (7);
 	else if (data->console->last_type == OBJ)
 	{
+		obj = data->console->last_item;
 		if (obj->type == PL)
 			return (9);
 		else if (obj->type == SP)

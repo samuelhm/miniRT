@@ -110,7 +110,6 @@ void	fill_image_list(t_data *data, t_img_btn *img_btn)
 	{
 		lst_add_back(&data->console->btn_list, \
 					lst_new(data->console->icons[i]));
-		if (i < 4)
-			mlx_set_instance_depth(&data->console->icons[i]->instances[0], 3);
+		mlx_set_instance_depth(&data->console->icons[i]->instances[0], 3);
 	}
 }

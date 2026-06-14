@@ -66,11 +66,11 @@ Chapter V: *"use the latest version of the language and follow up-to-date good p
 ## 🟢 MEDIUM — Remaining Code Issues
 
 ### Console Code
-- [ ] No NULL check after `calloc` in ~20 button creation functions
-- [ ] Potential NULL deref of `last_item` in label/icon functions
-- [ ] `slight->next` deref without NULL guard in `console_click_obj_utils.c:37`
-- [ ] Dead code: always-true `if (i < 4)` in `console_icons.c:113`
-- [ ] Dead assignments: `obj = last_item` before type guard in 4 files
+- [x] No NULL check after `calloc` in ~20 button creation functions — added `if (!btn) return;`
+- [x] Potential NULL deref of `last_item` in label/icon functions — moved assignments inside type-guarded branches
+- [x] `slight->next` deref without NULL guard in `console_click_obj_utils.c:37` — added `slight &&` to condition, moved inside `left` branch
+- [x] Dead code: always-true `if (i < 4)` in `console_icons.c:113` — removed
+- [x] Dead assignments: `obj = last_item` before type guard in 4 files — moved inside OBJ branches
 
 ### Material System
 - [ ] Material type `-1` means "default" — magic number, use enum `MAT_DEFAULT`
@@ -138,7 +138,7 @@ Chapter V: *"use the latest version of the language and follow up-to-date good p
 2. **Eliminate libft** (replace all `ft_*` → glibc/custom)
 3. **C11+ modernization** (`_Thread_local`, `_Atomic`, `static_assert`, `constexpr`)
 4. **~~Remove dead code~~** (`m_trace`, `trace_flag`, `specular_light`) ✅
-5. **Fix remaining console bugs** (NULL checks, dead code)
+5. **~~Fix remaining console bugs~~** (NULL checks, dead code) ✅
 6. **Refactor material system** (merge init_materials + init_materials_render)
 7. **Create reference scenes** (3 mandatory scenes from subject)
 8. **Documentation** (FORMAT.md, ARCHITECTURE.md)

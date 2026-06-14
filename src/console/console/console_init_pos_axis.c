@@ -17,6 +17,8 @@ void	make_arrows(t_data *data)
 	t_btn	*btn;
 
 	btn = calloc(1, sizeof(t_btn));
+	if (!btn)
+		return ;
 	btn->name = left;
 	btn->x = data->console->icons[0]->instances[0].x;
 	btn->y = data->console->icons[0]->instances[0].y;
@@ -24,6 +26,8 @@ void	make_arrows(t_data *data)
 	btn->w = data->console->icons[0]->width;
 	lst_add_front(&data->console->click_lst, lst_new(btn));
 	btn = calloc(1, sizeof(t_btn));
+	if (!btn)
+		return ;
 	btn->name = right;
 	btn->x = data->console->icons[1]->instances[0].x;
 	btn->y = data->console->icons[1]->instances[0].y;
@@ -38,6 +42,8 @@ void	rows_1(t_data *data)
 	t_btn	*btn;
 
 	btn = calloc(1, sizeof(t_btn));
+	if (!btn)
+		return ;
 	tmp.name = row1l;
 	tmp.x = data->console->icons[2]->instances[0].x;
 	tmp.y = data->console->icons[2]->instances[0].y;
@@ -46,6 +52,8 @@ void	rows_1(t_data *data)
 	*btn = tmp;
 	lst_add_front(&data->console->click_lst, lst_new(btn));
 	btn = calloc(1, sizeof(t_btn));
+	if (!btn)
+		return ;
 	tmp.name = row1r;
 	tmp.x = data->console->icons[3]->instances[0].x;
 	tmp.y = data->console->icons[3]->instances[0].y;
@@ -61,6 +69,8 @@ void	rows_2(t_data *data)
 	t_btn	*btn;
 
 	btn = calloc(1, sizeof(t_btn));
+	if (!btn)
+		return ;
 	tmp.name = row2l;
 	tmp.x = data->console->icons[2]->instances[1].x;
 	tmp.y = data->console->icons[2]->instances[1].y;
@@ -69,6 +79,8 @@ void	rows_2(t_data *data)
 	*btn = tmp;
 	lst_add_front(&data->console->click_lst, lst_new(btn));
 	btn = calloc(1, sizeof(t_btn));
+	if (!btn)
+		return ;
 	tmp.name = row2r;
 	tmp.x = data->console->icons[3]->instances[1].x;
 	tmp.y = data->console->icons[3]->instances[1].y;
@@ -84,6 +96,8 @@ void	rows_3(t_data *data)
 	t_btn	*btn;
 
 	btn = calloc(1, sizeof(t_btn));
+	if (!btn)
+		return ;
 	tmp.name = row3l;
 	tmp.x = data->console->icons[2]->instances[2].x;
 	tmp.y = data->console->icons[2]->instances[2].y;
@@ -92,6 +106,8 @@ void	rows_3(t_data *data)
 	*btn = tmp;
 	lst_add_front(&data->console->click_lst, lst_new(btn));
 	btn = calloc(1, sizeof(t_btn));
+	if (!btn)
+		return ;
 	tmp.name = row3r;
 	tmp.x = data->console->icons[3]->instances[2].x;
 	tmp.y = data->console->icons[3]->instances[2].y;
@@ -107,6 +123,8 @@ void	rows_4(t_data *data)
 	t_btn	*btn;
 
 	btn = calloc(1, sizeof(t_btn));
+	if (!btn)
+		return ;
 	tmp.name = row4l;
 	tmp.x = data->console->icons[2]->instances[3].x;
 	tmp.y = data->console->icons[2]->instances[3].y;
@@ -115,6 +133,8 @@ void	rows_4(t_data *data)
 	*btn = tmp;
 	lst_add_front(&data->console->click_lst, lst_new(btn));
 	btn = calloc(1, sizeof(t_btn));
+	if (!btn)
+		return ;
 	tmp.name = row4r;
 	tmp.x = data->console->icons[3]->instances[3].x;
 	tmp.y = data->console->icons[3]->instances[3].y;

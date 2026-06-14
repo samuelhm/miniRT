@@ -38,11 +38,11 @@ void	put_img_buttons(t_data *data)
 	int			i;
 	int			k;
 
-	obj = data->console->last_item;
 	icons = data->console->icons;
 	i = 3;
 	if (data->console->last_type != OBJ)
 		return ;
+	obj = data->console->last_item;
 	while (++i < 9)
 	{
 		k = console_get_k(obj, i);

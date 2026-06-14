@@ -17,6 +17,8 @@ void	rows_7(t_data *data)
 	t_btn	*btn;
 
 	btn = calloc(1, sizeof(t_btn));
+	if (!btn)
+		return ;
 	btn->name = row7l;
 	btn->x = data->console->icons[2]->instances[6].x;
 	btn->y = data->console->icons[2]->instances[6].y;
@@ -24,6 +26,8 @@ void	rows_7(t_data *data)
 	btn->w = data->console->icons[2]->width;
 	lst_add_front(&data->console->click_lst, lst_new(btn));
 	btn = calloc(1, sizeof(t_btn));
+	if (!btn)
+		return ;
 	btn->name = row7r;
 	btn->x = data->console->icons[3]->instances[6].x;
 	btn->y = data->console->icons[3]->instances[6].y;
@@ -37,6 +41,8 @@ void	rows_8(t_data *data)
 	t_btn	*btn;
 
 	btn = calloc(1, sizeof(t_btn));
+	if (!btn)
+		return ;
 	btn->name = row8l;
 	btn->x = data->console->icons[2]->instances[7].x;
 	btn->y = data->console->icons[2]->instances[7].y;
@@ -44,6 +50,8 @@ void	rows_8(t_data *data)
 	btn->w = data->console->icons[2]->width;
 	lst_add_front(&data->console->click_lst, lst_new(btn));
 	btn = calloc(1, sizeof(t_btn));
+	if (!btn)
+		return ;
 	btn->name = row8r;
 	btn->x = data->console->icons[3]->instances[7].x;
 	btn->y = data->console->icons[3]->instances[7].y;
@@ -57,6 +65,8 @@ void	rows_9(t_data *data)
 	t_btn	*btn;
 
 	btn = calloc(1, sizeof(t_btn));
+	if (!btn)
+		return ;
 	btn->name = row9l;
 	btn->x = data->console->icons[2]->instances[8].x;
 	btn->y = data->console->icons[2]->instances[8].y;
@@ -64,6 +74,8 @@ void	rows_9(t_data *data)
 	btn->w = data->console->icons[2]->width;
 	lst_add_front(&data->console->click_lst, lst_new(btn));
 	btn = calloc(1, sizeof(t_btn));
+	if (!btn)
+		return ;
 	btn->name = row9r;
 	btn->x = data->console->icons[3]->instances[8].x;
 	btn->y = data->console->icons[3]->instances[8].y;
@@ -80,13 +92,15 @@ void	row_material(t_data *data, int click)
 	t_btn	*btn;
 
 	i = 3;
-	obj = data->console->last_item;
 	if (data->console->last_type != OBJ)
 		return ;
+	obj = data->console->last_item;
 	while (++i < 9)
 	{
 		k = console_get_k(obj, i);
 		btn = calloc(1, sizeof(t_btn));
+		if (!btn)
+			return ;
 		btn->name = click++;
 		btn->x = data->console->icons[k]->instances[0].x;
 		btn->y = data->console->icons[k]->instances[0].y;
