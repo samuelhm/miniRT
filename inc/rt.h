@@ -77,6 +77,7 @@ typedef long long	t_ll;
 
 // Thread-local RNG
 void		tls_rng_seed(uint32_t seed);
+double		tls_random_double(void);
 
 // Main
 void		last_exit(t_data *data);

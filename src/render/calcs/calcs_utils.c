@@ -33,7 +33,7 @@ static uint32_t	tls_xorshift32(void)
 	return (x);
 }
 
-static double	tls_random_double(void)
+double	tls_random_double(void)
 {
 	return ((double)tls_xorshift32()) / 4294967296.0;
 }

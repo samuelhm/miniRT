@@ -245,7 +245,9 @@ void					update_render(void *param);
 //		render
 uint32_t				*render(t_data *data, int mode);
 uint32_t				*console_render(t_data *data);
-void					c_render(t_data *data, t_ray **rays, uint32_t *image);
+void					c_render(t_data *data, t_vp *vp, uint32_t *image);
+t_ray					generate_ray(t_data *data, t_vp *vp, t_cam *cam, int x,
+							int y, int mode);
 void					*cprocess_rows(void *arg);
 uint32_t				trace_fast(t_ray ray, t_data *data);
 

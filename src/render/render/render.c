@@ -14,21 +14,43 @@
 #include "render.h"
 #include "threads.h"
 
+t_ray	generate_ray(t_data *data, t_vp *vp, t_cam *cam, int x, int y,
+		int mode)
+{
+	t_ray	ray;
+	double	uv[2];
+
+	if (!mode)
+	{
+		uv[0] = ((double)x + tls_random_double()) / (double)(data->x - 1);
+		uv[1] = 1.0f - ((double)y + tls_random_double()) / (double)(data->y - 1);
+	}
+	else
+	{
+		uv[0] = (double)x / (double)(data->x - 1);
+		uv[1] = 1.0f - (double)y / (double)(data->y - 1);
+	}
+	ray.origin = cam->pos;
+	ray.direction = normalize(vsub(vadd(vadd(vp->lower_left,
+					vmul(uv[0], vp->horizontal)),
+					vmul(uv[1], vp->vertical)), cam->pos));
+	ray.i_direction = normalize(vneg(ray.direction));
+	return (ray);
+}
+
 void	*process_rows(void *arg)
 {
 	t_thread_data	*td;
-	int				thread_id;
 	int				y;
 	int				x;
 
 	td = (t_thread_data *)arg;
-	thread_id = td->thread_id;
-	tls_rng_seed((uint32_t)((uintptr_t)pthread_self() ^ (thread_id * 2654435761U)));
-	y = thread_id;
+	tls_rng_seed((uint32_t)((uintptr_t)pthread_self()
+			^ (td->thread_id * 2654435761U)));
+	y = td->thread_id;
 	while (y < td->data->y)
 	{
 		x = 0;
-		__builtin_prefetch(&td->rays[y + NUM_THREADS], 0, 3);
 		while (x < td->data->x)
 		{
 			if (!td->data->god)
@@ -36,7 +58,9 @@ void	*process_rows(void *arg)
 				pthread_exit(NULL);
 				return (NULL);
 			}
-			td->image[y * td->data->x + x] = trace_ray(td->rays[y][x], td->data);
+			t_ray	ray = generate_ray(td->data, td->vp, td->cam, x, y,
+					td->mode);
+			td->image[y * td->data->x + x] = trace_ray(ray, td->data);
 			x++;
 		}
 		y += NUM_THREADS;
@@ -44,7 +68,7 @@ void	*process_rows(void *arg)
 	pthread_exit(NULL);
 }
 
-void	render_with_threads(t_data *data, t_ray **rays, uint32_t *image)
+void	render_with_threads(t_data *data, t_vp *vp, uint32_t *image, int mode)
 {
 	pthread_t		threads[NUM_THREADS];
 	t_thread_data	thread_data[NUM_THREADS];
@@ -54,7 +78,9 @@ void	render_with_threads(t_data *data, t_ray **rays, uint32_t *image)
 	while (i < NUM_THREADS)
 	{
 		thread_data[i].thread_id = i;
-		thread_data[i].rays = rays;
+		thread_data[i].vp = vp;
+		thread_data[i].cam = data->cam;
+		thread_data[i].mode = mode;
 		thread_data[i].data = data;
 		thread_data[i].image = image;
 		pthread_create(&threads[i], NULL, process_rows, &thread_data[i]);
@@ -68,45 +94,21 @@ void	render_with_threads(t_data *data, t_ray **rays, uint32_t *image)
 	}
 }
 
-uint32_t	*average_samples(t_data *data, uint32_t *s1, uint32_t *s2, double w)
-{
-	uint32_t	*res;
-	int			i;
-	int			total;
-
-	total = data->y * data->x;
-	res = init_image_(data);
-	i = -1;
-	while (++i < total)
-		res[i] = average(s1[i], s2[i], w);
-	return (res);
-}
-
 uint32_t	*render(t_data *data, int mode)
 {
-	t_ray		**rays;
 	t_vp		*vp;
 	uint32_t	*image;
 
 	vp = init_viewport(data->cam, data->x, data->y);
 	if (!vp)
 		return (NULL);
-	if (!mode)
-		rays = init_rays(data, data->cam, vp);
-	else
-		rays = init_raysc(data, data->cam, vp);
-	if (!rays)
+	image = init_image_(data);
+	if (!image)
 	{
 		free(vp);
 		return (NULL);
 	}
-	image = init_image_(data);
-	if (!image)
-	{
-		free_render(data, vp, rays);
-		return (NULL);
-	}
-	render_with_threads(data, rays, image);
-	free_render(data, vp, rays);
+	render_with_threads(data, vp, image, mode);
+	free(vp);
 	return (image);
 }

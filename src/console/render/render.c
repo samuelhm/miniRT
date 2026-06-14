@@ -53,6 +53,7 @@ void	*cprocess_rows(void *arg)
 	t_thread_data	*td;
 	int				y;
 	int				x;
+	t_ray			ray;
 	uint32_t		color;
 
 	td = (t_thread_data *)arg;
@@ -64,7 +65,8 @@ void	*cprocess_rows(void *arg)
 		{
 			if ((y % 10) == 0 && (x % 10) == 0)
 			{
-				color = trace_fast(td->rays[y][x], td->data);
+				ray = generate_ray(td->data, td->vp, td->cam, x, y, 1);
+				color = trace_fast(ray, td->data);
 				fill_block(td, y, x, color);
 			}
 			x++;
@@ -74,7 +76,7 @@ void	*cprocess_rows(void *arg)
 	pthread_exit(NULL);
 }
 
-void	c_render(t_data *data, t_ray **rays, uint32_t *image)
+void	c_render(t_data *data, t_vp *vp, uint32_t *image)
 {
 	pthread_t		threads[NUM_THREADS];
 	t_thread_data	thread_data[NUM_THREADS];
@@ -84,7 +86,9 @@ void	c_render(t_data *data, t_ray **rays, uint32_t *image)
 	while (i < NUM_THREADS)
 	{
 		thread_data[i].thread_id = i;
-		thread_data[i].rays = rays;
+		thread_data[i].vp = vp;
+		thread_data[i].cam = data->cam;
+		thread_data[i].mode = 1;
 		thread_data[i].data = data;
 		thread_data[i].image = image;
 		pthread_create(&threads[i], NULL, cprocess_rows, &thread_data[i]);
@@ -100,24 +104,17 @@ void	c_render(t_data *data, t_ray **rays, uint32_t *image)
 
 uint32_t	*console_render(t_data *data)
 {
-	t_ray		**rays;
 	t_vp		*vp;
 	uint32_t	*image;
 
 	vp = init_viewport(data->cam, data->x, data->y);
-	rays = init_raysc(data, data->cam, vp);
-	if (!rays)
+	image = init_image_(data);
+	if (!image)
 	{
 		free(vp);
 		return (NULL);
 	}
-	image = init_image_(data);
-	if (!image)
-	{
-		free_render(data, vp, rays);
-		return (NULL);
-	}
-	c_render(data, rays, image);
-	free_render(data, vp, rays);
+	c_render(data, vp, image);
+	free(vp);
 	return (image);
 }
