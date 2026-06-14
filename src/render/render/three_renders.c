@@ -21,6 +21,11 @@ void	render_one(void *param)
 	data->x = data->mlx->width;
 	data->y = data->mlx->height;
 	data->god = true;
+	if (data->console->background)
+	{
+		mlx_delete_image(data->mlx, data->console->background);
+		data->console->background = NULL;
+	}
 	mlx_resize_image(data->img, (uint32_t)data->x, (uint32_t)data->y);
 	new_img = render(data, 1);
 	fill_image(data, (uint32_t *)data->img->pixels, new_img);
