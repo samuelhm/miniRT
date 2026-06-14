@@ -108,27 +108,23 @@ t_rgb	path_trace(t_ray *ray, t_data *data, int depth)
 
 uint32_t	trace_ray(t_ray ray, t_data *data)
 {
-	double	t_min;
-	t_obj	*closest_obj;
-	t_rgb	c_global;
-	t_v2	uv;
+	double		t_min;
+	t_obj		*closest_obj;
+	t_rgb		c_global;
 
 	t_min = INFINITY;
 	closest_obj = find_closest(data, &ray, data->obj, &t_min);
 	if (!closest_obj)
 		return (BLACK);
-	pthread_mutex_lock(data->m_trace);
 	c_global = path_trace(&ray, data, MAX_DEPTH);
-	pthread_mutex_unlock(data->m_trace);
 	if (closest_obj->material.texture)
-		uv = calculate_uv(ray.point, closest_obj);
-	if (uv.u < 0 || uv.v < 0)
-		return (get_colour(c_global));
-	if (closest_obj->material.texture && closest_obj->material.bm_texture)
-		return (texture_weight(c_global, (texture_color(closest_obj, \
-								calculate_uv(ray.point, closest_obj)))));
-	else if (closest_obj->material.texture)
+	{
+		t_v2	uv = calculate_uv(ray.point, closest_obj);
+		if (uv.u < 0 || uv.v < 0)
+			return (get_colour(c_global));
+		if (closest_obj->material.bm_texture)
+			return (texture_weight(c_global, texture_color(closest_obj, uv)));
 		return (get_colour(texture_color(closest_obj, uv)));
-	else
-		return (get_colour(c_global));
+	}
+	return (get_colour(c_global));
 }
