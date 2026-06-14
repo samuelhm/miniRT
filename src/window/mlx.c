@@ -51,7 +51,6 @@ void	press_keyhook(t_data *data, mlx_key_data_t keydata)
 	{
 		if (data->last_render != FAST)
 			mode = !mode;
-		swap_flag_mlx(data);
 		if (data->img_last)
 			free_image_all(data, data->img_last);
 		data->img_last = NULL;

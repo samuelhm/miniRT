@@ -27,10 +27,8 @@ void	init_data(t_data **data)
 	if (!(*data))
 		exit(er(NULL, "error: failed to allocate memory", NULL));
 	(*data)->aa = -1;
-	(*data)->trace_flag = false;
 	(*data)->x = W_WH;
 	(*data)->y = W_HG;
-	(*data)->m_trace = calloc(1, sizeof(pthread_mutex_t));
 	(*data)->m_god = calloc(1, sizeof(pthread_mutex_t));
 	(*data)->god = true;
 	(*data)->render_sel = NULL;
@@ -40,5 +38,4 @@ void	init_data(t_data **data)
 	(*data)->console->click_lst = NULL;
 	(*data)->console->last_item = NULL;
 	(*data)->console->last_type = CAM;
-	pthread_mutex_init((*data)->m_trace, NULL);
 }

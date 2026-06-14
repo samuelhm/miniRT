@@ -26,6 +26,5 @@ void	key_cam_move(t_data *data, mlx_key_data_t keydata);
 void	fill_image(t_data *data, uint32_t *pixels, uint32_t **img_rgb);
 void	swap_mgod(t_data *data);
 void	set_last(t_data *data);
-void	swap_flag_mlx(t_data *data);
 
 #endif

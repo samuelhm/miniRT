@@ -194,8 +194,6 @@ typedef struct s_data
 	int					bl; // blur
 	mlx_t				*mlx;
 	mlx_image_t			*img;
-	bool				trace_flag;
-	pthread_mutex_t		*m_trace;
 	uint32_t			**img_last;
 	int					sample_count;
 	int					x;

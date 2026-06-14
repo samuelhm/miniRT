@@ -2,73 +2,22 @@
 
 ---
 
-## 🔴 BLOCKER — Project Identity (RT, not miniRT)
-
-- [ ] Rename executable: `miniRT` → `rt` (Chapter IV: *"The executable file must be named `rt`"*)
-- [ ] Rename directories/files: `miniRT.h` → `rt.h`, `mini_rt/` → `rt/`
-- [ ] Update Makefile `NAME := rt`
-- [ ] Update all `#include "miniRT.h"` → `#include "rt.h"`
-- [ ] Update header guards: `MINIRT_H` → `RT_H`
-- [ ] Scene file extension: keep `.rt` (already correct)
-- [ ] Verify subject v4.1 requirements against current codebase
-
----
-
-## 🔴 BLOCKER — Eliminate libft (use glibc)
-
-Chapter IV: *"you are allowed to use the entire libc"*
-
-> Map: `ft_xxx` → glibc or custom inline
-
-| Priority | ft_function | Uses | Replacement |
-|----------|------------|------|-------------|
-| 1 | `ft_isspace` (31) | 31 | `isspace()` from `<ctype.h>` |
-| 1 | `ft_isdigit` (19) | 19 | `isdigit()` from `<ctype.h>` |
-| 1 | `ft_strlen` (12) | 12 | `strlen()` from `<string.h>` |
-| 1 | `ft_memcpy` (1) | 1 | `memcpy()` from `<string.h>` |
-| 1 | `ft_strcmp` (2) | 2 | `strcmp()` from `<string.h>` |
-| 2 | `ft_printf` (16) | 16 | `printf`/`dprintf` from `<stdio.h>` (or keep if complex formatting) |
-| 2 | `ft_substr` (12) | 12 | Custom: `strndup(src + start, len)` or inline |
-| 2 | `ft_strtrim` (4) | 4 | Custom: trim whitespace inline (~15 lines) |
-| 2 | `ft_split` (1) | 1 | Custom: write simple split or use `strtok_r` |
-| 2 | `ft_atof` (18) | 18 | `strtod()` from `<stdlib.h>` + custom validation |
-| 2 | `ft_atoi_parse` (11) | 11 | `strtol()` from `<stdlib.h>` + bounds checking |
-| 2 | `ft_atof_normi` (3) | 3 | Merged into `strtod` usage |
-| 3 | `ft_lstnew` (24) | 24 | `calloc(1, sizeof(t_btn))` + manual append |
-| 3 | `ft_lstadd_front` (21) | 21 | Manual linked-list insert |
-| 3 | `ft_lstadd_back` (3) | 3 | Manual linked-list append |
-| 3 | `ft_lstclear` (3) | 3 | Manual while loop free |
-| 3 | `ft_objremove` (3) | 3 | **KEEP** — custom linked-list remove, not from libft |
-| 3 | `ft_free_willy` (4) | 4 | **RENAME** — just a `free_strs()` function |
-
-### Strategy
-1. Replace simple 1:1 wrappers (`ft_isspace`→`isspace`, etc.) — bulk sed
-2. Rewrite `ft_printf` call sites to use `printf`/`dprintf`/`fprintf`
-3. Replace `ft_substr`/`ft_strtrim`/`ft_split` with small inline alternatives
-4. Replace `ft_atof`/`ft_atoi_parse` with `strtod`/`strtol`
-5. Replace `ft_lst*` linked-list functions with manual operations (only used by console, ~8 functions)
-6. Remove `lib/libft/` from build
-7. Remove `-I./lib/libft/inc` from Makefile
-8. Delete `lib/libft/` directory
-
----
-
 ## 🟡 HIGH — C11+/C23 Modernization
 
 Chapter V: *"use the latest version of the language and follow up-to-date good practice"*
 
 ### Thread Safety (replace `rand()` + mutexes)
 
-- [ ] **`_Thread_local` per-thread RNG:** Replace `rand()` (not thread-safe) with `_Thread_local uint64_t rng_state` + xorshift64
-  - Files: `calcs_utils.c` (`random_in_hemisphere`), `init_rays.c` (`random_in_unit_disk`, `init_ray_row`)
-  - Removes the last remaining thread-unsafety
+- [x] **`_Thread_local` per-thread RNG:** Replace `rand()` (not thread-safe) with `_Thread_local uint32_t rng_state` + xorshift32
+  - Files: `calcs_utils.c` (`random_in_hemisphere`), `init_rays.c` (rand() kept in main thread)
+  - Commit: `015afaf`
 - [ ] **`_Atomic bool` for `data->god`:** Replace `pthread_mutex_t *m_god` + `pthread_mutex_lock/unlock` 
   - Files: `render/render.c` (`process_rows`), `window/mlx.c` (`resise_w`), `window/mlx_utils.c` (`swap_mgod`)
   - Much faster: atomic operations are lock-free
   - Remove `pthread_mutex_init(&data->m_god)` from `init_general.c`
-- [ ] **Remove `m_trace` mutex entirely:** Already removed the lock/unlock, now delete the init/free
-  - `trace_flag` variable is never read — dead code, remove it
-  - Files: `init_general.c`, `mlx_utils.c`, `data.h`, `parse_utils.c`, `main.c`
+- [x] **Remove `m_trace`/`trace_flag` dead code:** Deleted mutex alloc/free/lock/unlock, trace_flag field removed from `t_data`, `swap_flag_mlx()` removed
+  - Files: `init_general.c`, `mlx_utils.c`, `data.h`, `window.h`, `parse_utils.c`, `main.c`, `mlx.c`
+- [x] **Remove `specular_light()` dead code:** Never called, removed `specular.c`, prototype from `render.h`, entry from `Makefile`
 
 ### Type Safety & Compile-Time Checks
 
@@ -132,7 +81,6 @@ Chapter V: *"use the latest version of the language and follow up-to-date good p
 ### Lighting
 - [ ] `apply_al()` normalizes RGB to 0-1 and back — lossy for dark colors. Fix: use float colors internally
 - [ ] `difuse_light()` mixes `obj->rgb` with light `rgb_inty` via integer division → banding
-- [ ] `specular_light()` (unused!) — referenced in header but never called; remove or integrate
 - [ ] `compute_emissive_light()` passes `emitter` as `self` to `data_shadow` but `parent` logic is broken
   (parent is an incrementing counter, not inherited by caps/sides)
 
@@ -164,7 +112,6 @@ Chapter V: *"use the latest version of the language and follow up-to-date good p
 - [ ] Console `t_img_btn.row1[200]` etc. — replace fixed-size buffers with dynamic strings
 - [ ] Error messages in Spanish → English (or keep bilingual)
 - [ ] `debug_info.c` functions unused in release — wrap in `#ifdef DEBUG`
-- [ ] `specular_light()` declared in header but never called — dead API, remove
 
 ---
 
@@ -190,7 +137,7 @@ Chapter V: *"use the latest version of the language and follow up-to-date good p
 1. **Rename project** `miniRT` → `rt` (binary, headers, guards, includes)
 2. **Eliminate libft** (replace all `ft_*` → glibc/custom)
 3. **C11+ modernization** (`_Thread_local`, `_Atomic`, `static_assert`, `constexpr`)
-4. **Remove dead code** (`m_trace`, `trace_flag`, `specular_light`)
+4. **~~Remove dead code~~** (`m_trace`, `trace_flag`, `specular_light`) ✅
 5. **Fix remaining console bugs** (NULL checks, dead code)
 6. **Refactor material system** (merge init_materials + init_materials_render)
 7. **Create reference scenes** (3 mandatory scenes from subject)

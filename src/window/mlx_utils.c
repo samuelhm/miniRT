@@ -48,10 +48,3 @@ void	set_last(t_data *data)
 	else if (data->last_render == UPDATE)
 		data->render_sel = update_render;
 }
-
-void	swap_flag_mlx(t_data *data)
-{
-	pthread_mutex_lock(data->m_trace);
-	data->trace_flag = !data->trace_flag;
-	pthread_mutex_unlock(data->m_trace);
-}

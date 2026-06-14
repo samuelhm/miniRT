@@ -206,10 +206,6 @@ bool					data_shadow(t_data *data, t_ray *shadow_ray,
 							double max_dist, t_obj *self);
 t_rgb					phong(t_data *data, t_ray *ray, t_obj *obj);
 
-//		specular
-void					specular_light(t_rgb *color, t_data *data, t_ray *ray,
-							int shinnyness);
-
 //		intersections
 bool					calc_quad_sphere(t_obj *sphere, t_ray ray,
 							t_quadratic *quad);

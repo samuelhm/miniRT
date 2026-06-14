@@ -32,7 +32,7 @@ FILES			:= main.c \
 					render/texture/uv_map.c render/texture/uv_obj.c\
 					render/bump_map/bm_sphere.c render/bump_map/bm_plane.c \
 					render/obj/cylinder.c render/obj/caps.c render/obj/cone.c render/obj/intersections.c render/obj/viewport.c \
-					render/illumination/illumination.c render/illumination/specular.c \
+					render/illumination/illumination.c \
 					render/calcs/calcs.c render/calcs/calcs_utils.c render/calcs/calcs_utils2.c render/calcs/materials.c render/calcs/materials_utils.c render/calcs/quadratic.c \
 					render/init/init_image.c render/init/init_rays.c render/init/init_rays_utils.c render/init/init_general.c \
 					render/init/init_obj.c render/init/init_obj_utils.c render/init/init_side.c render/init/init_side_utils.c render/init/init_materials.c \

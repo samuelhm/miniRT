@@ -21,7 +21,6 @@ int	er(t_data *data, const char *s, const char *argv)
 	if (argv)
 		fprintf(stderr, "%s\n", argv);
 	fprintf(stderr, "%s", RESET);
-	free(data->m_trace);
 	free(data->m_god);
 	free(data->console);
 	if (data->args)
