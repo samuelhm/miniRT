@@ -16,7 +16,7 @@ t_list	*ft_lstnew(void *content)
 {
 	t_list	*hal;
 
-	hal = (t_list *)calloc(sizeof(*hal), 1);
+	hal = (t_list *)calloc(1, sizeof(*hal));
 	if (!hal)
 		return (NULL);
 	hal->content = content;

@@ -26,7 +26,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	len_s -= start;
 	if (len_s < len)
 		len = len_s;
-	res = calloc(sizeof(char), (len + 1));
+	res = calloc((len + 1), sizeof(char));
 	if (!res)
 		return (NULL);
 	i = 0;

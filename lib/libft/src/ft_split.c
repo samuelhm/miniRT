@@ -49,7 +49,7 @@ char	**ft_split(char const *s, char c)
 	int		start;
 
 	start = 0;
-	split = calloc(sizeof (char *), (count_words(s, c) + 1));
+	split = calloc((count_words(s, c) + 1), sizeof(char *));
 	if (!split)
 		return (0);
 	i = 0;

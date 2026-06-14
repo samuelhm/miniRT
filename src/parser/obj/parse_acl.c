@@ -68,7 +68,7 @@ void	create_cam(t_data *data, char *str, int type)
 		return ;
 	if (data->cam)
 		exit(er(data, "error: create_cam: more than 1 camera", NULL));
-	data->cam = calloc(sizeof(t_cam), 1);
+	data->cam = calloc(1, sizeof(t_cam));
 	data->cam->pos = doubles_acl_parse(data, str, 1);
 	data->cam->pos.z += 200;
 	tmp = ft_substr(str, skip_doubles(data, str, 0, 0), ft_strlen(str));

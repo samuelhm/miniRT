@@ -60,7 +60,8 @@ LIBVCT          := ./lib/libvector/libvct.a
 
 MLX				:= libmlx42.a
 DIR_MLX			:= ./lib/MLX42
-MLXFLAGS		:= -ldl -lglfw -lm
+MLXFLAGS		:= -ldl -lm -lX11 -lXext
+GLFW			:= $(MLX_D)_deps/glfw-build/src/libglfw3.a
 
 RM				:= rm -rf
 
@@ -79,7 +80,7 @@ $(OBJ_D)%.o:	$(SRC_D)%.c Makefile
 			$(CC) $(IFLAGS) $(CFLAGS) -MMD -o $@ -c $<
 
 $(NAME):	$(OBJS)
-			$(CC) $(CFLAGS) $(OBJS) $(LIBFT_D)$(LIBFT) $(MLX_D)$(MLX) $(LIBVCT) $(MLXFLAGS) -o $(NAME)
+			$(CC) $(CFLAGS) $(OBJS) $(LIBFT_D)$(LIBFT) $(MLX_D)$(MLX) $(GLFW) $(LIBVCT) $(MLXFLAGS) -o $(NAME)
 			# @clear
 
 c clean:

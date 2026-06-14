@@ -26,7 +26,7 @@ char	*ft_itoa(int n)
 	i = 0;
 	exp = exponent(n);
 	copy = (long int)n;
-	str = calloc(sizeof(char), (count(n) + 1));
+	str = calloc((count(n) + 1), sizeof(char));
 	if (!str)
 		return (NULL);
 	if (n < 0)

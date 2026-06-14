@@ -107,7 +107,7 @@ void	init_sides(t_data *data, t_obj *obj)
 
 	i = -1;
 	set_box_local_axes(obj, obj->axis);
-	side = calloc(sizeof(t_obj *), 6);
+	side = calloc(6, sizeof(t_obj *));
 	if (!side)
 		exit(er(obj->data, "error: init_sides: malloc", NULL));
 	while (++i < 6)

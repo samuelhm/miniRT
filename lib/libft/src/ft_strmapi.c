@@ -26,7 +26,7 @@ char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 
 	i = 0;
 	len = ft_strlen(s);
-	str = calloc(sizeof(char), (len + 1));
+	str = calloc((len + 1), sizeof(char));
 	if (!str)
 		return (NULL);
 	while (s[i])

@@ -48,7 +48,7 @@ t_obj	*new_obj(t_data *data)
 {
 	t_obj	*tmp;
 
-	tmp = calloc(sizeof(*tmp), 1);
+	tmp = calloc(1, sizeof(*tmp));
 	if (!tmp)
 		exit(er(data, "error: new_obj: malloc", NULL));
 	tmp->next = NULL;
