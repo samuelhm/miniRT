@@ -48,7 +48,7 @@ void	mouse_click(mouse_key_t button, action_t action, \
 	if (action == 1)
 	{
 		if (data->last_render != FAST)
-			data->render_sel = render_fast;
+	data->render_sel = render_one;
 		mlx_get_mouse_pos(data->mlx, &x, &y);
 		console_click(data, x, y);
 	}
