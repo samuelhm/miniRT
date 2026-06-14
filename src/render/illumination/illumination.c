@@ -76,8 +76,7 @@ bool	data_shadow(t_data *data, t_ray *shw_ray, double max_dist, t_obj *self)
 	cr_obj = data->obj;
 	while (cr_obj)
 	{
-		if (cr_obj->type == CAP || (self && (cr_obj == self || \
-			cr_obj->parent == self->parent)))
+		if (self && (cr_obj == self || cr_obj->parent == self->parent))
 		{
 			cr_obj = cr_obj->next;
 			continue ;

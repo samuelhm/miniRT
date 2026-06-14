@@ -73,6 +73,8 @@ void	init_materials_render(t_data *data)
 		}
 		else
 		{
+			obj->material.roughness = 1.0f;
+			obj->material.absorption = 1.0f;
 			obj->material.specularity = 0.1f;
 			obj->material.shininess = 50;
 		}

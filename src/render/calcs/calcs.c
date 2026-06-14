@@ -47,8 +47,6 @@ t_rgb	diffuse_ray(t_ray *ray, t_obj *closest, t_data *data, int depth)
 	t_ray	new_ray;
 	t_rgb	trace_color;
 
-	if (closest->material.bm_texture)
-		return (rgbdefine(0, 0, 0));
 	new_ray.origin = vadd(ray->point, vmul(EPSILON, ray->normal));
 	new_ray.direction = random_in_hemisphere(ray->normal);
 	trace_color = path_trace(&new_ray, data, depth - 1);
@@ -88,7 +86,7 @@ t_rgb	path_trace(t_ray *ray, t_data *data, int depth)
 
 	t = INFINITY;
 	closest = find_closest(data, ray, data->obj, &t);
-	if (closest && closest->material.texture && closest->type == SP)
+	if (closest && closest->material.texture)
 	{
 		uv = calculate_uv(ray->point, closest);
 		return (texture_color(closest, uv));
