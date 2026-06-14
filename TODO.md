@@ -52,10 +52,10 @@ Chapter V: *"use the latest version of the language and follow up-to-date good p
 - [ ] **Camera repositionable:** ✅ Via console and keyboard
 - [ ] **Redraw without recalculating everything:** ✅ `update_render` accumulates
 - [ ] **Light management:** ✅ Multiple spots, shadows, brightness, specular/shine
-- [ ] **3 reference scenes:** Need to create scenes matching the subject figures
-  - Scene 1: 4 basic objects, 2 spots, shadow + shine
-  - Scene 2: Same from different viewpoint
-  - Scene 3: Shadow mixing
+- [x] **3 reference scenes:** Created scenes matching the subject figures
+  - `scenes/subject_1.rt`: 4 basic objects (sp, pl, cy, co), 2 spot lights, shadow + specular shine
+  - `scenes/subject_2.rt`: Same scene from different viewpoint (camera rotated 90°)
+  - `scenes/subject_3.rt`: Shadow mixing — spheres casting shadows on each other
 
 ---
 
