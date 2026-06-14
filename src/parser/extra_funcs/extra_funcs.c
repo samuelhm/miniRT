@@ -16,7 +16,7 @@ void	parse_em(t_obj *obj, char **args)
 {
 	if (!args[1])
 		exit(er(obj->data, "error: parse_em: lacks arg", NULL));
-	if (!isdigit(args[1][0]))
+	if (!IS_DIGIT(args[1][0]))
 		exit(er(obj->data, "error: parse_em: arg not num", args[1]));
 	obj->material.emision = parse_atof(obj->data, args[1], 0);
 	if (obj->material.emision > 1 || obj->material.emision < 0)

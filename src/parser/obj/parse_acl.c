@@ -17,7 +17,7 @@ void	create_alight(t_data *data, char *str, int type)
 	char	*tmp;
 
 	tmp = NULL;
-	if (type != 3 || (str[1] && !isspace(str[1])))
+	if (type != 3 || (str[1] && !IS_SPACE(str[1])))
 		return ;
 	if (data->a_light)
 		exit(er(data, "error: create_alight: +	1 ambient light", str));
@@ -35,9 +35,9 @@ void	cam_blur(t_data *data, char *str2, char *tmp)
 	int	i;
 
 	i = 0;
-	while (tmp[i] && isspace(tmp[i]))
+	while (tmp[i] && IS_SPACE(tmp[i]))
 		i++;
-	if (tmp[i] && isdigit(tmp[i]))
+	if (tmp[i] && IS_DIGIT(tmp[i]))
 	{
 		data->cam->focus_dist = parse_atof(data, tmp, 0);
 		if (data->cam->focus_dist < 0)
@@ -49,7 +49,7 @@ void	cam_blur(t_data *data, char *str2, char *tmp)
 		if (data->cam->aperture < 0 || data->cam->aperture > 25)
 			exit(er(data, "error: cam_blur: aperture >0", tmp));
 	}
-	else if (tmp[i] && !isspace(tmp[i]) && tmp[i] != '\n')
+	else if (tmp[i] && !IS_SPACE(tmp[i]) && tmp[i] != '\n')
 		exit(er(data, "error: cam_blur: wrong data after fov", tmp));
 	else
 	{
@@ -64,7 +64,7 @@ void	create_cam(t_data *data, char *str, int type)
 	char	*str2;
 
 	tmp = NULL;
-	if (type != 4 || (str[1] && !isspace(str[1])))
+	if (type != 4 || (str[1] && !IS_SPACE(str[1])))
 		return ;
 	if (data->cam)
 		exit(er(data, "error: create_cam: more than 1 camera", NULL));
@@ -103,7 +103,7 @@ void	create_slight(t_data *data, t_slight **s_light, char *str, int type)
 	t_slight	*new_light;
 	char		*tmp[2];
 
-	if (type != 5 || (str[1] && !isspace(str[1])))
+	if (type != 5 || (str[1] && !IS_SPACE(str[1])))
 		return ;
 	new_light = calloc(1, sizeof(t_slight));
 	if (!new_light)

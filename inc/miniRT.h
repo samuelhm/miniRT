@@ -31,6 +31,9 @@
 # include <stdlib.h>
 # include <string.h>
 # include <ctype.h>
+
+# define IS_SPACE(c) isspace((unsigned char)(c))
+# define IS_DIGIT(c) isdigit((unsigned char)(c))
 # include <unistd.h>
 # include <sys/time.h>
 # include "libvct.h"

@@ -13,6 +13,7 @@ char	**free_strs(char **cmd);
 char	*get_next_line(int fd);
 char	*str_join(char const *s1, char const *s2);
 char	**str_split(char const *s, char c);
+int		str_cmp(const char *s1, const char *s2);
 char	*str_sub(char const *s, unsigned int start, size_t len);
 char	*str_trim(char const *s1, char const *set);
 

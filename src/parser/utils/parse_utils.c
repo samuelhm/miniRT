@@ -37,7 +37,7 @@ int	type_obj(char *str)
 	int				i;
 
 	i = 0;
-	while (bts[i] && !strcmp(bts[i], str))
+	while (bts[i] && !str_cmp(bts[i], str))
 		i++;
 	if (bts[i])
 		return (i);

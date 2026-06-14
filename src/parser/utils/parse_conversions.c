@@ -17,7 +17,7 @@ t_rgb	colors_parse(t_data *data, char *str, int i)
 	t_rgb	rgb;
 	int		val;
 
-	while (str[i] && isspace(str[i]))
+	while (str[i] && IS_SPACE(str[i]))
 		i++;
 	val = parse_atoi(data, str, i, 3);
 	rgb.r = (unsigned char)(val > 0 ? val : 1);
@@ -37,9 +37,9 @@ char	*doubles_parse(t_obj *obj, char *str, int i, int flag)
 	double	z;
 	char	*tmp;
 
-	while (str[i] && isspace(str[i]))
+	while (str[i] && IS_SPACE(str[i]))
 		i++;
-	if (str[i] && (!isdigit(str[i]) && str[i] != '-'))
+	if (str[i] && (!IS_DIGIT(str[i]) && str[i] != '-'))
 		exit(er(obj->data, "error: doubles_parse: map parsing:\n", str));
 	x = parse_atof(obj->data, str, i);
 	i = skip_double(obj->data, str, i, 1);
@@ -62,17 +62,17 @@ int	parse_atoi(t_data *data, char *str, int i, int flag)
 
 	res = 0;
 	sign = 1;
-	while ((flag >= 1 && flag <= 3) && str[i] && isspace(str[i]))
+	while ((flag >= 1 && flag <= 3) && str[i] && IS_SPACE(str[i]))
 		i++;
 	if (str[i] && str[i] == ',' && flag != 2)
 		i++;
 	else if (str[i] == '-')
 		sign = -sign;
-	if (flag == 2 && (!isdigit(str[i]) || (str[i + 1] && str[i + 2])))
+	if (flag == 2 && (!IS_DIGIT(str[i]) || (str[i + 1] && str[i + 2])))
 		exit(er(data, "error: atoi: str invalid\n", NULL));
 	if (str[i] == '-' || str[i] == '+')
 		i++;
-	if (!isdigit(str[i]))
+	if (!IS_DIGIT(str[i]))
 		exit(er(data, "error: atoi: not a digit\n", str));
 	while (str[i] >= '0' && str[i] <= '9')
 	{
@@ -92,13 +92,13 @@ double	parse_atof_normi(t_data *data, char *str, int i)
 	fraction = 0.0;
 	divisor = 10.0;
 	while (str[i] >= '0' && str[i] <= '9' && (str[i] != ','
-			|| isspace(str[i]) != 1))
+			|| IS_SPACE(str[i]) != 1))
 	{
 		fraction += (str[i] - '0') / divisor;
 		divisor *= 10.0;
 		i++;
-		if (str[i] && !(str[i] == ',' || str[i] == '.' || isspace(str[i])
-				|| isdigit(str[i])))
+		if (str[i] && !(str[i] == ',' || str[i] == '.' || IS_SPACE(str[i])
+				|| IS_DIGIT(str[i])))
 			exit(er(data, "wrong char between nums", str));
 	}
 	return (fraction);
@@ -111,22 +111,22 @@ double	parse_atof(t_data *data, char *str, int i)
 
 	res = 0.0;
 	sign = 1;
-	while (str[i] && isspace(str[i]))
+	while (str[i] && IS_SPACE(str[i]))
 		i++;
 	if (str[i] == '-')
 		sign = -1;
 	if (str[i] == '-' || str[i] == '+')
 		i++;
 	while (str[i] >= '0' && str[i] <= '9' && (str[i] != ','
-			|| isspace(str[i]) != 1))
+			|| IS_SPACE(str[i]) != 1))
 	{
 		res = (res * 10.0) + (str[i] - '0');
 		i++;
-		if (str[i] && !(str[i] == ',' || str[i] == '.' || isspace(str[i])
-				|| isdigit(str[i])))
+		if (str[i] && !(str[i] == ',' || str[i] == '.' || IS_SPACE(str[i])
+				|| IS_DIGIT(str[i])))
 			exit(er(data, "wrong char between nums", str));
 	}
-	if (str[i] == '.' && (str[i] != ',' || isspace(str[i]) != 1))
+	if (str[i] == '.' && (str[i] != ',' || IS_SPACE(str[i]) != 1))
 		return ((res + parse_atof_normi(data, str, ++i)) * sign);
 	return (res * sign);
 }

@@ -22,7 +22,7 @@ VCT_D			:= ./lib/libvector/
 
 FILES			:= main.c \
 					util/str_sub.c util/str_trim.c util/str_split.c util/str_join.c \
-					util/free_strs.c util/gnl.c util/lst.c \
+					util/str_cmp.c util/free_strs.c util/gnl.c util/lst.c \
 					parser/parser/parser.c \
 					parser/obj/parse_obj.c parser/obj/parse_acl.c parser/obj/parse_acl_extra.c \
 					parser/utils/parse_sum.c parser/utils/parse_utils.c parser/utils/parse_conversions.c parser/utils/parse_free_willlies.c\

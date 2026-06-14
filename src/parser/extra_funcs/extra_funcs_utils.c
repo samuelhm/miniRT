@@ -28,13 +28,13 @@ void	skip_colors(t_data *data, char *str, char **res)
 	int		i;
 
 	i = 0;
-	while (str[i] && isspace(str[i]))
+	while (str[i] && IS_SPACE(str[i]))
 		i++;
 	i = skip_color(data, str, i, 0);
 	i = skip_color(data, str, i, 0);
-	while (str[i] && isdigit(str[i]))
+	while (str[i] && IS_DIGIT(str[i]))
 		i++;
-	while (str[i] && isspace(str[i]))
+	while (str[i] && IS_SPACE(str[i]))
 		i++;
 	*res = str_sub(str, (unsigned int)i, strlen(str));
 }
@@ -46,7 +46,7 @@ int	type_extra_func(char *str)
 	int				i;
 
 	i = 0;
-	while (bts[i] && !strcmp(bts[i], str))
+	while (bts[i] && !str_cmp(bts[i], str))
 		i++;
 	if (bts[i])
 		return (i);
