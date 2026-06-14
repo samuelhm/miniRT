@@ -16,32 +16,16 @@ void	render_one(void *param)
 {
 	t_data		*data;
 	uint32_t	**new_img;
-	uint32_t	**avrg;
-	int			i;
 
 	data = (t_data *)param;
 	data->x = data->mlx->width;
 	data->y = data->mlx->height;
 	data->god = true;
 	mlx_resize_image(data->img, (uint32_t)data->x, (uint32_t)data->y);
-	data->img_last = render(data, 0);
-	data->sample_count = 1;
-	i = 0;
-	while (++i < 4)
-	{
-		new_img = render(data, 0);
-		data->sample_count++;
-		avrg = average_samples(data, data->img_last, new_img,
-				1.0 / data->sample_count);
-		free_image_all(data, data->img_last);
-		free_image_all(data, new_img);
-		data->img_last = avrg;
-	}
-	fill_image(data, (uint32_t *)data->img->pixels, data->img_last);
+	new_img = render(data, 1);
+	fill_image(data, (uint32_t *)data->img->pixels, new_img);
 	mlx_image_to_window(data->mlx, data->img, 0, 0);
-	free_image_all(data, data->img_last);
-	data->img_last = NULL;
-	data->sample_count = 0;
+	free_image_all(data, new_img);
 	data->render_sel = NULL;
 	data->last_render = ONE;
 }
