@@ -22,7 +22,7 @@ void	render_one(void *param)
 	data->y = data->mlx->height;
 	data->god = true;
 	mlx_resize_image(data->img, (uint32_t)data->x, (uint32_t)data->y);
-	new_img = render(data, 1);
+	new_img = render(data, 0);
 	fill_image(data, (uint32_t *)data->img->pixels, new_img);
 	mlx_image_to_window(data->mlx, data->img, 0, 0);
 	free_image_all(data, new_img);
@@ -65,14 +65,20 @@ void	update_render(void *param)
 	data->god = true;
 	mlx_resize_image(data->img, (uint32_t)data->x, (uint32_t)data->y);
 	if (!data->img_last)
+	{
 		data->img_last = render(data, 0);
+		data->sample_count = 1;
+	}
 	if (!data->img->enabled)
 		data->img->enabled = true;
 	new_img = render(data, 0);
-	avrg = average_samples(data, (uint32_t **)data->img_last, new_img);
-	fill_image(data, (uint32_t *)data->img->pixels, avrg);
-	free_image_all(data, avrg);
+	data->sample_count++;
+	avrg = average_samples(data, data->img_last, new_img,
+			1.0 / data->sample_count);
+	free_image_all(data, data->img_last);
+	data->img_last = avrg;
 	free_image_all(data, new_img);
+	fill_image(data, (uint32_t *)data->img->pixels, data->img_last);
 	mlx_image_to_window(data->mlx, data->img, 0, 0);
 	time = current_timestamp() - time;
 	data->last_render = UPDATE;

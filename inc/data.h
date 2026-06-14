@@ -197,6 +197,7 @@ typedef struct s_data
 	bool				trace_flag;
 	pthread_mutex_t		*m_trace;
 	uint32_t			**img_last;
+	int					sample_count;
 	int					x;
 	int					y;
 	int					j;

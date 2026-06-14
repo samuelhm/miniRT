@@ -23,6 +23,7 @@ void	*process_rows(void *arg)
 
 	td = (t_thread_data *)arg;
 	thread_id = td->thread_id;
+	tls_rng_seed((uint32_t)((uintptr_t)pthread_self() ^ (thread_id * 2654435761U)));
 	y = thread_id;
 	while (y < td->data->y)
 	{
@@ -69,7 +70,7 @@ void	render_with_threads(t_data *data, t_ray **rays, uint32_t **image)
 	}
 }
 
-uint32_t	**average_samples(t_data *data, uint32_t **s1, uint32_t **s2)
+uint32_t	**average_samples(t_data *data, uint32_t **s1, uint32_t **s2, double w)
 {
 	uint32_t	**res;
 	int			x;
@@ -81,7 +82,7 @@ uint32_t	**average_samples(t_data *data, uint32_t **s1, uint32_t **s2)
 	{
 		y = -1;
 		while (++y < data->x)
-			res[x][y] = average(s1[x][y], s2[x][y]);
+			res[x][y] = average(s1[x][y], s2[x][y], w);
 	}
 	return (res);
 }

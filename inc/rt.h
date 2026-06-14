@@ -73,7 +73,10 @@
 
 typedef long long	t_ll;
 
-//		Main
+// Thread-local RNG
+void		tls_rng_seed(uint32_t seed);
+
+// Main
 void		last_exit(t_data *data);
 void		call_render(void *param);
 void		mouse_click(mouse_key_t button, action_t action, \

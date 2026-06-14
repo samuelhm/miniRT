@@ -130,7 +130,7 @@ uint32_t				get_acolour(t_uchar alpha, t_uchar r, t_uchar g,
 							t_uchar b);
 uint32_t				get_colour(t_rgb color);
 void					unpack(uint32_t color, t_rgb *s);
-uint32_t				average(uint32_t c1, uint32_t c2);
+uint32_t				average(uint32_t c1, uint32_t c2, double w);
 
 //		extras
 t_rgb					checkerboard_color(t_obj *obj, t_v3 point);
@@ -263,7 +263,7 @@ t_rgb					path_trace(t_ray *ray, t_data *data, int depth);
 t_v3					random_in_hemisphere(t_v3 normal);
 double					*generate_uv(int x, int y);
 uint32_t				**average_samples(t_data *data, uint32_t **sample1,
-							uint32_t **sample2);
+							uint32_t **sample2, double w);
 void					swap(double *a, double *b);
 
 #endif

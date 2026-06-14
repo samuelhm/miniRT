@@ -40,7 +40,7 @@ void	unpack(uint32_t color, t_rgb *s)
 	s->r = (color) & 0xFF;
 }
 
-uint32_t	average(uint32_t c1, uint32_t c2)
+uint32_t	average(uint32_t c1, uint32_t c2, double w)
 {
 	t_rgb	sample1;
 	t_rgb	sample2;
@@ -48,8 +48,8 @@ uint32_t	average(uint32_t c1, uint32_t c2)
 
 	unpack(c1, &sample1);
 	unpack(c2, &sample2);
-	res.r = (sample1.r + sample2.r) * 0.5;
-	res.g = (sample1.g + sample2.g) * 0.5;
-	res.b = (sample1.b + sample2.b) * 0.5;
+	res.r = (unsigned char)(sample1.r * (1.0 - w) + sample2.r * w);
+	res.g = (unsigned char)(sample1.g * (1.0 - w) + sample2.g * w);
+	res.b = (unsigned char)(sample1.b * (1.0 - w) + sample2.b * w);
 	return (get_colour(res));
 }
